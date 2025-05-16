@@ -10,7 +10,6 @@ After installation, you will have the following structure :
 tree -A -L 1 -F --dirsfirst
 ./
 ├── app/      # New app project for testing
-├── scripts/
 ├── symfony/  # Contains MonologBundle evolutions
 ├── LICENSE
 └── README.md
@@ -21,7 +20,7 @@ tree -A -L 1 -F --dirsfirst
 ```shell
 git clone git@github.com:jprivet-dev/symfony-monolog-bundle-poc.git
 cd symfony-monolog-bundle-poc
-. scripts/install.sh
+. install.sh
 ```
 
 ## What does the `install.sh` do?
@@ -115,11 +114,17 @@ monolog-bridge -> ../../../symfony/src/Symfony/Bridge/Monolog/
 - Start a [Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.html):
 
 ```shell
-cd app # Go to the new `app` project (if you haven't already done so)
-symfony server:start
+symfony server:start --dir=app --daemon
 ```
 
 - And go on https://127.0.0.1:8000/.
+
+
+- Stop the [Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.html):
+
+```shell
+symfony server:stop --dir=app
+```
 
 ## Resources
 
