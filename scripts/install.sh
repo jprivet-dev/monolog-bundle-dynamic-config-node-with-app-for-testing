@@ -1,5 +1,6 @@
 # Usage
 # . scripts/install.sh
+
 set +x -e
 
 # Get the Symfony Source Code
@@ -13,6 +14,7 @@ php ./phpunit src/Symfony/Bridge/Monolog
 
 # Creating a new test `app` project
 cd ..
+symfony check:requirements
 symfony new app --version=7.2
 cd app
 composer require symfony/monolog-bundle
