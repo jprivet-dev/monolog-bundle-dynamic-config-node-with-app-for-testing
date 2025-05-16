@@ -119,12 +119,11 @@ symfony server:start --dir=app --daemon
 
 - And go on https://127.0.0.1:8000/.
 
-
-- Stop the [Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.html):
-
-```shell
-symfony server:stop --dir=app
-```
+> Stop the server:
+> 
+> ```shell
+> symfony server:stop --dir=app
+> ```
 
 ## Resources
 
