@@ -4,9 +4,8 @@
 set +x -e
 
 # Get the Symfony Source Code
-git clone git@github.com:jprivet-dev/symfony.git
+git clone git@github.com:jprivet-dev/symfony.git --branch symfony-monolog-bundle-poc
 cd symfony
-git switch symfony-monolog-bundle-poc
 
 # Automatic tests
 composer update

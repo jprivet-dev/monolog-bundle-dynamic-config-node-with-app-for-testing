@@ -29,9 +29,8 @@ cd symfony-monolog-bundle-poc
 ### 1 - Get the Symfony Source Code
 
 ```shell
-git clone git@github.com:jprivet-dev/symfony.git
+git clone git@github.com:jprivet-dev/symfony.git --branch symfony-monolog-bundle-poc
 cd symfony
-git switch symfony-monolog-bundle-poc
 ```
 
 > The first time, I initiated and created a new `symfony-monolog-bundle-poc` branch:
