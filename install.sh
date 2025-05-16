@@ -21,7 +21,8 @@ echo "--------------------------------"
 
 cd ..
 symfony check:requirements
-symfony new app --version="7.2.x"
+
+symfony new app --version=7.2
 cd app
 composer require symfony/monolog-bundle
 
