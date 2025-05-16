@@ -118,12 +118,17 @@ symfony server:start --dir=app --daemon
 ```
 
 - And go on https://127.0.0.1:8000/.
+- Stop the server:
 
-> Stop the server:
-> 
-> ```shell
-> symfony server:stop --dir=app
-> ```
+```shell
+symfony server:stop --dir=app
+```
+
+## Troubleshooting
+
+At https://127.0.0.1:8000/, you'll see `You are using Symfony 7.2.6 version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `composer.json`, it is indeed a `7.2.x` version that is installed.
+
+It's from the `php link` command in the `install.sh` script that the displayed version changes. For the moment, I don't know why!
 
 ## Resources
 
