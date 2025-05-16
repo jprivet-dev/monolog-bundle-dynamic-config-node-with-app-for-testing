@@ -1,6 +1,32 @@
 # symfony-monolog-bundle-poc
 
-## 1 - Get the Symfony Source Code
+## Description
+
+This repository (https://github.com/jprivet-dev/symfony-monolog-bundle-poc) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/symfony/tree/symfony-monolog-bundle-poc, in a Symfony application.
+
+After installation, you will have the following structure :
+
+```
+tree -A -L 1 -F --dirsfirst
+./
+├── app/      # New app project for testing
+├── scripts/
+├── symfony/  # Contains MonologBundle evolutions
+├── LICENSE
+└── README.md
+```
+
+## Install
+
+```shell
+git clone git@github.com:jprivet-dev/symfony-monolog-bundle-poc.git
+cd symfony-monolog-bundle-poc
+. script/install.sh
+```
+
+## What does the `install.sh` do?
+
+### 1 - Get the Symfony Source Code
 
 ```shell
 git clone git@github.com:jprivet-dev/symfony.git
@@ -8,7 +34,8 @@ cd symfony
 git switch symfony-monolog-bundle-poc
 ```
 
-> The very first time - init all & create new branch `symfony-monolog-bundle-poc`
+> The first time, I initiated and created a new `symfony-monolog-bundle-poc` branch:
+> 
 > ```shell
 > git remote add upstream git@github.com:symfony/symfony.git
 > git remote -v
@@ -23,14 +50,14 @@ git switch symfony-monolog-bundle-poc
 > git push origin symfony-monolog-bundle-poc
 > ```
 
-## 2 - Automatic tests
+### 2 - Launch automatic tests
 
 ```shell
 composer update
 php ./phpunit src/Symfony/Bridge/Monolog
 ```
 
-## 3 - Creating a new test `app` project
+### 3 - Create a new test `app` project
 
 > Update [Symfony CLI](https://symfony.com/download#step-1-install-symfony-cli)
 
@@ -54,7 +81,7 @@ cd app
 composer require symfony/monolog-bundle
 ```
 
-## 4 - Use the branch `jprivet-dev:symfony-monolog-bundle-poc` in the new `app` project
+### 4 - Use the `https://github.com/jprivet-dev/symfony/tree/symfony-monolog-bundle-poc` branch in the new `app` project
 
 - Replace Symfony packages by symbolic links to the ones in the new `app` project :
 
@@ -82,7 +109,9 @@ monolog-bridge -> ../../../symfony/src/Symfony/Bridge/Monolog/
 ...
 ```
 
-## 5 - Manual tests
+- From then on, the `app` application will benefit, among other things, from all the changes made to `symfony/src/Symfony/Bridge/Monolog`.
+
+## How do I perform manual tests?
 
 - Start a [Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.html):
 
