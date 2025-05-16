@@ -21,7 +21,7 @@ tree -A -L 1 -F --dirsfirst
 ```shell
 git clone git@github.com:jprivet-dev/symfony-monolog-bundle-poc.git
 cd symfony-monolog-bundle-poc
-. script/install.sh
+. scripts/install.sh
 ```
 
 ## What does the `install.sh` do?
