@@ -1,8 +1,8 @@
-# symfony-monolog-bundle-poc
+# Monolog bundle dynamic config node with Symfony app for testing
 
 ## Description
 
-This repository (https://github.com/jprivet-dev/symfony-monolog-bundle-poc) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/symfony/tree/symfony-monolog-bundle-poc, in a Symfony application.
+This repository (https://github.com/jprivet-dev/monolog-bundle-dynamic-config-node-with-app-for-testing) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/symfony/tree/monolog-bundle-dynamic-config-node, in a Symfony application.
 
 After installation, you will have the following structure :
 
@@ -18,8 +18,8 @@ tree -A -L 1 -F --dirsfirst
 ## Install
 
 ```shell
-git clone git@github.com:jprivet-dev/symfony-monolog-bundle-poc.git
-cd symfony-monolog-bundle-poc
+git clone git@github.com:jprivet-dev/monolog-bundle-dynamic-config-node-with-app-for-testing.git
+cd monolog-bundle-dynamic-config-node-with-app-for-testing
 . install.sh
 ```
 
@@ -28,11 +28,11 @@ cd symfony-monolog-bundle-poc
 ### 1 - Get the Symfony Source Code
 
 ```shell
-git clone git@github.com:jprivet-dev/symfony.git --branch symfony-monolog-bundle-poc
+git clone git@github.com:jprivet-dev/symfony.git --branch monolog-bundle-dynamic-config-node
 cd symfony
 ```
 
-> The first time, I initiated and created a new `symfony-monolog-bundle-poc` branch:
+> The first time, I initiated and created a new `monolog-bundle-dynamic-config-node` branch:
 > 
 > ```shell
 > git remote add upstream git@github.com:symfony/symfony.git
@@ -44,8 +44,8 @@ cd symfony
 > ```
 > 
 > ```shell
-> git switch --create symfony-monolog-bundle-poc
-> git push origin symfony-monolog-bundle-poc
+> git switch --create monolog-bundle-dynamic-config-node
+> git push origin monolog-bundle-dynamic-config-node
 > ```
 
 ### 2 - Launch automatic tests
@@ -79,7 +79,7 @@ cd app
 composer require symfony/monolog-bundle
 ```
 
-### 4 - Use the `https://github.com/jprivet-dev/symfony/tree/symfony-monolog-bundle-poc` branch in the new `app` project
+### 4 - Use the `https://github.com/jprivet-dev/symfony/tree/monolog-bundle-dynamic-config-node` branch in the new `app` project
 
 - Replace Symfony packages by symbolic links to the ones in the new `app` project :
 
@@ -134,3 +134,5 @@ It's from the `php link` command in the `install.sh` script that the displayed v
 
 - https://symfony.com/doc/current/logging.html
 - https://symfony.com/packages/Monolog%20Bundle
+- https://symfony.com/doc/current/security.html
+- https://github.com/sensiolabs/GotenbergBundle
