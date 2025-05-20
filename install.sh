@@ -1,43 +1,53 @@
 # Usage
 # . install.sh
 
-echo
-echo "Get the Symfony Source Code"
-echo "---------------------------"
+function install_contributing_env() {
+  local path_root=$PWD
+  local path_app=${path_root}/app
+  local path_symfony=${path_root}/symfony
 
-git clone git@github.com:jprivet-dev/symfony.git --branch symfony-monolog-bundle-poc
-cd symfony
+  echo
+  echo "Get the Symfony Source Code"
+  echo "---------------------------"
 
-echo
-echo "Automatic tests"
-echo "---------------"
+  git clone git@github.com:jprivet-dev/symfony.git --branch monolog-bundle-dynamic-config-node
+  cd ${path_symfony} || exit
 
-composer update
-php ./phpunit src/Symfony/Bridge/Monolog
+  echo
+  echo "Automatic tests"
+  echo "---------------"
 
-echo
-echo "Creating a new test app project"
-echo "--------------------------------"
+  composer update
+  php ./phpunit src/Symfony/Bridge/Monolog
 
-cd ..
-symfony check:requirements
+  echo
+  echo "Creating a new test app project"
+  echo "--------------------------------"
 
-symfony new app --version=7.2
-cd app
-composer require symfony/monolog-bundle
+  cd ..
+  symfony check:requirements
 
-echo
-echo "Use the symfony-monolog-bundle-poc branch in the new app project"
-echo "----------------------------------------------------------------"
+  symfony new app --version=7.2
+  cd app || exit
 
-cd ../symfony
-php link ../app
+  composer require symfony/monolog-bundle      # Feature's main subject
+  composer require symfony/security-bundle     # Source of inspiration
+  composer require sensiolabs/gotenberg-bundle # Source of inspiration
+  composer require symfony/http-client         # Avoid cache:clear error: HttpClient support cannot be enabled as the component is not installed
 
-# Go back to the racine
-cd ..
+  echo
+  echo "Use the monolog-bundle-dynamic-config-node branch in the new app project"
+  echo "------------------------------------------------------------------------"
 
-echo
-echo "Start a Symfony Local Web Server"
-echo "--------------------------------"
+  cd "${path_symfony}" || exit
+  php link "${path_app}"
 
-symfony server:start --dir=app --daemon
+  echo
+  echo "Start a Symfony Local Web Server"
+  echo "--------------------------------"
+
+  cd "${path_root}" || exit
+  symfony server:start --dir=${path_app} --daemon
+}
+
+install_contributing_env
