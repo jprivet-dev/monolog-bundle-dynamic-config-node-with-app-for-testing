@@ -1,2 +1,4 @@
-symfony/
 app/
+GotenbergBundle/
+monolog-bundle/
+symfony/
