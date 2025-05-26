@@ -8,125 +8,49 @@ After installation, you will have the following structure :
 
 ```
 tree -A -L 1 -F --dirsfirst
+
 ./
-├── app/      # New app project for testing
-├── symfony/  # Contains MonologBundle evolutions
+├── app/              # New app project for testing
+├── GotenbergBundle/  # Contains GotenbergBundle project
+├── monolog-bundle/   # Contains MonologBundle project
+├── symfony/          # Contains symfony project
+├── install.sh
 ├── LICENSE
 └── README.md
 ```
 
+> Symbolic links are created between :
+> - `app/vendor/sensiolabs` and `GotenbergBundle` directories
+> - `app/vendor/symfony` and `monolog-bundle` and `symfony` directories
+
 ## Install
+
+- Clone the project:
 
 ```shell
 git clone git@github.com:jprivet-dev/monolog-bundle-dynamic-config-node-with-app-for-testing.git
 cd monolog-bundle-dynamic-config-node-with-app-for-testing
+```
+
+- Run the installation script:
+
+```shell
 . install.sh
 ```
 
-## What does the `install.sh` do?
+- Go on https://127.0.0.1:8000/ (or https://127.0.0.1:8001/...).
 
-### 1 - Get the Symfony Source Code
-
-```shell
-git clone git@github.com:jprivet-dev/symfony.git --branch monolog-bundle-dynamic-config-node
-cd symfony
-```
-
-> The first time, I initiated and created a new `monolog-bundle-dynamic-config-node` branch:
-> 
-> ```shell
-> git remote add upstream git@github.com:symfony/symfony.git
-> git remote -v
-> origin  https://github.com/jprivet-dev/symfony (fetch)
-> origin  https://github.com/jprivet-dev/symfony (push)
-> upstream        git@github.com:symfony/symfony.git (fetch)
-> upstream        git@github.com:symfony/symfony.git (push)
-> ```
-> 
-> ```shell
-> git switch --create monolog-bundle-dynamic-config-node
-> git push origin monolog-bundle-dynamic-config-node
-> ```
-
-### 2 - Launch automatic tests
+## Run monolog-bundle tests
 
 ```shell
+cd monolog-bundle
 composer update
-php ./phpunit src/Symfony/Bridge/Monolog
-```
-
-### 3 - Create a new test `app` project
-
-> Update [Symfony CLI](https://symfony.com/download#step-1-install-symfony-cli)
-
-- Check if your system is ready to run Symfony projects:
-
-```shell
-symfony check:requirements
-```
-
-- And create new Symfony project:
-
-```shell
-cd .. # Exit the symfony folder
-symfony new app --version=7.2
-cd app
-```
-
-- All modifications must be made to the [MonologBundle](https://github.com/symfony/monolog-bundle). Install it:
-
-```shell
-composer require symfony/monolog-bundle
-```
-
-### 4 - Use the `https://github.com/jprivet-dev/symfony/tree/monolog-bundle-dynamic-config-node` branch in the new `app` project
-
-- Replace Symfony packages by symbolic links to the ones in the new `app` project :
-
-```shell
-cd ../symfony # Exit the new app project and go in symfony folder
-php link ../app
-```
-
-```
-...
-"symfony/monolog-bridge" has been linked to "/.../symfony/src/Symfony/Bridge/Monolog".
-...
-```
-
-- Go back in the new `app` project and check symlinks:
-
-```shell
-cd ../app # Exit the symfony folder and go in the new app project
-ls -la vendor/symfony
-```
-
-```
-...
-monolog-bridge -> ../../../symfony/src/Symfony/Bridge/Monolog/
-...
-```
-
-- From then on, the `app` application will benefit, among other things, from all the changes made to `symfony/src/Symfony/Bridge/Monolog`.
-
-## How do I perform manual tests?
-
-- Start a [Symfony Local Web Server](https://symfony.com/doc/current/setup/symfony_server.html):
-
-```shell
-symfony server:start --dir=app --daemon
-```
-
-- And go on https://127.0.0.1:8000/.
-- Stop the server:
-
-```shell
-symfony server:stop --dir=app
+vendor/bin/simple-phpunit
 ```
 
 ## Troubleshooting
 
-At https://127.0.0.1:8000/, you'll see `You are using Symfony 7.2.6 version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `composer.json`, it is indeed a `7.2.x` version that is installed.
+At https://127.0.0.1:8000/ (or https://127.0.0.1:8001/...), you'll see `You are using Symfony 7.2.x-DEV version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `app/composer.json`, it is indeed a `7.2.x` version that is installed.
 
 It's from the `php link` command in the `install.sh` script that the displayed version changes. For the moment, I don't know why!
 
