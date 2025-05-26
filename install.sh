@@ -1,4 +1,4 @@
-# Usage
+# Usage:
 # . install.sh
 
 function install_contributing_env() {
