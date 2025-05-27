@@ -3,7 +3,7 @@
 <phpunit colors="true" bootstrap="vendor/autoload.php">
     <testsuites>
         <testsuite name="PocBundle">
-            <directory>./Tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
 
@@ -11,8 +11,8 @@
         <whitelist>
             <directory>.</directory>
             <exclude>
-                <directory>./Resources</directory>
-                <directory>./Tests</directory>
+                <directory>./resources</directory>
+                <directory>./tests</directory>
                 <directory>./vendor</directory>
             </exclude>
         </whitelist>

@@ -56,7 +56,7 @@ vendor/bin/simple-phpunit
 // app/config/bundles.php
 return [
     // ...
-    Symfony\Bundle\PocBundle\PocBundle::class => ['dev' => true],
+    Local\Bundle\PocBundle\PocBundle::class => ['dev' => true],
 ];
 ```
 
