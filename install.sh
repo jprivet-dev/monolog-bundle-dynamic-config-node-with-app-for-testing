@@ -64,6 +64,19 @@ function install_contributing_env() {
     composer require symfony/monolog-bundle:@dev
 
     echo
+    echo "Get the PocBundle Source Code"
+    echo "-----------------------------"
+
+    echo
+    echo "# Links dependencies of the app project to the local bundle"
+    echo
+
+    cd ${root}/app
+    # See https://getcomposer.org/doc/05-repositories.md#using-private-repositories
+    composer config repositories.poc-bundle path ../poc-bundle
+    composer require local/poc-bundle:@dev
+
+    echo
     echo "Start a Symfony Local Web Server"
     echo "--------------------------------"
 

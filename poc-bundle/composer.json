@@ -1,0 +1,21 @@
+{
+    "name": "local/poc-bundle",
+    "type": "poc-bundle",
+    "description": "Local PocBundle",
+    "require": {
+        "php": ">=8.2",
+        "symfony/config": "^6.4|^7.0",
+        "symfony/dependency-injection": "^6.4.11|^7.1.4",
+        "symfony/http-kernel": "^6.4|^7.0"
+    },
+    "require-dev": {
+        "symfony/yaml": "^5.4 || ^6.0 || ^7.0",
+        "symfony/phpunit-bridge": "^7.1"
+    },
+    "autoload": {
+        "psr-4": { "Local\\Bundle\\PocBundle\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    }
+}

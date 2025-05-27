@@ -48,6 +48,26 @@ composer update
 vendor/bin/simple-phpunit
 ```
 
+## PocBundle
+
+- Activate `PocBundle`:
+
+```php
+// app/config/bundles.php
+return [
+    // ...
+    Symfony\Bundle\PocBundle\PocBundle::class => ['dev' => true],
+];
+```
+
+- The `install.sh` script links dependencies of the app project to the local bundle:
+
+```shell
+cd app
+composer config repositories.poc-bundle path ../poc-bundle
+composer require local/poc-bundle:@dev
+```
+
 ## Troubleshooting
 
 At https://127.0.0.1:8000/ (or https://127.0.0.1:8001/...), you'll see `You are using Symfony 7.2.x-DEV version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `app/composer.json`, it is indeed a `7.2.x` version that is installed.
@@ -60,3 +80,4 @@ It's from the `php link` command in the `install.sh` script that the displayed v
 - https://symfony.com/packages/Monolog%20Bundle
 - https://symfony.com/doc/current/security.html
 - https://github.com/sensiolabs/GotenbergBundle
+- https://symfony.com/doc/current/bundles.html
