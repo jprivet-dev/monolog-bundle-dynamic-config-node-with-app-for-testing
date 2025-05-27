@@ -4,25 +4,6 @@
 
 This repository (https://github.com/jprivet-dev/monolog-bundle-dynamic-config-node-with-app-for-testing) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/symfony/tree/monolog-bundle-dynamic-config-node, in a Symfony application.
 
-After installation, you will have the following structure :
-
-```
-tree -A -L 1 -F --dirsfirst
-
-./
-├── app/              # New app project for testing
-├── GotenbergBundle/  # Contains GotenbergBundle project
-├── monolog-bundle/   # Contains MonologBundle project
-├── symfony/          # Contains symfony project
-├── install.sh
-├── LICENSE
-└── README.md
-```
-
-> Symbolic links are created between :
-> - `app/vendor/sensiolabs` and `GotenbergBundle` directories
-> - `app/vendor/symfony` and `monolog-bundle` and `symfony` directories
-
 ## Install
 
 - Clone the project:
@@ -38,19 +19,7 @@ cd monolog-bundle-dynamic-config-node-with-app-for-testing
 . install.sh
 ```
 
-- Go on https://127.0.0.1:8000/ (or https://127.0.0.1:8001/...).
-
-## Run monolog-bundle tests
-
-```shell
-cd monolog-bundle
-composer update
-vendor/bin/simple-phpunit
-```
-
-## PocBundle
-
-- Activate `PocBundle`:
+- Activate `PocBundle` in the `app`:
 
 ```php
 // app/config/bundles.php
@@ -60,24 +29,89 @@ return [
 ];
 ```
 
-- The `install.sh` script links dependencies of the app project to the local bundle:
+- Go on https://127.0.0.1:8000/.
+
+
+After installation, you will have the following structure :
+
+```
+tree -A -L 1 -F --dirsfirst
+
+./
+├── app/              # New app project for testing
+├── GotenbergBundle/  # Contains GotenbergBundle project
+├── monolog-bundle/   # Contains MonologBundle project
+├── poc-bundle/       # Contains PocBundle project (experimental area)
+├── symfony/          # Contains symfony project
+├── ...
+└── README.md
+```
+
+Symbolic links are created between :
+
+- `app/vendor/sensiolabs` and `GotenbergBundle` directory
+- `app/vendor/local` and `poc-bundle` directory
+- `app/vendor/symfony` and `monolog-bundle` and `symfony` directories
+
+... with the `php link` command and `composer` configuration (see `install.sh`) :
+
+```json
+// app/composer.json
+{
+  "...": {},
+  "require": {
+    "...": {},
+    "local/poc-bundle": "@dev",
+    "sensiolabs/gotenberg-bundle": "@dev",
+    "symfony/monolog-bundle": "@dev",
+  },
+  "repositories": {
+    "poc-bundle": {
+      "type": "path",
+      "url": "../poc-bundle"
+    },
+    "monolog-bundle": {
+      "type": "path",
+      "url": "../monolog-bundle"
+    },
+    "gotenberg-bundle": {
+      "type": "path",
+      "url": "../GotenbergBundle"
+    }
+  }
+}
+```
+
+## Run tests
+
+### MonologBundle
 
 ```shell
-cd app
-composer config repositories.poc-bundle path ../poc-bundle
-composer require local/poc-bundle:@dev
+cd monolog-bundle
+composer update
+vendor/bin/simple-phpunit
+```
+### PocBundle
+
+```shell
+cd poc-bundle
+composer update
+vendor/bin/simple-phpunit
 ```
 
 ## Troubleshooting
 
-At https://127.0.0.1:8000/ (or https://127.0.0.1:8001/...), you'll see `You are using Symfony 7.2.x-DEV version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `app/composer.json`, it is indeed a `7.2.x` version that is installed.
+At https://127.0.0.1:8000/, you'll see `You are using Symfony 7.2.x-DEV version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `app/composer.json`, it is indeed a `7.2.x` version that is installed.
 
 It's from the `php link` command in the `install.sh` script that the displayed version changes. For the moment, I don't know why!
 
 ## Resources
 
-- https://symfony.com/doc/current/logging.html
-- https://symfony.com/packages/Monolog%20Bundle
-- https://symfony.com/doc/current/security.html
-- https://github.com/sensiolabs/GotenbergBundle
-- https://symfony.com/doc/current/bundles.html
+- Sources of inspiration:
+  - https://symfony.com/packages/Monolog%20Bundle
+  - https://symfony.com/doc/current/security.html
+  - https://github.com/sensiolabs/GotenbergBundle
+- The Bundle System:
+  - https://symfony.com/doc/current/bundles.html
+  - https://symfony.com/doc/current/bundles/best_practices.html
+  - https://symfony.com/doc/current/components/config/definition.html
