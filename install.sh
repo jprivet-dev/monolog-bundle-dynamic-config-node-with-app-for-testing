@@ -15,6 +15,7 @@ function install_contributing_env() {
 
     composer require symfony/http-client     # Avoid cache:clear error: HttpClient support cannot be enabled as the component is not installed
     composer require symfony/security-bundle # Source of inspiration
+    composer require symfony/workflow        # Source of inspiration
 
     echo
     echo "Get the Symfony Source Code"
