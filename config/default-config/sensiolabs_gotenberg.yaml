@@ -1,0 +1,724 @@
+# Default configuration for extension with alias: "sensiolabs_gotenberg"
+sensiolabs_gotenberg:
+
+    # Base directory will be used for assets, files, markdown
+    assets_directory:     '%kernel.project_dir%/assets'
+
+    # HTTP Client reference to use. (Must have a base_uri)
+    http_client:          ~ # Required
+
+    # Override the request Gotenberg will make to call one of your routes.
+    request_context:
+
+        # Used only when using `->route()`. Overrides the guessed `base_url` from the request. May be useful in CLI.
+        base_uri:             ~
+
+    # Enables the listener on kernel.view to stream GotenbergFileResult object.
+    controller_listener:  true
+    webhook:
+
+        # Prototype
+        name:
+            name:                 ~
+            success:
+
+                # The URL to call.
+                url:                  ~ # Example: 'https://webhook.site/#!/view/{some-token}'
+
+                # Route configuration.
+                route:                ~ # Example: "['my_route', ['param1' => 'value1', 'param2' => 'value2']]"
+
+                # HTTP method to use on that endpoint.
+                method:               null # One of "POST"; "PUT"; "PATCH"
+            error:
+
+                # The URL to call.
+                url:                  ~ # Example: 'https://webhook.site/#!/view/{some-token}'
+
+                # Route configuration.
+                route:                ~ # Example: "['my_route', ['param1' => 'value1', 'param2' => 'value2']]"
+
+                # HTTP method to use on that endpoint.
+                method:               null # One of "POST"; "PUT"; "PATCH"
+
+            # HTTP headers to send by Chromium while loading the HTML document - default None. https://gotenberg.dev/docs/routes#custom-http-headers
+            extra_http_headers:
+
+                # Prototype
+                name:                 ~
+    default_options:
+
+        # Webhook configuration name.
+        webhook:              ~
+        pdf:
+            convert:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+            flatten:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+            html:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                split_unify:          null
+                split_span:           null
+                split_mode:           null # One of "intervals"; "pages"
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                metadata:
+                    Author:               null
+                    Copyright:            null
+                    CreationDate:         null
+                    Creator:              null
+                    Keywords:             null
+                    Marked:               null
+                    ModDate:              null
+                    PDFVersion:           null
+                    Producer:             null
+                    Subject:              null
+                    Title:                null
+                    Trapped:              null # One of "True"; "False"; "Unknown"
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+                wait_for_expression:  null
+                wait_delay:           null
+                skip_network_idle_event: null
+                generate_tagged_pdf:  null
+                native_page_ranges:   null
+                scale:                null
+                landscape:            null
+                omit_background:      null
+                print_background:     null
+                generate_document_outline: null
+                prefer_css_page_size: null
+                margin_right:         null
+                margin_left:          null
+                margin_bottom:        null
+                margin_top:           null
+                paper_standard_size:  null # One of "letter"; "legal"; "tabloid"; "ledger"; "A0"; "A1"; "A2"; "A3"; "A4"; "A5"; "A6"
+                paper_height:         null
+                paper_width:          null
+                single_page:          null
+                fail_on_console_exceptions: null
+                fail_on_resource_loading_failed: null
+                fail_on_resource_http_status_codes: []
+                fail_on_http_status_codes: []
+                emulated_media_type:  null # One of "print"; "screen"
+                extra_http_headers:
+
+                    # Prototype
+                    name:                 ~
+                user_agent:           null
+                cookies:
+
+                    # Prototype
+                    -
+                        name:                 null # Required
+                        value:                null # Required
+                        domain:               null # Required
+                        path:                 null
+                        secure:               null
+                        httpOnly:             null
+                        sameSite:             null # One of "Strict"; "Lax"; "None"
+                footer:
+                    template:             null # Required
+                    context:              []
+                header:
+                    template:             null # Required
+                    context:              []
+            office:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                split_unify:          null
+                split_span:           null
+                split_mode:           null # One of "intervals"; "pages"
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                metadata:
+                    Author:               null
+                    Copyright:            null
+                    CreationDate:         null
+                    Creator:              null
+                    Keywords:             null
+                    Marked:               null
+                    ModDate:              null
+                    PDFVersion:           null
+                    Producer:             null
+                    Subject:              null
+                    Title:                null
+                    Trapped:              null # One of "True"; "False"; "Unknown"
+                update_indexes:       null
+                max_image_resolution: null # One of 75; 150; 300; 600; 1200
+                reduce_image_resolution: null
+                quality:              null
+                lossless_image_compression: null
+                merge:                null
+                single_page_sheets:   null
+                add_original_document_as_stream: null
+                skip_empty_pages:     null
+                export_hidden_slides: null
+                export_links_relative_fsys: null
+                convert_ooo_target_to_pdf_target: null
+                export_notes_in_margin: null
+                export_only_notes_pages: null
+                export_notes_pages:   null
+                export_notes:         null
+                export_placeholders:  null
+                export_bookmarks_to_pdf_destination: null
+                do_not_export_bookmarks: null
+                allow_duplicate_field_names: null
+                do_not_export_form_fields: null
+                native_page_ranges:   null
+                landscape:            null
+                password:             null
+                flatten:              null
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+            markdown:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                split_unify:          null
+                split_span:           null
+                split_mode:           null # One of "intervals"; "pages"
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                metadata:
+                    Author:               null
+                    Copyright:            null
+                    CreationDate:         null
+                    Creator:              null
+                    Keywords:             null
+                    Marked:               null
+                    ModDate:              null
+                    PDFVersion:           null
+                    Producer:             null
+                    Subject:              null
+                    Title:                null
+                    Trapped:              null # One of "True"; "False"; "Unknown"
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+                wait_for_expression:  null
+                wait_delay:           null
+                skip_network_idle_event: null
+                generate_tagged_pdf:  null
+                native_page_ranges:   null
+                scale:                null
+                landscape:            null
+                omit_background:      null
+                print_background:     null
+                generate_document_outline: null
+                prefer_css_page_size: null
+                margin_right:         null
+                margin_left:          null
+                margin_bottom:        null
+                margin_top:           null
+                paper_standard_size:  null # One of "letter"; "legal"; "tabloid"; "ledger"; "A0"; "A1"; "A2"; "A3"; "A4"; "A5"; "A6"
+                paper_height:         null
+                paper_width:          null
+                single_page:          null
+                fail_on_console_exceptions: null
+                fail_on_resource_loading_failed: null
+                fail_on_resource_http_status_codes: []
+                fail_on_http_status_codes: []
+                emulated_media_type:  null # One of "print"; "screen"
+                extra_http_headers:
+
+                    # Prototype
+                    name:                 ~
+                user_agent:           null
+                cookies:
+
+                    # Prototype
+                    -
+                        name:                 null # Required
+                        value:                null # Required
+                        domain:               null # Required
+                        path:                 null
+                        secure:               null
+                        httpOnly:             null
+                        sameSite:             null # One of "Strict"; "Lax"; "None"
+                footer:
+                    template:             null # Required
+                    context:              []
+                header:
+                    template:             null # Required
+                    context:              []
+            merge:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                metadata:
+                    Author:               null
+                    Copyright:            null
+                    CreationDate:         null
+                    Creator:              null
+                    Keywords:             null
+                    Marked:               null
+                    ModDate:              null
+                    PDFVersion:           null
+                    Producer:             null
+                    Subject:              null
+                    Title:                null
+                    Trapped:              null # One of "True"; "False"; "Unknown"
+                flatten:              null
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+            split:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                split_unify:          null
+                split_span:           null
+                split_mode:           null # One of "intervals"; "pages"
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                metadata:
+                    Author:               null
+                    Copyright:            null
+                    CreationDate:         null
+                    Creator:              null
+                    Keywords:             null
+                    Marked:               null
+                    ModDate:              null
+                    PDFVersion:           null
+                    Producer:             null
+                    Subject:              null
+                    Title:                null
+                    Trapped:              null # One of "True"; "False"; "Unknown"
+                flatten:              null
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+            url:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                split_unify:          null
+                split_span:           null
+                split_mode:           null # One of "intervals"; "pages"
+                pdf_universal_access: null
+                pdf_format:           null # One of "PDF\/A-1b"; "PDF\/A-2b"; "PDF\/A-3b"
+                metadata:
+                    Author:               null
+                    Copyright:            null
+                    CreationDate:         null
+                    Creator:              null
+                    Keywords:             null
+                    Marked:               null
+                    ModDate:              null
+                    PDFVersion:           null
+                    Producer:             null
+                    Subject:              null
+                    Title:                null
+                    Trapped:              null # One of "True"; "False"; "Unknown"
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+                wait_for_expression:  null
+                wait_delay:           null
+                skip_network_idle_event: null
+                generate_tagged_pdf:  null
+                native_page_ranges:   null
+                scale:                null
+                landscape:            null
+                omit_background:      null
+                print_background:     null
+                generate_document_outline: null
+                prefer_css_page_size: null
+                margin_right:         null
+                margin_left:          null
+                margin_bottom:        null
+                margin_top:           null
+                paper_standard_size:  null # One of "letter"; "legal"; "tabloid"; "ledger"; "A0"; "A1"; "A2"; "A3"; "A4"; "A5"; "A6"
+                paper_height:         null
+                paper_width:          null
+                single_page:          null
+                fail_on_console_exceptions: null
+                fail_on_resource_loading_failed: null
+                fail_on_resource_http_status_codes: []
+                fail_on_http_status_codes: []
+                emulated_media_type:  null # One of "print"; "screen"
+                extra_http_headers:
+
+                    # Prototype
+                    name:                 ~
+                user_agent:           null
+                cookies:
+
+                    # Prototype
+                    -
+                        name:                 null # Required
+                        value:                null # Required
+                        domain:               null # Required
+                        path:                 null
+                        secure:               null
+                        httpOnly:             null
+                        sameSite:             null # One of "Strict"; "Lax"; "None"
+                footer:
+                    template:             null # Required
+                    context:              []
+                header:
+                    template:             null # Required
+                    context:              []
+        screenshot:
+            html:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+                wait_for_expression:  null
+                wait_delay:           null
+                optimize_for_speed:   null
+                omit_background:      null
+                quality:              null
+                format:               null # One of "png"; "jpeg"; "webp"
+                clip:                 null
+                height:               null
+                width:                null
+                skip_network_idle_event: null
+                fail_on_console_exceptions: null
+                fail_on_resource_loading_failed: null
+                fail_on_resource_http_status_codes: []
+                fail_on_http_status_codes: []
+                emulated_media_type:  null # One of "print"; "screen"
+                extra_http_headers:
+
+                    # Prototype
+                    name:                 ~
+                user_agent:           null
+                cookies:
+
+                    # Prototype
+                    -
+                        name:                 null # Required
+                        value:                null # Required
+                        domain:               null # Required
+                        path:                 null
+                        secure:               null
+                        httpOnly:             null
+                        sameSite:             null # One of "Strict"; "Lax"; "None"
+                footer:
+                    template:             null # Required
+                    context:              []
+                header:
+                    template:             null # Required
+                    context:              []
+            markdown:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+                wait_for_expression:  null
+                wait_delay:           null
+                optimize_for_speed:   null
+                omit_background:      null
+                quality:              null
+                format:               null # One of "png"; "jpeg"; "webp"
+                clip:                 null
+                height:               null
+                width:                null
+                skip_network_idle_event: null
+                fail_on_console_exceptions: null
+                fail_on_resource_loading_failed: null
+                fail_on_resource_http_status_codes: []
+                fail_on_http_status_codes: []
+                emulated_media_type:  null # One of "print"; "screen"
+                extra_http_headers:
+
+                    # Prototype
+                    name:                 ~
+                user_agent:           null
+                cookies:
+
+                    # Prototype
+                    -
+                        name:                 null # Required
+                        value:                null # Required
+                        domain:               null # Required
+                        path:                 null
+                        secure:               null
+                        httpOnly:             null
+                        sameSite:             null # One of "Strict"; "Lax"; "None"
+                footer:
+                    template:             null # Required
+                    context:              []
+                header:
+                    template:             null # Required
+                    context:              []
+            url:
+                webhook:
+                    config_name:          null
+                    success:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    error:
+                        url:                  null
+                        route:                ~
+                        method:               null # One of "POST"; "PUT"; "PATCH"
+                    extra_http_headers:
+
+                        # Prototype
+                        name:                 ~
+                download_from:
+
+                    # Prototype
+                    -
+                        url:                  null # Required
+                        extraHttpHeaders:
+
+                            # Prototype
+                            name:
+                                name:                 null # Required
+                                value:                null # Required
+                wait_for_expression:  null
+                wait_delay:           null
+                optimize_for_speed:   null
+                omit_background:      null
+                quality:              null
+                format:               null # One of "png"; "jpeg"; "webp"
+                clip:                 null
+                height:               null
+                width:                null
+                skip_network_idle_event: null
+                fail_on_console_exceptions: null
+                fail_on_resource_loading_failed: null
+                fail_on_resource_http_status_codes: []
+                fail_on_http_status_codes: []
+                emulated_media_type:  null # One of "print"; "screen"
+                extra_http_headers:
+
+                    # Prototype
+                    name:                 ~
+                user_agent:           null
+                cookies:
+
+                    # Prototype
+                    -
+                        name:                 null # Required
+                        value:                null # Required
+                        domain:               null # Required
+                        path:                 null
+                        secure:               null
+                        httpOnly:             null
+                        sameSite:             null # One of "Strict"; "Lax"; "None"
+                footer:
+                    template:             null # Required
+                    context:              []
+                header:
+                    template:             null # Required
+                    context:              []
+

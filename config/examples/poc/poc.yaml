@@ -1,0 +1,9 @@
+# Copy this file in app/config/packages
+poc:
+    one: false
+    two: "text"
+    three:
+        - hi
+        - bonjour
+        - hello
+

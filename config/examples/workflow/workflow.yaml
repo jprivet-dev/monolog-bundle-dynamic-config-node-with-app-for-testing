@@ -1,0 +1,50 @@
+# Copy this file in app/config/packages
+framework:
+    workflows:
+        pull_request:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'currentPlace'
+            supports:
+                - App\Entity\PullRequest
+            initial_marking: start
+            places:
+                start: ~
+                coding: ~
+                test: ~
+                review:
+                    metadata:
+                        description: Human review
+                merged: ~
+                closed:
+                    metadata:
+                        bg_color: DeepSkyBlue
+            transitions:
+                submit:
+                    from: start
+                    to: test
+                update:
+                    from: [coding, test, review]
+                    to: test
+                    metadata:
+                        arrow_color: Turquoise
+                wait_for_review:
+                    from: test
+                    to: review
+                    metadata:
+                        color: Orange
+                request_change:
+                    from: review
+                    to: coding
+                accept:
+                    from: review
+                    to: merged
+                    metadata:
+                        label: Accept PR
+                reject:
+                    from: review
+                    to: closed
+                reopen:
+                    from: closed
+                    to: review

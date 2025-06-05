@@ -1,0 +1,6 @@
+# Default configuration for extension with alias: "poc"
+poc:
+    one:                  true
+    two:                  default
+    three:                []
+
