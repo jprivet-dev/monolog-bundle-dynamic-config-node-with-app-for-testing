@@ -78,6 +78,14 @@ function install_contributing_env() {
     composer require local/poc-bundle:@dev
 
     echo
+    echo "Utils"
+    echo "-----"
+
+    composer require --dev symfony/maker-bundle
+    composer require orm
+    composer require --dev symfony/profiler-pack
+
+    echo
     echo "Start a Symfony Local Web Server"
     echo "--------------------------------"
 
