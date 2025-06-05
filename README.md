@@ -153,6 +153,7 @@ The [poc-bundle](poc-bundle) is an area for experimentation, to easily present t
 - Monolog:
   - https://symfony.com/packages/Monolog%20Bundle
   - https://symfony.com/doc/current/logging.html 
+  - https://github.com/symfony/recipes/tree/main/symfony/monolog-bundle/3.7
 - Sources of inspiration:
   - https://symfony.com/doc/current/security.html
   - https://github.com/sensiolabs/GotenbergBundle
