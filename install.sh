@@ -65,6 +65,22 @@ function install_contributing_env() {
     composer require symfony/monolog-bundle:@dev
 
     echo
+    echo "Get the Nelmio/Alice Source Code"
+    echo "--------------------------------"
+
+    cd ${root}
+    git clone git@github.com:nelmio/alice.git
+
+    echo
+    echo "# Links dependencies of the app project to the local clones"
+    echo
+
+    cd ${root}/app
+    # See https://getcomposer.org/doc/05-repositories.md#using-private-repositories
+    composer config repositories.alice path ../alice
+    composer require nelmio/alice:@dev
+
+    echo
     echo "Get the PocBundle Source Code"
     echo "-----------------------------"
 
