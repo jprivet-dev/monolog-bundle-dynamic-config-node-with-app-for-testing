@@ -31,7 +31,6 @@ return [
 
 - Go on https://127.0.0.1:8000/.
 
-
 After installation, you will have the following structure :
 
 ```
@@ -63,7 +62,7 @@ Symbolic links are created between :
     "...": {},
     "local/poc-bundle": "@dev",
     "sensiolabs/gotenberg-bundle": "@dev",
-    "symfony/monolog-bundle": "@dev",
+    "symfony/monolog-bundle": "@dev"
   },
   "repositories": {
     "poc-bundle": {
@@ -91,6 +90,7 @@ cd monolog-bundle
 composer update
 vendor/bin/simple-phpunit
 ```
+
 ### PocBundle
 
 ```shell
@@ -115,31 +115,31 @@ For example, the `max_files` key can only be used for a handler of type `rotatin
 
 ```yaml
 monolog:
-    handlers:
-        main:
-            type:  rotating_file
-            path:  '%kernel.logs_dir%/%kernel.environment%.log'
-            level: debug
-            max_files: 10
+  handlers:
+    main:
+      type: rotating_file
+      path: '%kernel.logs_dir%/%kernel.environment%.log'
+      level: debug
+      max_files: 10
 ```
 
 But in the dump, you can see that this `max_files` key is in the middle of all the others:
 
 ```yaml
 monolog:
-    use_microseconds:     true
-    channels:             []
-    handlers:
-        name:
-            # ...
-            ident:                false
-            logopts:              1
-            facility:             user
-            max_files:            0       # <-----
-            action_level:         WARNING
-            activation_strategy:  null
-            stop_buffering:       true
-            # ...
+  use_microseconds: true
+  channels: []
+  handlers:
+    name:
+      # ...
+      ident: false
+      logopts: 1
+      facility: user
+      max_files: 0       # <-----
+      action_level: WARNING
+      activation_strategy: null
+      stop_buffering: true
+      # ...
 ```
 
 The aim would be to modify the `MonologBundle`, to propose a new configuration structure and a dump which would make it easier to read, by explicitly attaching the authorised keys according to the `type` chosen.
@@ -148,15 +148,26 @@ Everything is being researched, and there is no definite choice yet. The configu
 
 The [poc-bundle](poc-bundle) is an area for experimentation, to easily present the possibilities, before applying these choices to https://github.com/jprivet-dev/monolog-bundle.
 
+
+| Configuration file          | See default config                                        
+|-----------------------------|----------------------------------------------------------- 
+| `framework.yaml`            | Yes                                                       
+| `monolog.yaml`              | Yes (but without authorized keys by type)                 
+| `poc.yaml`                  | Yes (experimental)                                        
+| `security.yaml`             | Yes                                                       
+| `sensiolabs_gotenberg.yaml` | Yes                                                       
+| `workflow.yaml`             | No extensions with configuration available for "workflow" 
+
 ## Resources
 
 - Monolog:
   - https://symfony.com/packages/Monolog%20Bundle
-  - https://symfony.com/doc/current/logging.html 
+  - https://symfony.com/doc/current/logging.html
   - https://github.com/symfony/recipes/tree/main/symfony/monolog-bundle/3.7
 - Sources of inspiration:
   - https://symfony.com/doc/current/security.html
   - https://github.com/sensiolabs/GotenbergBundle
+  - https://github.com/symfony/workflow
 - The Bundle System:
   - https://symfony.com/doc/current/bundles.html
   - https://symfony.com/doc/current/bundles/best_practices.html
