@@ -1,6 +1,81 @@
 # Default configuration for extension with alias: "poc"
 poc:
-    one:                  true
-    two:                  default
-    three:                []
+
+    # info a
+    a:                    true
+
+    # info b
+    b:                    default
+
+    # info c
+    c:                    true
+
+    # info d
+    d:
+
+        # info sub_d
+        sub_d:                true
+
+    # info e
+    e:
+
+        # info id
+        id:                   ~
+
+        # info host
+        host:                 ~
+
+        # info port
+        port:                 9200
+
+        # info transport
+        transport:            Http
+
+        # info user
+        user:                 null
+
+        # info password
+        password:             null
+
+    # info f
+    f:
+
+        # info id
+        id:                   ~
+
+        # info host
+        host:                 ~
+
+        # info port
+        port:                 9200
+
+        # info transport
+        transport:            Http
+
+        # info user
+        user:                 null
+
+        # info password
+        password:             null
+
+    # info g
+    g:
+
+        # info id
+        id:                   ~
+
+        # info host
+        host:                 ~
+
+        # info port
+        port:                 9200
+
+        # info transport
+        transport:            Http
+
+        # info user
+        user:                 null
+
+        # info password
+        password:             null
 

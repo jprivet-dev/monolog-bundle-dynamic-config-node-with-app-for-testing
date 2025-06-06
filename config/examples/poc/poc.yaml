@@ -2,7 +2,8 @@
 poc:
     one: false
     two: "text"
-    three:
+    three: false
+    four:
         - hi
         - bonjour
         - hello

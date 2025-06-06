@@ -1,3 +1,4 @@
+"FrameworkExtension::registerWorkflowConfiguration"
 # Default configuration for extension with alias: "monolog"
 monolog:
     use_microseconds:     true
@@ -13,9 +14,17 @@ monolog:
         name:
             type:                 ~ # Required
             id:                   ~
+
+            # The priority of the processor so the order can be determined
             priority:             0
+
+            # level name or int value, defaults to DEBUG
             level:                DEBUG
+
+            # Whether the messages that are handled can bubble up the stack
             bubble:               true
+
+            # New relic app name
             app_name:             null
             fill_extra_context:   false
             include_stacktraces:  false
