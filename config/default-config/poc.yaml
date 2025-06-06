@@ -12,70 +12,30 @@ poc:
 
     # info d
     d:
-
-        # info sub_d
         sub_d:                true
 
     # info e
     e:
-
-        # info id
         id:                   ~
-
-        # info host
         host:                 ~
-
-        # info port
         port:                 9200
-
-        # info transport
-        transport:            Http
-
-        # info user
+        transport:            ~
         user:                 null
-
-        # info password
         password:             null
 
     # info f
     f:
-
-        # info id
         id:                   ~
-
-        # info host
         host:                 ~
-
-        # info port
         port:                 9200
-
-        # info transport
-        transport:            Http
-
-        # info user
-        user:                 null
-
-        # info password
-        password:             null
+        transport:            ~
 
     # info g
     g:
-
-        # info id
         id:                   ~
-
-        # info host
         host:                 ~
-
-        # info port
         port:                 9200
-
-        # info transport
-        transport:            Http
-
-        # info user
+        transport:            ~
         user:                 null
-
-        # info password
         password:             null
 

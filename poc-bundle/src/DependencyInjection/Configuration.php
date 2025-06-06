@@ -28,7 +28,7 @@ class Configuration implements ConfigurationInterface
                 ->append(static::booleanNodeC())
                 ->append(static::arrayNodeD())
                 ->append(static::arrayNodeByName('e'))
-                ->append(static::arrayNodeByName('f', exclude: ['user', 'password']))
+                ->append(static::arrayNodeByName('f', includeUserPassword: false))
                 ->append(static::arrayNodeByName('g'))
             ->end();
 
@@ -46,39 +46,30 @@ class Configuration implements ConfigurationInterface
         return (new TreeBuilder('d'))->getRootNode()
             ->info('info d')
             ->children()
-                ->booleanNode('sub_d')
-                    ->defaultTrue()
-                    ->info('info sub_d')
-                ->end()
+                ->booleanNode('sub_d')->defaultTrue()->end()
             ->end();
     }
 
-    private static function arrayNodeByName(string $name, array $exclude = []): ArrayNodeDefinition {
-        return (new TreeBuilder($name))->getRootNode()
+    private static function arrayNodeByName(string $name, bool $includeUserPassword = true): ArrayNodeDefinition {
+        $node = (new TreeBuilder($name))->getRootNode();
+
+        $node
             ->info(sprintf('info %s', $name))
             ->children()
-                ->scalarNode('id')
-                    ->info('info id')
-                ->end()
-                ->scalarNode('host')
-                    ->info('info host')
-                ->end()
-                ->scalarNode('port')
-                    ->defaultValue(9200)
-                    ->info('info port')
-                ->end()
-                ->scalarNode('transport')
-                    ->defaultValue('Http')
-                    ->info('info transport')
-                ->end()
-                ->scalarNode('user')
-                    ->defaultNull()
-                    ->info('info user')
-                ->end()
-                ->scalarNode('password')
-                    ->defaultNull()
-                    ->info('info password')
-                ->end()
+                ->scalarNode('id')->end()
+                ->scalarNode('host')->end()
+                ->scalarNode('port')->defaultValue(9200)->end()
+                ->scalarNode('transport')->end()
             ->end();
+
+        if($includeUserPassword) {
+            $node
+                ->children()
+                    ->scalarNode('user')->defaultNull()->end()
+                    ->scalarNode('password')->defaultNull()->end()
+                ->end();
+        }
+
+        return $node;
     }
 }
