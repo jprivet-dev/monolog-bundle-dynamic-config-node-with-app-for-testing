@@ -13,23 +13,39 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('poc');
-        $rootNode = $treeBuilder->getRootNode();
+        $root = $treeBuilder->getRootNode();
 
-        $rootNode
+        $root
             ->children()
                 ->booleanNode('a')
                     ->defaultTrue()
                     ->info('info a')
-                ->end()
+                    ->end()
                 ->scalarNode('b')
                     ->defaultValue('default')
                     ->info('info b')
-                ->end()
+                    ->end()
                 ->append(static::booleanNodeC())
                 ->append(static::arrayNodeD())
                 ->append(static::arrayNodeByName('e'))
                 ->append(static::arrayNodeByName('f', includeUserPassword: false))
                 ->append(static::arrayNodeByName('g'))
+            ->end();
+
+        $root
+            ->children()
+                ->booleanNode('h')
+                    ->defaultTrue()
+                    ->info('info h')
+            ->end();
+
+        $root
+            ->children()
+                ->arrayNode('services')
+                ->canBeUnset()
+                ->useAttributeAsKey('name')
+                ->prototype('boolean')
+                ->info('info services')
             ->end();
 
         return $treeBuilder;

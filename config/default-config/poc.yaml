@@ -39,3 +39,10 @@ poc:
         user:                 null
         password:             null
 
+    # info h
+    h:                    true
+    services:
+
+        # Prototype: info services
+        name:                 ~
+
