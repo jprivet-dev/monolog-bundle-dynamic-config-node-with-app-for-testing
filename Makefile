@@ -30,7 +30,7 @@ actual_config_by_bundle: app ## [app] Generate in a yaml file the actual config 
 	@printf "#\n# [$(BUNDLE)] Generate the actual config values used by the app\n#\n"
 	$(CONSOLE) debug:config $(BUNDLE) >../config/actual-config/$(BUNDLE).yaml
 
-generate_default_config: ## [app] Generate in yaml files the default config values defined by Symfony for framework, monolog, poc, security, sensiolabs_gotenberg
+default_config: ## [app] Generate in yaml files the default config values defined by Symfony for framework, monolog, poc, security, sensiolabs_gotenberg
 	-make default_config_by_bundle BUNDLE=framework
 	-make default_config_by_bundle BUNDLE=monolog
 	-make default_config_by_bundle BUNDLE=poc
@@ -38,7 +38,7 @@ generate_default_config: ## [app] Generate in yaml files the default config valu
 	-make default_config_by_bundle BUNDLE=sensiolabs_gotenberg
 	-make default_config_by_bundle BUNDLE=workflow
 
-generate_actual_config: ## [app] Generate in yaml files the actual config values used by the app for framework, monolog, poc, security, sensiolabs_gotenberg
+actual_config: ## [app] Generate in yaml files the actual config values used by the app for framework, monolog, poc, security, sensiolabs_gotenberg
 	-make actual_config_by_bundle BUNDLE=framework
 	-make actual_config_by_bundle BUNDLE=monolog
 	-make actual_config_by_bundle BUNDLE=poc
