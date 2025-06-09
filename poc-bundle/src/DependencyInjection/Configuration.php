@@ -10,6 +10,13 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+    const ALLOWED_SERVICE_TYPES = ['type_a', 'type_b'];
+
+    const ALLOWED_KEYS_BY_SERVICE_TYPE = [
+        'type_a' => ['option_1', 'option_2'],
+        'type_b' => ['option_2', 'option_3'],
+    ];
+
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('poc');
@@ -40,53 +47,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
-        $allowedTypes = ['type_a', 'type_b'];
-
-        $root
-            ->children()
-                ->arrayNode('services')
-                    ->canBeUnset()
-                    ->useAttributeAsKey('name')
-                    ->info('info services')
-                    ->prototype('array')
-                        ->children()
-                            ->scalarNode('type')
-                                ->isRequired()
-                                ->validate()
-                                    ->ifNotInArray($allowedTypes)
-                                    ->thenInvalid('The %s type is not allowed. Allowed types are ' . implode(', ', $allowedTypes) . '.')
-                                ->end()
-                            ->end()
-                            ->booleanNode('option_1')->end()
-                            ->booleanNode('option_2')->end()
-                            ->booleanNode('option_3')->end()
-                        ->end()
-                        ->validate()
-                            ->ifTrue(function($v) {
-                                $allowedKeysByType = [
-                                    'type_a' => ['option_1', 'option_2'],
-                                    'type_b' => ['option_2', 'option_3'],
-                                ];
-
-                                $activeKeys = array_keys(
-                                    array_filter($v, static fn($v, $k) => $k !== 'type' && $v !== '', ARRAY_FILTER_USE_BOTH)
-                                );
-
-                                return count(array_diff($activeKeys, $allowedKeysByType[$v['type']])) > 0;
-                            })
-                            ->thenInvalid('An option does not allowed (%s).')
-                        ->end()
-                    ->end()
-                    ->example([
-                        'service_1' => [
-                            'type' => 'type_a',
-                        ],
-                        'service_2' => [
-                            'type' => 'type_b',
-                        ]
-                    ])
-                ->end()
-            ->end();
+        static::addServices($root);
 
         return $treeBuilder;
     }
@@ -127,5 +88,48 @@ class Configuration implements ConfigurationInterface
         }
 
         return $node;
+    }
+
+    private static function addServices(ArrayNodeDefinition $root): void {
+        $root
+            ->children()
+                ->arrayNode('services')
+                    ->canBeUnset()
+                    ->useAttributeAsKey('name')
+                    ->info('info services')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('type')
+                                ->isRequired()
+                                ->validate()
+                                    ->ifNotInArray(static::ALLOWED_SERVICE_TYPES)
+                                    ->thenInvalid('The %s type is not allowed. Allowed types are ' . implode(', ',static::ALLOWED_SERVICE_TYPES) . '.')
+                                ->end()
+                            ->end()
+                            ->booleanNode('option_1')->end()
+                            ->booleanNode('option_2')->end()
+                            ->booleanNode('option_3')->end()
+                        ->end()
+                        ->validate()
+                            ->ifTrue(function($v) {
+                                $activeKeys = array_keys(
+                                    array_filter($v, static fn($v, $k) => $k !== 'type' && $v !== '', ARRAY_FILTER_USE_BOTH)
+                                );
+
+                                return count(array_diff($activeKeys, static::ALLOWED_KEYS_BY_SERVICE_TYPE[$v['type']])) > 0;
+                            })
+                            ->thenInvalid('An option does not allowed (%s).')
+                        ->end()
+                    ->end()
+                    ->example([
+                        'service_1' => [
+                            'type' => 'type_a',
+                        ],
+                        'service_2' => [
+                            'type' => 'type_b',
+                        ]
+                    ])
+                ->end()
+            ->end();
     }
 }
