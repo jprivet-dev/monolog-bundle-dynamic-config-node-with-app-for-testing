@@ -48,6 +48,7 @@ class Configuration implements ConfigurationInterface
             ->end();
 
         static::addServices($root);
+        static::addServicesByType($root);
 
         return $treeBuilder;
     }
@@ -129,6 +130,29 @@ class Configuration implements ConfigurationInterface
                             'type' => 'type_b',
                         ]
                     ])
+                ->end()
+            ->end();
+    }
+
+    private static function addServicesByType(ArrayNodeDefinition $root): void
+    {
+        $root
+            ->children()
+                ->arrayNode('services_by_type')
+                    ->canBeUnset()
+                    ->info('info services by type')
+                    ->children()
+                        ->arrayNode('type_a')
+                            ->canBeUnset()
+                            ->info('all type "a" services')
+                        ->end()
+                    ->end()
+                    ->children()
+                        ->arrayNode('type_b')
+                            ->canBeUnset()
+                            ->info('all type "b" services')
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
     }
