@@ -37,15 +37,31 @@ class Configuration implements ConfigurationInterface
                 ->booleanNode('h')
                     ->defaultTrue()
                     ->info('info h')
+                ->end()
             ->end();
 
         $root
             ->children()
                 ->arrayNode('services')
-                ->canBeUnset()
-                ->useAttributeAsKey('name')
-                ->prototype('boolean')
-                ->info('info services')
+                    ->canBeUnset()
+                    ->useAttributeAsKey('name')
+                    ->info('info services')
+                    ->prototype('array')
+                        ->children()
+                            ->scalarNode('type')
+                                ->isRequired()
+                            ->end()
+                        ->end()
+                    ->end()
+                    ->example([
+                        'service_1' => [
+                            'type' => 'type_a',
+                        ],
+                        'service_2' => [
+                            'type' => 'type_b',
+                        ]
+                    ])
+                ->end()
             ->end();
 
         return $treeBuilder;
