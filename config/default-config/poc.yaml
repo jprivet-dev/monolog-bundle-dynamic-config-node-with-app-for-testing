@@ -52,4 +52,7 @@ poc:
         # Prototype
         name:
             type:                 ~ # Required
+            option_1:             ~
+            option_2:             ~
+            option_3:             ~
 

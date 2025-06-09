@@ -40,6 +40,8 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end();
 
+        $allowedTypes = ['type_a', 'type_b'];
+
         $root
             ->children()
                 ->arrayNode('services')
@@ -50,7 +52,29 @@ class Configuration implements ConfigurationInterface
                         ->children()
                             ->scalarNode('type')
                                 ->isRequired()
+                                ->validate()
+                                    ->ifNotInArray($allowedTypes)
+                                    ->thenInvalid('The %s type is not allowed. Allowed types are ' . implode(', ', $allowedTypes) . '.')
+                                ->end()
                             ->end()
+                            ->booleanNode('option_1')->end()
+                            ->booleanNode('option_2')->end()
+                            ->booleanNode('option_3')->end()
+                        ->end()
+                        ->validate()
+                            ->ifTrue(function($v) {
+                                $allowedKeysByType = [
+                                    'type_a' => ['option_1', 'option_2'],
+                                    'type_b' => ['option_2', 'option_3'],
+                                ];
+
+                                $activeKeys = array_keys(
+                                    array_filter($v, static fn($v, $k) => $k !== 'type' && $v !== '', ARRAY_FILTER_USE_BOTH)
+                                );
+
+                                return count(array_diff($activeKeys, $allowedKeysByType[$v['type']])) > 0;
+                            })
+                            ->thenInvalid('An option does not allowed (%s).')
                         ->end()
                     ->end()
                     ->example([
