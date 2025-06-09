@@ -1,10 +1,30 @@
 # Copy this file in app/config/packages
 poc:
-    one: false
-    two: "text"
-    three: false
-    four:
-        - hi
-        - bonjour
-        - hello
+    a: false
+    b: value_b
+    c: false
+    d:
+        sub_d: false
+    e:
+        id: ~
+        host: ~
+        port: 9200
+        transport: ~
+        user: null
+        password: null
+    f:
+        id: ~
+        host: ~
+        port: 9200
+        transport: ~
+    g:
+        id: ~
+        host: ~
+        port: 9200
+        transport: ~
+        user: null
+        password: null
+    h: false
+    services:
+        type: type_a
 

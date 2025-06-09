@@ -41,8 +41,15 @@ poc:
 
     # info h
     h:                    true
+
+    # info services
     services:
 
-        # Prototype: info services
-        name:                 ~
+        # Examples:
+        # service_1:           { type: type_a }
+        # service_2:           { type: type_b }
+
+        # Prototype
+        name:
+            type:                 ~ # Required
 
