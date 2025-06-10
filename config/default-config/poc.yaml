@@ -55,13 +55,53 @@ poc:
             option_1:             ~
             option_2:             ~
             option_3:             ~
+            option_4:             ~
+            option_5:             ~
+            option_6:             ~
 
     # info services by type
     services_by_type:
 
         # all type "a" services
-        type_a:               []
+        type_a:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
 
         # all type "b" services
-        type_b:               []
+        type_b:
+
+            # Prototype
+            name:
+                option_2:             ~
+                option_3:             ~
+                option_5:             ~
+                option_6:             ~
+
+    # info services by type
+    services_by_type_bis:
+
+        # all type "a" services
+        type_a:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # all type "b" services
+        type_b:
+
+            # Prototype
+            name:
+                option_2:             ~
+                option_3:             ~
+                option_5:             ~
+                option_6:             ~
 

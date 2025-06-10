@@ -49,6 +49,7 @@ class Configuration implements ConfigurationInterface
 
         static::addServices($root);
         static::addServicesByType($root);
+        static::addServicesByTypeBis($root);
 
         return $treeBuilder;
     }
@@ -96,8 +97,8 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->arrayNode('services')
                     ->canBeUnset()
-                    ->useAttributeAsKey('name')
                     ->info('info services')
+                    ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
                             ->scalarNode('type')
@@ -110,6 +111,9 @@ class Configuration implements ConfigurationInterface
                             ->booleanNode('option_1')->end()
                             ->booleanNode('option_2')->end()
                             ->booleanNode('option_3')->end()
+                            ->booleanNode('option_4')->end()
+                            ->booleanNode('option_5')->end()
+                            ->booleanNode('option_6')->end()
                         ->end()
                         ->validate()
                             ->ifTrue(function($v) {
@@ -128,7 +132,7 @@ class Configuration implements ConfigurationInterface
                         ],
                         'service_2' => [
                             'type' => 'type_b',
-                        ]
+                        ],
                     ])
                 ->end()
             ->end();
@@ -145,15 +149,79 @@ class Configuration implements ConfigurationInterface
                         ->arrayNode('type_a')
                             ->canBeUnset()
                             ->info('all type "a" services')
+                            ->useAttributeAsKey('name')
+                            ->prototype('array')
+                                ->children()
+                                    ->booleanNode('option_1')->end()
+                                    ->append(static::option_2())
+                                    ->booleanNode('option_4')->end()
+                                    ->append(static::option_6())
+                                ->end()
+                            ->end()
                         ->end()
-                    ->end()
-                    ->children()
                         ->arrayNode('type_b')
                             ->canBeUnset()
                             ->info('all type "b" services')
+                            ->useAttributeAsKey('name')
+                            ->prototype('array')
+                                ->children()
+                                    ->append(static::option_2())
+                                    ->booleanNode('option_3')->end()
+                                    ->booleanNode('option_5')->end()
+                                    ->append(static::option_6())
+                                ->end()
+                            ->end()
                         ->end()
                     ->end()
                 ->end()
             ->end();
+    }
+
+     private static function addServicesByTypeBis(ArrayNodeDefinition $root): void
+    {
+        $root
+            ->children()
+                ->arrayNode('services_by_type_bis')
+                    ->canBeUnset()
+                    ->info('info services by type')
+                    ->children()
+                        ->append(static::type('a')
+                            ->children()
+                                ->booleanNode('option_1')->end()
+                                ->append(static::option_2())
+                                ->booleanNode('option_4')->end()
+                                ->append(static::option_6())
+                            ->end()
+                        ->end())
+                        ->append(static::type('b')
+                            ->children()
+                                ->append(static::option_2())
+                                ->booleanNode('option_3')->end()
+                                ->booleanNode('option_5')->end()
+                                ->append(static::option_6())
+                            ->end()
+                        ->end())
+                    ->end()
+                ->end()
+            ->end();
+    }
+
+    private static function type(string $type): NodeDefinition {
+        return (new NodeBuilder())
+            ->arrayNode(sprintf('type_%s', $type))
+                ->canBeUnset()
+                ->info(sprintf('all type "%s" services', $type))
+                ->useAttributeAsKey('name')
+                ->prototype('array');
+    }
+
+    private static function option_2(): NodeDefinition {
+        return (new NodeBuilder())
+            ->booleanNode('option_2');
+    }
+
+    private static function option_6(): NodeDefinition {
+        return (new NodeBuilder())
+            ->booleanNode('option_6');
     }
 }
