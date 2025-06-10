@@ -1,5 +1,7 @@
 # Default configuration for extension with alias: "monolog_poc"
 monolog-poc:
+    use_microseconds:     true
+    channels:             []
     handlers:
 
         # All type "amqp" handlers
@@ -7,408 +9,326 @@ monolog-poc:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "browser_console" handlers
         browser_console:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "buffer" handlers
         buffer:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "chromephp" handlers
         chromephp:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "console" handlers
         console:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "cube" handlers
         cube:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "debug" handlers
         debug:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "deduplication" handlers
         deduplication:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "elastic_search" handlers
         elastic_search:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "elastica" handlers
         elastica:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "error_log" handlers
         error_log:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "filter" handlers
         filter:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "fingers_crossed" handlers
         fingers_crossed:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "firephp" handlers
         firephp:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "flowdock" handlers
         flowdock:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "gelf" handlers
         gelf:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "hipchat" handlers
         hipchat:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "insightops" handlers
         insightops:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "logentries" handlers
         logentries:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "loggly" handlers
         loggly:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "mongo" handlers
         mongo:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "native_mailer" handlers
         native_mailer:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "newrelic" handlers
         newrelic:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "null" handlers
         null:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "predis" handlers
         predis:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "pushover" handlers
         pushover:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "raven" handlers
         raven:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "redis" handlers
         redis:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "rollbar" handlers
         rollbar:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "rotating_file" handlers
         rotating_file:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "sentry" handlers
         sentry:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "server_log" handlers
         server_log:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "slack" handlers
         slack:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "slackbot" handlers
         slackbot:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "socket" handlers
         socket:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "stream" handlers
         stream:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "swift_mailer" handlers
         swift_mailer:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "symfony_mailer" handlers
         symfony_mailer:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "syslog" handlers
         syslog:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "telegram" handlers
         telegram:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
         # All type "test" handlers
         test:
 
             # Prototype
             name:
-                option_1:             ~
-                option_2:             ~
-                option_4:             ~
-                option_6:             ~
+                level:                DEBUG
+                bubble:               true
 
