@@ -19,13 +19,14 @@ cd monolog-bundle-dynamic-config-node-with-app-for-testing
 . install.sh
 ```
 
-- Activate `PocBundle` in the `app`:
+- Activate `PocBundle` and `MonologPocBundle` in the `app`:
 
 ```php
 // app/config/bundles.php
 return [
     // ...
     Local\Bundle\PocBundle\PocBundle::class => ['dev' => true],
+    Local\Bundle\MonologPocBundle\MonologPocBundle::class => ['dev' => true],
 ];
 ```
 

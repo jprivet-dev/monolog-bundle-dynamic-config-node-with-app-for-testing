@@ -94,6 +94,19 @@ function install_contributing_env() {
     composer require local/poc-bundle:@dev
 
     echo
+    echo "Get the MonologPocBundle Source Code"
+    echo "------------------------------------"
+
+    echo
+    echo "# Links dependencies of the app project to the local bundle"
+    echo
+
+    cd ${root}/app
+    # See https://getcomposer.org/doc/05-repositories.md#using-private-repositories
+    composer config repositories.monolog-poc-bundle path ../monolog-poc-bundle
+    composer require local/monolog-poc-bundle:@dev
+
+    echo
     echo "Utils"
     echo "-----"
 

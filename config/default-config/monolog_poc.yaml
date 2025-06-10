@@ -1,0 +1,107 @@
+# Default configuration for extension with alias: "monolog_poc"
+monolog-poc:
+
+    # info a
+    a:                    true
+
+    # info b
+    b:                    default
+
+    # info c
+    c:                    true
+
+    # info d
+    d:
+        sub_d:                true
+
+    # info e
+    e:
+        id:                   ~
+        host:                 ~
+        port:                 9200
+        transport:            ~
+        user:                 null
+        password:             null
+
+    # info f
+    f:
+        id:                   ~
+        host:                 ~
+        port:                 9200
+        transport:            ~
+
+    # info g
+    g:
+        id:                   ~
+        host:                 ~
+        port:                 9200
+        transport:            ~
+        user:                 null
+        password:             null
+
+    # info h
+    h:                    true
+
+    # info services
+    services:
+
+        # Examples:
+        # service_1:           { type: type_a }
+        # service_2:           { type: type_b }
+
+        # Prototype
+        name:
+            type:                 ~ # Required
+            option_1:             ~
+            option_2:             ~
+            option_3:             ~
+            option_4:             ~
+            option_5:             ~
+            option_6:             ~
+
+    # info services by type
+    services_by_type:
+
+        # all type "a" services
+        type_a:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # all type "b" services
+        type_b:
+
+            # Prototype
+            name:
+                option_2:             ~
+                option_3:             ~
+                option_5:             ~
+                option_6:             ~
+
+    # info services by type
+    services_by_type_bis:
+
+        # all type "a" services
+        type_a:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # all type "b" services
+        type_b:
+
+            # Prototype
+            name:
+                option_2:             ~
+                option_3:             ~
+                option_5:             ~
+                option_6:             ~
+

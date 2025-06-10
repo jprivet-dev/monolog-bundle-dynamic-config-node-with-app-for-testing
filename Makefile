@@ -34,6 +34,7 @@ default_config: ## [app] Generate in yaml files the default config values define
 	-make default_config_by_bundle BUNDLE=framework
 	-make default_config_by_bundle BUNDLE=monolog
 	-make default_config_by_bundle BUNDLE=poc
+	-make default_config_by_bundle BUNDLE=monolog_poc
 	-make default_config_by_bundle BUNDLE=security
 	-make default_config_by_bundle BUNDLE=sensiolabs_gotenberg
 	-make default_config_by_bundle BUNDLE=workflow
@@ -42,6 +43,7 @@ actual_config: ## [app] Generate in yaml files the actual config values used by 
 	-make actual_config_by_bundle BUNDLE=framework
 	-make actual_config_by_bundle BUNDLE=monolog
 	-make actual_config_by_bundle BUNDLE=poc
+	-make actual_config_by_bundle BUNDLE=monolog_poc
 	-make actual_config_by_bundle BUNDLE=security
 	-make actual_config_by_bundle BUNDLE=sensiolabs_gotenberg
 	-make actual_config_by_bundle BUNDLE=workflow
