@@ -1,69 +1,9 @@
 # Default configuration for extension with alias: "monolog_poc"
 monolog-poc:
+    handlers:
 
-    # info a
-    a:                    true
-
-    # info b
-    b:                    default
-
-    # info c
-    c:                    true
-
-    # info d
-    d:
-        sub_d:                true
-
-    # info e
-    e:
-        id:                   ~
-        host:                 ~
-        port:                 9200
-        transport:            ~
-        user:                 null
-        password:             null
-
-    # info f
-    f:
-        id:                   ~
-        host:                 ~
-        port:                 9200
-        transport:            ~
-
-    # info g
-    g:
-        id:                   ~
-        host:                 ~
-        port:                 9200
-        transport:            ~
-        user:                 null
-        password:             null
-
-    # info h
-    h:                    true
-
-    # info services
-    services:
-
-        # Examples:
-        # service_1:           { type: type_a }
-        # service_2:           { type: type_b }
-
-        # Prototype
-        name:
-            type:                 ~ # Required
-            option_1:             ~
-            option_2:             ~
-            option_3:             ~
-            option_4:             ~
-            option_5:             ~
-            option_6:             ~
-
-    # info services by type
-    services_by_type:
-
-        # all type "a" services
-        type_a:
+        # All type "amqp" handlers
+        amqp:
 
             # Prototype
             name:
@@ -72,21 +12,8 @@ monolog-poc:
                 option_4:             ~
                 option_6:             ~
 
-        # all type "b" services
-        type_b:
-
-            # Prototype
-            name:
-                option_2:             ~
-                option_3:             ~
-                option_5:             ~
-                option_6:             ~
-
-    # info services by type
-    services_by_type_bis:
-
-        # all type "a" services
-        type_a:
+        # All type "browser_console" handlers
+        browser_console:
 
             # Prototype
             name:
@@ -95,13 +22,393 @@ monolog-poc:
                 option_4:             ~
                 option_6:             ~
 
-        # all type "b" services
-        type_b:
+        # All type "buffer" handlers
+        buffer:
 
             # Prototype
             name:
+                option_1:             ~
                 option_2:             ~
-                option_3:             ~
-                option_5:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "chromephp" handlers
+        chromephp:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "console" handlers
+        console:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "cube" handlers
+        cube:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "debug" handlers
+        debug:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "deduplication" handlers
+        deduplication:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "elastic_search" handlers
+        elastic_search:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "elastica" handlers
+        elastica:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "error_log" handlers
+        error_log:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "filter" handlers
+        filter:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "fingers_crossed" handlers
+        fingers_crossed:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "firephp" handlers
+        firephp:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "flowdock" handlers
+        flowdock:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "gelf" handlers
+        gelf:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "hipchat" handlers
+        hipchat:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "insightops" handlers
+        insightops:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "logentries" handlers
+        logentries:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "loggly" handlers
+        loggly:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "mongo" handlers
+        mongo:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "native_mailer" handlers
+        native_mailer:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "newrelic" handlers
+        newrelic:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "null" handlers
+        null:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "predis" handlers
+        predis:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "pushover" handlers
+        pushover:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "raven" handlers
+        raven:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "redis" handlers
+        redis:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "rollbar" handlers
+        rollbar:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "rotating_file" handlers
+        rotating_file:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "sentry" handlers
+        sentry:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "server_log" handlers
+        server_log:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "slack" handlers
+        slack:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "slackbot" handlers
+        slackbot:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "socket" handlers
+        socket:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "stream" handlers
+        stream:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "swift_mailer" handlers
+        swift_mailer:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "symfony_mailer" handlers
+        symfony_mailer:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "syslog" handlers
+        syslog:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "telegram" handlers
+        telegram:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
+                option_6:             ~
+
+        # All type "test" handlers
+        test:
+
+            # Prototype
+            name:
+                option_1:             ~
+                option_2:             ~
+                option_4:             ~
                 option_6:             ~
 
