@@ -2,6 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
+use Local\Bundle\MonologPocBundle\DependencyInjection\Enum\HandlerTypes;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
@@ -45,6 +46,7 @@ class Configuration implements ConfigurationInterface
                     ->children()
                         ->append(static::level())
                         ->append(static::bubble())
+                        ->append(static::file_permissions())
                     ->end()
                 ->end();
 
@@ -57,13 +59,32 @@ class Configuration implements ConfigurationInterface
         return $handlers;
     }
 
+    // exclude redis, predis, fingers_crossed, deduplication, group, whatfailuregroup, fallbackgroup, sampling
     private static function level(): NodeDefinition
     {
         return (new NodeBuilder())->scalarNode('level')->defaultValue('DEBUG');
     }
 
+    // exclude redis, predis, sentry, sampling
     private static function bubble(): NodeDefinition
     {
         return (new NodeBuilder())->booleanNode('bubble')->defaultTrue();
+    }
+
+    // only stream, rotating_file
+    private static function file_permissions(): NodeDefinition
+    {
+        return (new NodeBuilder())->scalarNode('file_permission')
+            ->defaultNull()
+            ->beforeNormalization()
+                ->ifString()
+                ->then(function ($v) {
+                    if ('0' === substr($v, 0, 1)) {
+                        return octdec($v);
+                    }
+
+                    return (int) $v;
+                })
+            ->end();
     }
 }
