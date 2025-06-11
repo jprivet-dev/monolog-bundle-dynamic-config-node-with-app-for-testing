@@ -2,9 +2,9 @@
 
 namespace Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition;
 
-use Local\Bundle\MonologPocBundle\Definition\Builder\TreeBuilder;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 class ConsoleHandlerNodeDefinition implements HandlerNodeDefinitionInterface
 {
