@@ -2,10 +2,10 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
+use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
+use Local\Bundle\MonologPocBundle\Definition\Builder\TreeBuilder;
 use Local\Bundle\MonologPocBundle\DependencyInjection\Enum\HandlerTypes;
-use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
@@ -32,59 +32,32 @@ class Configuration implements ConfigurationInterface
 
     private static function handlers(): NodeDefinition
     {
-         $handlers = (new NodeBuilder())
-             ->arrayNode('handlers')
+        $handlers = (new NodeBuilder())
+            ->arrayNode('handlers')
                 ->canBeUnset();
 
-        foreach (HandlerTypes::cases() as $type) {
-            $handlerByType = (new NodeBuilder())
-                ->arrayNode($type->value)
-                ->canBeUnset()
-                ->info(sprintf('All type "%s" handlers', $type->value))
-                ->useAttributeAsKey('name')
-                ->prototype('array')
-                    ->children()
-                        ->append(static::level())
-                        ->append(static::bubble())
-                        ->append(static::file_permissions())
-                    ->end()
-                ->end();
+        foreach (HandlerTypes::cases() as $typeCase) {
+            $type = $typeCase->value;
+
+            if(!method_exists(Handler::class, $type)) {
+                throw new \RuntimeException(sprintf('Handler type "%s" does not exist.', $type));
+            }
 
             $handlers
                 ->children()
-                    ->append($handlerByType)
+                    ->append((new NodeBuilder())
+                        ->arrayNode($type)
+                        ->canBeUnset()
+                        ->info(sprintf('All type "%s" handlers', $type))
+                        ->useAttributeAsKey('name')
+                        ->prototype('array')
+                            ->children()
+                                ->appendArray(Handler::$type())
+                            ->end()
+                        ->end())
                 ->end();
         }
 
         return $handlers;
-    }
-
-    // exclude redis, predis, fingers_crossed, deduplication, group, whatfailuregroup, fallbackgroup, sampling
-    private static function level(): NodeDefinition
-    {
-        return (new NodeBuilder())->scalarNode('level')->defaultValue('DEBUG');
-    }
-
-    // exclude redis, predis, sentry, sampling
-    private static function bubble(): NodeDefinition
-    {
-        return (new NodeBuilder())->booleanNode('bubble')->defaultTrue();
-    }
-
-    // only stream, rotating_file
-    private static function file_permissions(): NodeDefinition
-    {
-        return (new NodeBuilder())->scalarNode('file_permission')
-            ->defaultNull()
-            ->beforeNormalization()
-                ->ifString()
-                ->then(function ($v) {
-                    if ('0' === substr($v, 0, 1)) {
-                        return octdec($v);
-                    }
-
-                    return (int) $v;
-                })
-            ->end();
     }
 }
