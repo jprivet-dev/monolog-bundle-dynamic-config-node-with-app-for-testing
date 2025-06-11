@@ -2,10 +2,11 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
+use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
+use Local\Bundle\MonologPocBundle\Definition\Builder\TreeBuilder;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Definition\Builder\NodeParentInterface;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
@@ -19,27 +20,26 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('use_microseconds')
                     ->defaultTrue()
-                    ->end()
+                ->end()
                 ->arrayNode('channels')
                     ->canBeUnset()
-                        ->prototype('scalar')->end()
+                    ->prototype('scalar')->end()
+                ->end()
+                ->arrayNode('handlers')
+                    ->canBeUnset()
+                    ->children()
+                        ->closure(static function(NodeBuilder $node): NodeParentInterface {
+                            foreach (HandlerType::cases() as $type) {
+                                $node->append(static::handlerNode($type));
+                            }
+
+                            return $node;
+                        })
                     ->end()
-                ->append(static::handlersNode())
+                ->end()
             ->end();
 
         return $treeBuilder;
-    }
-
-    private static function handlersNode(): ArrayNodeDefinition {
-        $node = (new TreeBuilder('handlers'))
-            ->getRootNode()
-            ->canBeUnset();
-
-        foreach (HandlerType::cases() as $type) {
-            $node->append(static::handlerNode($type));
-        }
-
-        return $node;
     }
 
 
