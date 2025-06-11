@@ -4,7 +4,7 @@ namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
 use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
 use Local\Bundle\MonologPocBundle\Definition\Builder\TreeBuilder;
-use Local\Bundle\MonologPocBundle\DependencyInjection\Enum\HandlerTypes;
+use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Symfony\Component\Config\Definition\Builder\NodeParentInterface;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -27,18 +27,8 @@ class Configuration implements ConfigurationInterface
                     ->canBeUnset()
                     ->children()
                         ->closure(static function(NodeBuilder $node): NodeParentInterface {
-                            foreach (HandlerTypes::cases() as $type) {
-                                $node
-                                    ->arrayNode($type->value)
-                                        ->canBeUnset()
-                                        ->info(sprintf('All type "%s" handlers', $type->value))
-                                        ->useAttributeAsKey('name')
-                                        ->prototype('array')
-                                            ->children()
-                                                //->appendArray(Handler::$type())
-                                            ->end()
-                                        ->end()
-                                    ->end();
+                            foreach (HandlerType::cases() as $type) {
+                                $node->handlerNode($type);
                             }
 
                             return $node;
