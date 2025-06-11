@@ -8,359 +8,239 @@ monolog-poc:
         amqp:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "browser_console" handlers
         browser_console:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "buffer" handlers
         buffer:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "chromephp" handlers
         chromephp:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "console" handlers
         console:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "cube" handlers
         cube:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "debug" handlers
         debug:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "deduplication" handlers
         deduplication:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "elastica" handlers
         elastica:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "elastic_search" handlers
         elastic_search:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "error_log" handlers
         error_log:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "fallbackgroup" handlers
         fallbackgroup:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "filter" handlers
         filter:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "fingers_crossed" handlers
         fingers_crossed:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "firephp" handlers
         firephp:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "gelf" handlers
         gelf:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "group" handlers
         group:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "hipchat" handlers
         hipchat:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "loggly" handlers
         loggly:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "mongo" handlers
         mongo:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "native_mailer" handlers
         native_mailer:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "newrelic" handlers
         newrelic:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "null" handlers
         null:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "predis" handlers
         predis:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "pushover" handlers
         pushover:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "raven" handlers
         raven:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "redis" handlers
         redis:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "rotating_file" handlers
         rotating_file:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "sentry" handlers
         sentry:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "slack" handlers
         slack:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "slackbot" handlers
         slackbot:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "slackwebhook" handlers
         slackwebhook:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "socket" handlers
         socket:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "stream" handlers
         stream:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "swift_mailer" handlers
         swift_mailer:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "symfony_mailer" handlers
         symfony_mailer:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "syslog" handlers
         syslog:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "syslogudp" handlers
         syslogudp:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "test" handlers
         test:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
         # All type "whatfailuregroup" handlers
         whatfailuregroup:
 
             # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
+            name:                 []
 
