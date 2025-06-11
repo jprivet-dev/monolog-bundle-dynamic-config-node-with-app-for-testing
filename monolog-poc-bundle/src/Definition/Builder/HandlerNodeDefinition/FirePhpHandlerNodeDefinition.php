@@ -15,6 +15,7 @@ class FirePhpHandlerNodeDefinition extends AbstractHandlerNodeDefinition
                 ->children()
                     ->append($this->option->level())
                     ->append($this->option->bubble())
+                    ->append($this->option->channels())
                 ->end()
             ->end();
     }

@@ -17,6 +17,7 @@ class ConsoleHandlerNodeDefinition extends AbstractHandlerNodeDefinition
                     ->append($this->option->level())
                     ->append($this->option->bubble())
                     ->append($this->option->console_formatter_options())
+                    ->append($this->option->channels())
                 ->end()
             ->end();
     }
