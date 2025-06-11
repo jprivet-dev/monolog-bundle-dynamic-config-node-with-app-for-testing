@@ -2,9 +2,9 @@
 
 namespace Local\Bundle\MonologPocBundle\Enum;
 
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\StreamHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\ConsoleHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FirePhpHandlerNodeDefinition;
+use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\StreamAbstractHandlerNodeDefinition;
+use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\ConsoleAbstractHandlerNodeDefinition;
+use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FirePhpAbstractHandlerNodeDefinition;
 
 enum HandlerType: string
 {
@@ -59,9 +59,9 @@ enum HandlerType: string
     public function getHandlerNodeDefinitionClass(): string
     {
         return match ($this) {
-            self::STREAM => StreamHandlerNodeDefinition::class,
-            self::CONSOLE => ConsoleHandlerNodeDefinition::class,
-            self::FIREPHP => FirePhpHandlerNodeDefinition::class,
+            self::STREAM => StreamAbstractHandlerNodeDefinition::class,
+            self::CONSOLE => ConsoleAbstractHandlerNodeDefinition::class,
+            self::FIREPHP => FirePhpAbstractHandlerNodeDefinition::class,
         };
     }
 }
