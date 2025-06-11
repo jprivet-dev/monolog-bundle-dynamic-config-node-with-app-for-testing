@@ -5,7 +5,7 @@ namespace Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
-class ConsoleAbstractHandlerNodeDefinition extends AbstractHandlerNodeDefinition
+class ConsoleHandlerNodeDefinition extends AbstractHandlerNodeDefinition
 {
     public function node(): NodeDefinition
     {
@@ -13,6 +13,10 @@ class ConsoleAbstractHandlerNodeDefinition extends AbstractHandlerNodeDefinition
             ->rootNodeByType(HandlerType::CONSOLE)
             ->prototype('array')
                 ->children()
+                    ->append($this->option->verbosity_levels())
+                    ->append($this->option->level())
+                    ->append($this->option->bubble())
+                    ->append($this->option->console_formatter_options())
                 ->end()
             ->end();
     }

@@ -8,17 +8,33 @@ monolog-poc:
         stream:
 
             # Prototype
-            name:                 []
+            name:
+                path:                 '%kernel.logs_dir%/%kernel.environment%.log'
+                level:                DEBUG
+                bubble:               true
+                file_permission:      null
+                use_locking:          false
 
         # All type "console" handlers
         console:
 
             # Prototype
-            name:                 []
+            name:
+                verbosity_levels:
+                    VERBOSITY_QUIET:      ERROR
+                    VERBOSITY_NORMAL:     WARNING
+                    VERBOSITY_VERBOSE:    NOTICE
+                    VERBOSITY_VERY_VERBOSE: INFO
+                    VERBOSITY_DEBUG:      DEBUG
+                level:                DEBUG
+                bubble:               true
+                console_formatter_options: []
 
         # All type "firephp" handlers
         firephp:
 
             # Prototype
-            name:                 []
+            name:
+                level:                DEBUG
+                bubble:               true
 
