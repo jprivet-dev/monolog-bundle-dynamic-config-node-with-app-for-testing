@@ -3,14 +3,17 @@
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
 
 use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
-use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class StreamHandlerConfiguration implements AddConfiguration
+class StreamHandlerConfiguration extends HandlerConfiguration
 {
     public function add(NodeBuilder $node): void
     {
         $node
-            ->booleanNode('option_3')->end()
-            ->booleanNode('option_5')->end();
+            ->append($this->options->path())
+            ->append($this->options->level())
+            ->append($this->options->bubble())
+            ->append($this->options->file_permission())
+            ->append($this->options->use_locking())
+            ->append($this->options->channels());
     }
 }

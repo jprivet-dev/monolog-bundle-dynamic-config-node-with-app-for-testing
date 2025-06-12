@@ -5,7 +5,7 @@ namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
-class HandlerOptionNodeDefinition
+class HandlerOptionsNodeDefinition
 {
     protected function node(): NodeBuilder
     {

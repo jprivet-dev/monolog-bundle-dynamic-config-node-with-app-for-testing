@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
-use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfigurationInterface;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 
@@ -26,8 +26,8 @@ class NodeBuilder extends BaseNodeBuilder
 
         $addConfiguration = new $class();
 
-        if (!$addConfiguration instanceof AddConfiguration) {
-            throw new \RuntimeException(\sprintf('Expected argument of type "%s", "%s" given', AddConfiguration::class, \get_debug_type($addConfiguration)));
+        if (!$addConfiguration instanceof AddConfigurationInterface) {
+            throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AddConfigurationInterface::class, \get_debug_type($addConfiguration)));
         }
 
         (new $class())->add($this);

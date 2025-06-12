@@ -10,17 +10,22 @@ use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FireP
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SwiftMailerHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SymfonyMailerHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\ConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\FirePhpHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\NativeMailerHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\RotatingFileHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\StreamHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\SwiftMailerHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\SymfonyMailerHandlerConfiguration;
 
 enum HandlerType: string
 {
     case STREAM = 'stream';
     case CONSOLE = 'console';
-#    case FIREPHP = 'firephp';
+    case FIREPHP = 'firephp';
 //    case BROWSER_CONSOLE = 'browser_console';
 //    case GELF = 'gelf';
 //    case CHROMEPHP = 'chromephp';
-#    case ROTATING_FILE = 'rotating_file';
+    case ROTATING_FILE = 'rotating_file';
 //    case MONGO = 'mongo';
 //    case ELASTIC_SEARCH = 'elastic_search';
 //    case ELASTICA = 'elastica';
@@ -35,9 +40,9 @@ enum HandlerType: string
 //    case FALLBACKGROUP = 'fallbackgroup';
 //    case SYSLOG = 'syslog';
 //    case SYSLOGUDP = 'syslogudp';
-#    case SWIFT_MAILER = 'swift_mailer';
-#    case NATIVE_MAILER = 'native_mailer';
-#    case SYMFONY_MAILER = 'symfony_mailer';
+    case SWIFT_MAILER = 'swift_mailer';
+    case NATIVE_MAILER = 'native_mailer';
+    case SYMFONY_MAILER = 'symfony_mailer';
 //    case SOCKET = 'socket';
 //    case PUSHOVER = 'pushover';
 //    case RAVEN = 'raven';
@@ -67,6 +72,11 @@ enum HandlerType: string
         return match ($this) {
             self::STREAM => StreamHandlerConfiguration::class,
             self::CONSOLE => ConsoleHandlerConfiguration::class,
+            self::FIREPHP => FirePhpHandlerConfiguration::class,
+            self::ROTATING_FILE => RotatingFileHandlerConfiguration::class,
+            self::SWIFT_MAILER => SwiftMailerHandlerConfiguration::class,
+            self::NATIVE_MAILER => NativeMailerHandlerConfiguration::class,
+            self::SYMFONY_MAILER => SymfonyMailerHandlerConfiguration::class,
         };
     }
 }
