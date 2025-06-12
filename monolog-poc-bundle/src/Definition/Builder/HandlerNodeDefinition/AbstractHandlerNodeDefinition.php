@@ -26,4 +26,6 @@ abstract class AbstractHandlerNodeDefinition
     }
 
     abstract public function node(): NodeDefinition;
+
+    abstract public function options(): NodeDefinition;
 }

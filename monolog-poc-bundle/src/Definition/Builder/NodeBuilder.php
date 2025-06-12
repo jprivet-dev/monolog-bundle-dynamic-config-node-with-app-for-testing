@@ -2,44 +2,51 @@
 
 namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 class NodeBuilder extends BaseNodeBuilder
 {
     public function closure(\Closure $closure): static
     {
-        return $closure($this);
+        $closure($this);
+
+        return $this;
     }
 
     /**
-     * Creates a child handler node.
+     * Add a configuration from a class.
      */
-    public function handlerNode(HandlerType $type): NodeDefinition
+    public function add(string $class): static
     {
-        $class = $this->getHandlerNodeDefinitionClass($type);
-        $node = (new $class())->node();
-        $this->append($node);
+        if (!class_exists($class)) {
+            throw new \RuntimeException(\sprintf('The class "%s" does not exist.', $class));
+        }
 
-        return $node;
+        $addConfiguration = new $class();
+
+        if (!$addConfiguration instanceof AddConfiguration) {
+            throw new \RuntimeException(\sprintf('Expected argument of type "%s", "%s" given', AddConfiguration::class, \get_debug_type($addConfiguration)));
+        }
+
+        (new $class())->add($this);
+
+        return $this;
     }
 
     /**
-     * Returns the class name of the handler node definition.
+     * Add a handler configuration from a type.
      */
-    protected function getHandlerNodeDefinitionClass(HandlerType $type): string
+    public function addHandler(HandlerType $type): static
     {
-        if (!$type->getHandlerNodeDefinitionClass()) {
-            throw new \RuntimeException(\sprintf('The handler node type "%s" is not registered.', $type->value));
+        if (!$type->getHandlerConfigurationClass()) {
+            throw new \RuntimeException(\sprintf('The handler configuration "%s" is not registered.', $type->value));
         }
 
-        $class = $type->getHandlerNodeDefinitionClass();
+        $class = $type->getHandlerConfigurationClass();
+        $this->add($class);
 
-        if (!class_exists($type->getHandlerNodeDefinitionClass())) {
-            throw new \RuntimeException(\sprintf('The handler node class "%s" does not exist.', $class));
-        }
-
-        return $class;
+        return $this;
     }
 }

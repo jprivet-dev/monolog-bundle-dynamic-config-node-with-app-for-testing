@@ -9,16 +9,18 @@ use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\Conso
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FirePhpHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SwiftMailerHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SymfonyMailerHandlerNodeDefinition;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\ConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\StreamHandlerConfiguration;
 
 enum HandlerType: string
 {
     case STREAM = 'stream';
     case CONSOLE = 'console';
-    case FIREPHP = 'firephp';
+#    case FIREPHP = 'firephp';
 //    case BROWSER_CONSOLE = 'browser_console';
 //    case GELF = 'gelf';
 //    case CHROMEPHP = 'chromephp';
-    case ROTATING_FILE = 'rotating_file';
+#    case ROTATING_FILE = 'rotating_file';
 //    case MONGO = 'mongo';
 //    case ELASTIC_SEARCH = 'elastic_search';
 //    case ELASTICA = 'elastica';
@@ -33,9 +35,9 @@ enum HandlerType: string
 //    case FALLBACKGROUP = 'fallbackgroup';
 //    case SYSLOG = 'syslog';
 //    case SYSLOGUDP = 'syslogudp';
-    case SWIFT_MAILER = 'swift_mailer';
-    case NATIVE_MAILER = 'native_mailer';
-    case SYMFONY_MAILER = 'symfony_mailer';
+#    case SWIFT_MAILER = 'swift_mailer';
+#    case NATIVE_MAILER = 'native_mailer';
+#    case SYMFONY_MAILER = 'symfony_mailer';
 //    case SOCKET = 'socket';
 //    case PUSHOVER = 'pushover';
 //    case RAVEN = 'raven';
@@ -60,16 +62,11 @@ enum HandlerType: string
 //    case TELEGRAM = 'telegram';
 //    case SAMPLING = 'sampling';
 
-    public function getHandlerNodeDefinitionClass(): string
+    public function getHandlerConfigurationClass(): string
     {
         return match ($this) {
-            self::STREAM => StreamHandlerNodeDefinition::class,
-            self::CONSOLE => ConsoleHandlerNodeDefinition::class,
-            self::FIREPHP => FirePhpHandlerNodeDefinition::class,
-            self::ROTATING_FILE => RotatingFileHandlerNodeDefinition::class,
-            self::SWIFT_MAILER => SwiftMailerHandlerNodeDefinition::class,
-            self::NATIVE_MAILER => NativeMailerHandlerNodeDefinition::class,
-            self::SYMFONY_MAILER => SymfonyMailerHandlerNodeDefinition::class,
+            self::STREAM => StreamHandlerConfiguration::class,
+            self::CONSOLE => ConsoleHandlerConfiguration::class,
         };
     }
 }

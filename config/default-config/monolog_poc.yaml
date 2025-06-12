@@ -9,81 +9,14 @@ monolog-poc:
 
             # Prototype
             name:
-                path:                 '%kernel.logs_dir%/%kernel.environment%.log'
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
-                use_locking:          false
-                channels:
-                    type:                 ~
-                    elements:             []
+                option_3:             ~
+                option_5:             ~
 
         # All type "console" handlers
         console:
 
             # Prototype
             name:
-                verbosity_levels:
-                    VERBOSITY_QUIET:      ERROR
-                    VERBOSITY_NORMAL:     WARNING
-                    VERBOSITY_VERBOSE:    NOTICE
-                    VERBOSITY_VERY_VERBOSE: INFO
-                    VERBOSITY_DEBUG:      DEBUG
-                level:                DEBUG
-                bubble:               true
-                console_formatter_options: []
-                channels:
-                    type:                 ~
-                    elements:             []
-
-        # All type "firephp" handlers
-        firephp:
-
-            # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-                channels:
-                    type:                 ~
-                    elements:             []
-
-        # All type "rotating_file" handlers
-        rotating_file:
-
-            # Prototype
-            name:
-                path:                 '%kernel.logs_dir%/%kernel.environment%.log'
-                level:                DEBUG
-                bubble:               true
-                file_permission:      null
-                use_locking:          false
-                filename_format:      '{filename}-{date}'
-                date_format:          Y-m-d
-                channels:
-                    type:                 ~
-                    elements:             []
-
-        # All type "swift_mailer" handlers
-        swift_mailer:
-
-            # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-
-        # All type "native_mailer" handlers
-        native_mailer:
-
-            # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
-
-        # All type "symfony_mailer" handlers
-        symfony_mailer:
-
-            # Prototype
-            name:
-                level:                DEBUG
-                bubble:               true
+                option_7:             ~
+                option_8:             ~
 
