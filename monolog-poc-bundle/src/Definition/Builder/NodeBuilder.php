@@ -3,6 +3,7 @@
 namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfigurationInterface;
+use Local\Bundle\MonologPocBundle\DependencyInjection\TemplateConfiguration;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 
@@ -46,6 +47,19 @@ class NodeBuilder extends BaseNodeBuilder
 
         $class = $type->getHandlerConfigurationClass();
         $this->add($class);
+
+        return $this;
+    }
+
+    public function template(string $name, mixed ...$arguments): static
+    {
+        $template = new TemplateConfiguration($this->parent);
+
+        if(!method_exists($template, $name)) {
+            throw new \RuntimeException(\sprintf('The method "%s()" on class "%s" is not defined.', $name, \get_debug_type($this->template)));
+        }
+
+        $template->$name(...$arguments);
 
         return $this;
     }

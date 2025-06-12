@@ -7,11 +7,12 @@ class ConsoleHandlerConfiguration extends HandlerConfiguration
     public function add(): void
     {
         $this->node
-            ->append($this->options->verbosity_levels())
-            ->append($this->options->level())
-            ->append($this->options->bubble())
-            ->append($this->options->console_formatter_options())
-            ->append($this->options->channels())
+            ->children()
+                ->template('verbosity_levels')
+                ->template('level')
+                ->template('bubble')
+                ->template('console_formatter_options')
+                ->template('channels')
         ;
     }
 }

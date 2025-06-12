@@ -43,9 +43,6 @@ monolog-poc:
             name:
                 level:                DEBUG
                 bubble:               true
-                channels:
-                    type:                 ~
-                    elements:             []
 
         # All "rotating_file" type handlers
         rotating_file:
@@ -77,9 +74,9 @@ monolog-poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
-                lazy:                 true
                 level:                DEBUG
                 bubble:               true
+                lazy:                 true
 
         # All "native_mailer" type handlers
         native_mailer:
@@ -95,9 +92,9 @@ monolog-poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
-                lazy:                 true
                 level:                DEBUG
                 bubble:               true
+                lazy:                 true
 
         # All "symfony_mailer" type handlers
         symfony_mailer:
@@ -113,7 +110,7 @@ monolog-poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
-                lazy:                 true
                 level:                DEBUG
                 bubble:               true
+                lazy:                 true
 
