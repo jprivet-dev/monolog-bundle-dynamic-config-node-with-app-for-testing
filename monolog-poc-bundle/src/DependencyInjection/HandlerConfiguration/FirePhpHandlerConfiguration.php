@@ -8,9 +8,8 @@ class FirePhpHandlerConfiguration extends HandlerConfiguration
     {
         $this->node
             ->children()
-                ->template('level')
-                ->template('bubble')
-                ->template('channel')
+                ->template('base')
+            ->end()
         ;
     }
 }

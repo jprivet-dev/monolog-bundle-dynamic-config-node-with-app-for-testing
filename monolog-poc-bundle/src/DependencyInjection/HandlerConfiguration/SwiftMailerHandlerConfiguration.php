@@ -11,6 +11,7 @@ class SwiftMailerHandlerConfiguration extends HandlerConfiguration
         $this->node
             ->children()
                 ->template('mailer', HandlerType::SWIFT_MAILER)
+            ->end()
         ;
     }
 }

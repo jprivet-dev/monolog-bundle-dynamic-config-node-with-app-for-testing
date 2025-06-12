@@ -56,7 +56,7 @@ class NodeBuilder extends BaseNodeBuilder
         $template = new TemplateConfiguration($this->parent);
 
         if(!method_exists($template, $name)) {
-            throw new \RuntimeException(\sprintf('The method "%s()" on class "%s" is not defined.', $name, \get_debug_type($this->template)));
+            throw new \RuntimeException(\sprintf('The method "%s()" on class "%s" is not defined.', $name, \get_debug_type($template)));
         }
 
         $template->$name(...$arguments);

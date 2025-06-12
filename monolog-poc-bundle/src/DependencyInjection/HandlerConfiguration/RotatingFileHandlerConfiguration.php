@@ -9,13 +9,13 @@ class RotatingFileHandlerConfiguration extends HandlerConfiguration
         $this->node
             ->children()
                 ->template('path')
-                ->template('level')
-                ->template('bubble')
                 ->template('file_permission')
                 ->template('use_locking')
-                ->template('filename_format')
-                ->template('date_format')
-                ->template('channels')
+                ->scalarNode('filename_format')->defaultValue('{filename}-{date}')->end()
+                ->scalarNode('date_format')->defaultValue('Y-m-d')->end()
+                ->scalarNode('max_files')->defaultValue(0)->end()
+                ->template('base')
+            ->end()
         ;
     }
 }

@@ -2,36 +2,37 @@
 
 namespace Local\Bundle\MonologPocBundle\Enum;
 
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\ConsoleHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FirePhpHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\NativeMailerHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\RotatingFileHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\StreamHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SwiftMailerHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SymfonyMailerHandlerNodeDefinition;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\BrowserConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\ChromePhpHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\ConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\ElasticsearchConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\FingerCrossedHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\FirePhpHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\GelfHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\MongoHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\NativeMailerHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\RotatingFileHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\SlackHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\StreamHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\SwiftMailerHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\SymfonyMailerHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\TelegramHandlerConfiguration;
 
 enum HandlerType: string
 {
     case STREAM = 'stream';
     case CONSOLE = 'console';
     case FIREPHP = 'firephp';
-//    case BROWSER_CONSOLE = 'browser_console';
-//    case GELF = 'gelf';
-//    case CHROMEPHP = 'chromephp';
+    case BROWSER_CONSOLE = 'browser_console';
+    case GELF = 'gelf';
+    case CHROMEPHP = 'chromephp';
     case ROTATING_FILE = 'rotating_file';
-//    case MONGO = 'mongo';
-//    case ELASTIC_SEARCH = 'elastic_search';
+    case MONGO = 'mongo';
+    case ELASTICSEARCH = 'elasticsearch';
 //    case ELASTICA = 'elastica';
 //    case REDIS = 'redis';
 //    case PREDIS = 'predis';
-//    case FINGERS_CROSSED = 'fingers_crossed';
+    case FINGERS_CROSSED = 'fingers_crossed';
 //    case FILTER = 'filter';
 //    case BUFFER = 'buffer';
 //    case DEDUPLICATION = 'deduplication';
@@ -49,7 +50,7 @@ enum HandlerType: string
 //    case SENTRY = 'sentry';
 //    case NEWRELIC = 'newrelic';
 //    case HIPCHAT = 'hipchat';
-//    case SLACK = 'slack';
+    case SLACK = 'slack';
 //    case SLACKWEBHOOK = 'slackwebhook';
 //    case SLACKBOT = 'slackbot';
 //    case CUBE = 'cube';
@@ -64,7 +65,7 @@ enum HandlerType: string
 //    case FLOWDOCK = 'flowdock';
 //    case ROLLBAR = 'rollbar';
 //    case SERVER_LOG = 'server_log';
-//    case TELEGRAM = 'telegram';
+    case TELEGRAM = 'telegram';
 //    case SAMPLING = 'sampling';
 
     public function getHandlerConfigurationClass(): string
@@ -73,10 +74,18 @@ enum HandlerType: string
             self::STREAM => StreamHandlerConfiguration::class,
             self::CONSOLE => ConsoleHandlerConfiguration::class,
             self::FIREPHP => FirePhpHandlerConfiguration::class,
+            self::BROWSER_CONSOLE => BrowserConsoleHandlerConfiguration::class,
+            self::GELF => GelfHandlerConfiguration::class,
             self::ROTATING_FILE => RotatingFileHandlerConfiguration::class,
+            self::MONGO => MongoHandlerConfiguration::class,
+            self::ELASTICSEARCH => ElasticsearchConsoleHandlerConfiguration::class,
+            self::FINGERS_CROSSED => FingerCrossedHandlerConfiguration::class,
+            self::CHROMEPHP => ChromePhpHandlerConfiguration::class,
             self::SWIFT_MAILER => SwiftMailerHandlerConfiguration::class,
             self::NATIVE_MAILER => NativeMailerHandlerConfiguration::class,
             self::SYMFONY_MAILER => SymfonyMailerHandlerConfiguration::class,
+            self::SLACK => SlackHandlerConfiguration::class,
+            self::TELEGRAM => TelegramHandlerConfiguration::class,
         };
     }
 }

@@ -10,10 +10,10 @@ monolog-poc:
             # Prototype
             name:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
-                level:                DEBUG
-                bubble:               true
                 file_permission:      null
                 use_locking:          false
+                level:                DEBUG
+                bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
@@ -29,9 +29,9 @@ monolog-poc:
                     VERBOSITY_VERBOSE:    NOTICE
                     VERBOSITY_VERY_VERBOSE: INFO
                     VERBOSITY_DEBUG:      DEBUG
+                console_formatter_options: []
                 level:                DEBUG
                 bubble:               true
-                console_formatter_options: []
                 channels:
                     type:                 ~
                     elements:             []
@@ -43,6 +43,47 @@ monolog-poc:
             name:
                 level:                DEBUG
                 bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "browser_console" type handlers
+        browser_console:
+
+            # Prototype
+            name:
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "gelf" type handlers
+        gelf:
+
+            # Prototype
+            name:
+                publisher:
+                    id:                   ~
+                    hostname:             ~
+                    port:                 12201
+                    chunk_size:           1420
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "chromephp" type handlers
+        chromephp:
+
+            # Prototype
+            name:
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
 
         # All "rotating_file" type handlers
         rotating_file:
@@ -50,15 +91,76 @@ monolog-poc:
             # Prototype
             name:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
-                level:                DEBUG
-                bubble:               true
                 file_permission:      null
                 use_locking:          false
                 filename_format:      '{filename}-{date}'
                 date_format:          Y-m-d
+                max_files:            0
+                level:                DEBUG
+                bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
+
+        # All "mongo" type handlers
+        mongo:
+
+            # Prototype
+            name:
+                mongo:
+                    id:                   ~
+                    host:                 ~
+                    port:                 27017
+                    user:                 ~
+                    pass:                 ~
+                    database:             monolog
+                    collection:           logs
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "elasticsearch" type handlers
+        elasticsearch:
+
+            # Prototype
+            name:
+                elasticsearch:
+                    id:                   ~
+                    host:                 ~
+                    port:                 9200
+                    transport:            Http
+                    user:                 null
+                    password:             null
+                index:                monolog
+                document_type:        logs
+                ignore_error:         false
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "fingers_crossed" type handlers
+        fingers_crossed:
+
+            # Prototype
+            name:
+                handler:              ~
+                action_level:         WARNING
+                activation_strategy:  null
+                stop_buffering:       true
+                passthru_level:       null
+                excluded_404s:        []
+                excluded_http_codes:
+
+                    # Prototype
+                    -
+                        code:                 ~
+                        urls:                 []
+                buffer_size:          0
+                bubble:               true
 
         # All "swift_mailer" type handlers
         swift_mailer:
@@ -74,9 +176,12 @@ monolog-poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
+                lazy:                 true
                 level:                DEBUG
                 bubble:               true
-                lazy:                 true
+                channels:
+                    type:                 ~
+                    elements:             []
 
         # All "native_mailer" type handlers
         native_mailer:
@@ -92,9 +197,12 @@ monolog-poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
+                lazy:                 true
                 level:                DEBUG
                 bubble:               true
-                lazy:                 true
+                channels:
+                    type:                 ~
+                    elements:             []
 
         # All "symfony_mailer" type handlers
         symfony_mailer:
@@ -110,7 +218,48 @@ monolog-poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
+                lazy:                 true
                 level:                DEBUG
                 bubble:               true
-                lazy:                 true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "slack" type handlers
+        slack:
+
+            # Prototype
+            name:
+                token:                ~
+                channel:              null
+                bot_name:             Monolog
+                icon_emoji:           null
+                use_attachment:       true
+                use_short_attachment: false
+                include_extra:        false
+                timeout:              ~
+                connection_timeout:   ~
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+        # All "telegram" type handlers
+        telegram:
+
+            # Prototype
+            name:
+                token:                ~
+                channel:              null
+                parse_mode:           null
+                disable_webpage_preview: null
+                disable_notification: null
+                split_long_messages:  false
+                delay_between_messages: false
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
 

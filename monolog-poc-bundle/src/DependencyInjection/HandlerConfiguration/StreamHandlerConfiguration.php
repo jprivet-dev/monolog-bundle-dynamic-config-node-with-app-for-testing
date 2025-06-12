@@ -9,11 +9,10 @@ class StreamHandlerConfiguration extends HandlerConfiguration
         $this->node
             ->children()
                 ->template('path')
-                ->template('level')
-                ->template('bubble')
                 ->template('file_permission')
                 ->template('use_locking')
-                ->template('channels')
+                ->template('base')
+            ->end()
         ;
     }
 }

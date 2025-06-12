@@ -11,6 +11,7 @@ class NativeMailerHandlerConfiguration extends HandlerConfiguration
         $this->node
             ->children()
                 ->template('mailer', HandlerType::NATIVE_MAILER)
+            ->end()
         ;
     }
 }

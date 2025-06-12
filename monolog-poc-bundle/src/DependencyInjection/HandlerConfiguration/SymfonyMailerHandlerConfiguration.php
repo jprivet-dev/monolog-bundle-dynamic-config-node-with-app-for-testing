@@ -11,6 +11,7 @@ class SymfonyMailerHandlerConfiguration extends HandlerConfiguration
         $this->node
             ->children()
                 ->template('mailer', HandlerType::SYMFONY_MAILER)
+            ->end()
         ;
     }
 }

@@ -15,6 +15,15 @@ class TemplateConfiguration
     {
     }
 
+    public function base(): void {
+        $this->node
+            ->children()
+                ->template('level')
+                ->template('bubble')
+                ->template('channels')
+            ->end();
+    }
+
     public function level(): void
     {
         $this->node
@@ -25,15 +34,6 @@ class TemplateConfiguration
     }
 
     public function bubble(): void
-    {
-        $this->node
-            ->children()
-                ->booleanNode('bubble')
-                ->defaultTrue()
-            ->end();
-    }
-
-    public function channel(): void
     {
         $this->node
             ->children()
@@ -150,22 +150,6 @@ class TemplateConfiguration
             ->end();
     }
 
-    public function filename_format(): void
-    {
-        $this->node
-            ->children()
-                ->scalarNode('filename_format')->defaultValue('{filename}-{date}')
-            ->end();
-    }
-
-    public function date_format(): void
-    {
-        $this->node
-            ->children()
-                ->scalarNode('date_format')->defaultValue('Y-m-d')
-            ->end();
-    }
-
     public function channels(): void
     {
         $this->node
@@ -262,10 +246,10 @@ class TemplateConfiguration
                         ->scalarNode('method')->defaultNull()->end()
                     ->end()
                 ->end()
-                ->template('level')
-                ->template('bubble')
                 ->booleanNode('lazy')->defaultValue(true)->end() // swift_mailer
+                ->template('base')
             ->end()
+            // TODO: adjust ifTrue conditions
             ->validate()
                 ->ifTrue(function ($v) use ($type) { return HandlerType::SWIFT_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])); })
                 ->thenInvalid('The sender, recipient and subject or an email prototype have to be specified to use a SwiftMailerHandler')

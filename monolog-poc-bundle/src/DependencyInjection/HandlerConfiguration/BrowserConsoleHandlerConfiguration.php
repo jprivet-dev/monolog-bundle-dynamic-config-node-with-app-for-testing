@@ -2,14 +2,12 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
 
-class ConsoleHandlerConfiguration extends HandlerConfiguration
+class BrowserConsoleHandlerConfiguration extends HandlerConfiguration
 {
     public function add(): void
     {
         $this->node
             ->children()
-                ->template('verbosity_levels')
-                ->template('console_formatter_options')
                 ->template('base')
             ->end()
         ;
