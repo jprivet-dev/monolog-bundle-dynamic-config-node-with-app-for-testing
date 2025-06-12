@@ -51,6 +51,15 @@ class NodeBuilder extends BaseNodeBuilder
         return $this;
     }
 
+    /**
+     * Usage:
+     *
+     *     $node = new NodeBuilder('name')
+     *         ->children()
+     *             ->template('myMethod') // Execute TemplateConfiguration::myMethod()
+     *         ->end()
+     *     ;
+     */
     public function template(string $name, mixed ...$arguments): static
     {
         $template = new TemplateConfiguration($this->parent);
