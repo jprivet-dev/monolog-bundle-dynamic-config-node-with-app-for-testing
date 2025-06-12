@@ -4,7 +4,7 @@ monolog-poc:
     channels:             []
     handlers:
 
-        # All type "stream" handlers
+        # All "stream" type handlers
         stream:
 
             # Prototype
@@ -18,7 +18,7 @@ monolog-poc:
                     type:                 ~
                     elements:             []
 
-        # All type "console" handlers
+        # All "console" type handlers
         console:
 
             # Prototype
@@ -36,7 +36,7 @@ monolog-poc:
                     type:                 ~
                     elements:             []
 
-        # All type "firephp" handlers
+        # All "firephp" type handlers
         firephp:
 
             # Prototype
@@ -47,7 +47,7 @@ monolog-poc:
                     type:                 ~
                     elements:             []
 
-        # All type "rotating_file" handlers
+        # All "rotating_file" type handlers
         rotating_file:
 
             # Prototype
@@ -63,7 +63,7 @@ monolog-poc:
                     type:                 ~
                     elements:             []
 
-        # All type "swift_mailer" handlers
+        # All "swift_mailer" type handlers
         swift_mailer:
 
             # Prototype
@@ -71,7 +71,7 @@ monolog-poc:
                 level:                DEBUG
                 bubble:               true
 
-        # All type "native_mailer" handlers
+        # All "native_mailer" type handlers
         native_mailer:
 
             # Prototype
@@ -79,7 +79,7 @@ monolog-poc:
                 level:                DEBUG
                 bubble:               true
 
-        # All type "symfony_mailer" handlers
+        # All "symfony_mailer" type handlers
         symfony_mailer:
 
             # Prototype

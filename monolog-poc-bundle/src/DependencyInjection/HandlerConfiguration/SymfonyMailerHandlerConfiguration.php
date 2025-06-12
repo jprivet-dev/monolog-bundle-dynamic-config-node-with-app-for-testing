@@ -2,17 +2,11 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
 
-use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
-use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfigurationInterface;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
-use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\VariableNodeDefinition;
-
 class SymfonyMailerHandlerConfiguration extends HandlerConfiguration
 {
-    public function add(NodeDefinition $node): void
+    public function add(): void
     {
-        $node
+        $this->node
             ->children()
                 ->scalarNode('from_email')->end() // swift_mailer, native_mailer, symfony_mailer and flowdock
                 ->arrayNode('to_email') // swift_mailer, native_mailer and symfony_mailer

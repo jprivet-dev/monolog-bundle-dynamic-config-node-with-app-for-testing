@@ -24,13 +24,13 @@ class NodeBuilder extends BaseNodeBuilder
             throw new \RuntimeException(\sprintf('The class "%s" does not exist.', $class));
         }
 
-        $addConfiguration = new $class();
+        $configuration = new $class($this->parent);
 
-        if (!$addConfiguration instanceof AddConfigurationInterface) {
-            throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AddConfigurationInterface::class, \get_debug_type($addConfiguration)));
+        if (!$configuration instanceof AddConfigurationInterface) {
+            throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AddConfigurationInterface::class, \get_debug_type($configuration)));
         }
 
-        (new $class())->add($this->parent);
+        $configuration->add();
 
         return $this;
     }
