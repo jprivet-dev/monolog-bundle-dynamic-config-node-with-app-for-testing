@@ -4,7 +4,7 @@ namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration
 
 class ElasticsearchConsoleHandlerConfiguration extends HandlerConfiguration
 {
-    public function add(): void
+    public function __invoke(): void
     {
         $this->node
             ->children()

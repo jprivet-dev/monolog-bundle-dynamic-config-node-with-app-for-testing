@@ -6,7 +6,7 @@ use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 
 class SwiftMailerHandlerConfiguration extends HandlerConfiguration
 {
-    public function add(): void
+    public function __invoke(): void
     {
         $this->node
             ->children()

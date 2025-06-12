@@ -31,7 +31,7 @@ class NodeBuilder extends BaseNodeBuilder
             throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AddConfigurationInterface::class, \get_debug_type($configuration)));
         }
 
-        $configuration->add();
+        $configuration();
 
         return $this;
     }
