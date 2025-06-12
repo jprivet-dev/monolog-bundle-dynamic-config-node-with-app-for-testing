@@ -2,11 +2,11 @@
 
 namespace Local\Bundle\MonologPocBundle\Enum;
 
+use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\ConsoleHandlerNodeDefinition;
+use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FirePhpHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\NativeMailerHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\RotatingFileHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\StreamHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\ConsoleHandlerNodeDefinition;
-use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\FirePhpHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SwiftMailerHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\Definition\Builder\HandlerNodeDefinition\SymfonyMailerHandlerNodeDefinition;
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\ConsoleHandlerConfiguration;

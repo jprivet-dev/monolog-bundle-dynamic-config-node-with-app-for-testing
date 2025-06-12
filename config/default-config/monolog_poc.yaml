@@ -84,6 +84,16 @@ monolog-poc:
 
             # Prototype
             name:
+                from_email:           ~
+                to_email:             []
+                subject:              ~
+                content_type:         null
+                headers:              []
+                mailer:               null
+                email_prototype:
+                    id:                   ~ # Required
+                    method:               null
+                lazy:                 true
                 level:                DEBUG
                 bubble:               true
 

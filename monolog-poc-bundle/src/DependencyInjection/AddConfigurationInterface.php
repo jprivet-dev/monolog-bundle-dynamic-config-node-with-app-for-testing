@@ -2,9 +2,9 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
-use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 interface AddConfigurationInterface
 {
-    public function add(NodeBuilder $node): void;
+    public function add(NodeDefinition $node): void;
 }
