@@ -173,8 +173,10 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
 ### Group configuration properties by handler type
 
 - Why?
-  - All properties of the 46 handlers are aligned in the configuration: as it stands, it's difficult to know which property is attached to which handler type (see [monolog.yaml](config/default-config/monolog.yaml)).
-  - Have a file generated with the `config:dump-reference` command, which is much more readable (example: [monolog_poc.yaml](config/default-config/monolog_poc.yaml)).
+  - All properties of the 46 handlers are aligned in the configuration: as it stands, it's difficult to know which property is attached to which handler type:
+    - See [monolog.yaml](config/default-config/monolog.yaml).
+  - Have a file generated with the `config:dump-reference` command, which is much more readable :
+    - See [monolog_poc.yaml](config/default-config/monolog_poc.yaml) (Contains the configuration of 17 of the original 46 handlers).
 - How?
   - Have a configuration prototype per handler type.
 
@@ -206,6 +208,13 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
     - we will be able to save a lot of time restructuring the configuration of the 46 handlers.
 - How?
   - Make good use of the enrichment mechanisms with the `NodeBuilder` and `NodeDefinition` classes.
+
+### Extract documentation from `Configuration.php`
+
+- Why?
+  - The documentation in the `Configuration.php` file header is not found in the `yaml` file generated with the `config:dump-reference` command.
+- How?
+  - Retrieve this documentation and dispatch it to the relevant handlers in the configuration.
 
 ## Resources
 
