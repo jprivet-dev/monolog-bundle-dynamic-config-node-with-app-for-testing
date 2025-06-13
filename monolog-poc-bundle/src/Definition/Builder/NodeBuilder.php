@@ -56,6 +56,7 @@ class NodeBuilder extends BaseNodeBuilder
      */
     public function template(string $name, mixed ...$arguments): static
     {
+        // TODO: Decouple that.
         $template = new TemplateConfiguration($this->parent);
 
         if (!method_exists($template, $name)) {
