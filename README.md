@@ -180,7 +180,7 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
 - How?
   - Have a configuration prototype per handler type.
 
-### Segment the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file
+### Segment the `Configuration.php` file
 
 - Why?
   - Make the configuration of the 46 handlers easier to read.
@@ -189,7 +189,7 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
   - Import handler configurations into the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file (e.g., `SymfonyMailerHandlerConfiguration`, using the `addConfiguration()` method).
   - Allow common nodes to be reused and limit duplication (using the `template()` method).
 
-### No longer break the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) read chain
+### No longer break the `Configuration.php` read chain
 
 - Why?
   - View the entire node hierarchy at a glance.
