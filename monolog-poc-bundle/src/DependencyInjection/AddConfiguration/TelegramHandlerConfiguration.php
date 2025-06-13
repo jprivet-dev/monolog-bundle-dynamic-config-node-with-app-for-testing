@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class TelegramHandlerConfiguration extends HandlerConfiguration
+class TelegramHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

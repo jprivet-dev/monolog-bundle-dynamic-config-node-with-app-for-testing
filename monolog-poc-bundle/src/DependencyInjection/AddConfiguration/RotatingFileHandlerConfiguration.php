@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class RotatingFileHandlerConfiguration extends HandlerConfiguration
+class RotatingFileHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

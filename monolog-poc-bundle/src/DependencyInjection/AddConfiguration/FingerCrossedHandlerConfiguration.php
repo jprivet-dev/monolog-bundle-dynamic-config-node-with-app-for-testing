@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class FingerCrossedHandlerConfiguration extends HandlerConfiguration
+class FingerCrossedHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

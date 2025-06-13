@@ -4,7 +4,7 @@ namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 
-class NativeMailerHandlerConfiguration extends HandlerConfiguration
+class NativeMailerHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

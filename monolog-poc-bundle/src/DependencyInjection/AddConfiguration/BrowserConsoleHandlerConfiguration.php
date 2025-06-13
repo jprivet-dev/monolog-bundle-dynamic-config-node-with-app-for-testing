@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class BrowserConsoleHandlerConfiguration extends HandlerConfiguration
+class BrowserConsoleHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

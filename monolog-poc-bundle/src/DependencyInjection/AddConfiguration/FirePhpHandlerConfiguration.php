@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class FirePhpHandlerConfiguration extends HandlerConfiguration
+class FirePhpHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class MongoHandlerConfiguration extends HandlerConfiguration
+class MongoHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class StreamHandlerConfiguration extends HandlerConfiguration
+class StreamHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {

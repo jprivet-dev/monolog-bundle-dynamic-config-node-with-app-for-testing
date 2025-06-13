@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class ElasticsearchConsoleHandlerConfiguration extends HandlerConfiguration
+class ElasticsearchConsoleHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {
