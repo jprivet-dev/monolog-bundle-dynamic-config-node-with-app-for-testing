@@ -1,6 +1,6 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 

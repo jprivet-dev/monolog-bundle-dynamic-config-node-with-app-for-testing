@@ -26,7 +26,7 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('handlers')
                     ->canBeUnset()
                     ->children()
-                        ->callable(static fn(NodeBuilder $node) => static::addHandlersByTypes($node))
+                        ->callable(static fn(NodeBuilder $node) => static::addHandlerConfigurationByTypes($node))
                     ->end()
                 ->end()
             ->end();
@@ -34,7 +34,7 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    static public function addHandlersByTypes(NodeBuilder $node): void {
+    static public function addHandlerConfigurationByTypes(NodeBuilder $node): void {
         foreach (HandlerType::cases() as $type) {
             $node
                 ->arrayNode($type->value)
@@ -43,7 +43,7 @@ class Configuration implements ConfigurationInterface
                     ->useAttributeAsKey('name')
                     ->prototype('array')
                         ->children()
-                            ->configuration(static::getHandlerConfigurationClassByType($type))
+                            ->addConfiguration(static::getHandlerConfigurationClassByType($type))
                         ->end()
                     ->end()
                 ->end();

@@ -1,8 +1,8 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class ChromePhpHandlerConfiguration extends HandlerConfiguration
+class BrowserConsoleHandlerConfiguration extends HandlerConfiguration
 {
     public function __invoke(): void
     {

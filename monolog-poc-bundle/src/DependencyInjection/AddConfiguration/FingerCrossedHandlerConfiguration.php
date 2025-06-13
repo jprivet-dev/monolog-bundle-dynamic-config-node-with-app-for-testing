@@ -1,6 +1,6 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
 class FingerCrossedHandlerConfiguration extends HandlerConfiguration
 {
@@ -54,7 +54,7 @@ class FingerCrossedHandlerConfiguration extends HandlerConfiguration
                 ->scalarNode('buffer_size')->defaultValue(0)->end() // fingers_crossed and buffer
                 ->template('bubble')
             ->end()
-            // TODO: adjust ifTrue conditions
+            // TODO: validate() from original MonologBundle/src/DependencyInjection/Configuration.php. Adjust ifTrue() conditions.
             ->validate()
                 ->ifTrue(function ($v) { return ('fingers_crossed' === $v['type'] || 'buffer' === $v['type'] || 'filter' === $v['type'] || 'sampling' === $v['type']) && empty($v['handler']); })
                 ->thenInvalid('The handler has to be specified to use a FingersCrossedHandler or BufferHandler or FilterHandler or SamplingHandler')

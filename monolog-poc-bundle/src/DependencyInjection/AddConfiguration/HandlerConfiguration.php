@@ -1,8 +1,7 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfigurationInterface;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\VariableNodeDefinition;

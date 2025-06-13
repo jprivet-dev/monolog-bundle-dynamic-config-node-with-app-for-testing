@@ -1,6 +1,6 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
 class SlackHandlerConfiguration extends HandlerConfiguration
 {
@@ -20,7 +20,7 @@ class SlackHandlerConfiguration extends HandlerConfiguration
                 ->template('level')
                 ->template('base')
             ->end()
-            // TODO: adjust ifTrue conditions
+            // TODO: validate() from original MonologBundle/src/DependencyInjection/Configuration.php. Adjust ifTrue() conditions.
             ->validate()
                 ->ifTrue(function ($v) { return 'slack' === $v['type'] && (empty($v['token']) || empty($v['channel'])); })
                 ->thenInvalid('The token and channel have to be specified to use a SlackHandler')

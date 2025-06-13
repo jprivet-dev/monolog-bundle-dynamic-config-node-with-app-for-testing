@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
-use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfigurationInterface;
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\AddConfigurationInterface;
 use Local\Bundle\MonologPocBundle\DependencyInjection\TemplateConfiguration;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 
@@ -16,17 +16,17 @@ class NodeBuilder extends BaseNodeBuilder
     }
 
     /**
-     * Appends a node definition from a configuration class.
+     * Add a configuration from a class.
      *
      * Usage:
      *
      *      $node = new NodeBuilder('name')
      *          ->children()
-     *              ->configuration(FooConfiguration::class) // Use FooConfiguration::class
+     *              ->addConfiguration(FooConfiguration::class)
      *          ->end()
      *      ;
      */
-    public function configuration(string $class, mixed ...$arguments): static
+    public function addConfiguration(string $class): static
     {
         if (!class_exists($class)) {
             throw new \RuntimeException(\sprintf('The class "%s" does not exist.', $class));
@@ -38,7 +38,7 @@ class NodeBuilder extends BaseNodeBuilder
             throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AddConfigurationInterface::class, \get_debug_type($configuration)));
         }
 
-        $configuration(...$arguments);
+        $configuration();
 
         return $this;
     }

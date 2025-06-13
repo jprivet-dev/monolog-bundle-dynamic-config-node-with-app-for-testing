@@ -2,6 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
+use Local\Bundle\MonologPocBundle\Definition\Builder\NodeDefinitionAwareInterface;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Monolog\Logger;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
@@ -9,7 +10,7 @@ use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\VariableNodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 
-class TemplateConfiguration
+class TemplateConfiguration implements NodeDefinitionAwareInterface
 {
     public function __construct(protected NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node)
     {
@@ -39,6 +40,72 @@ class TemplateConfiguration
             ->children()
                 ->booleanNode('bubble')
                 ->defaultTrue()
+            ->end();
+    }
+
+    public function channels(): void
+    {
+        $this->node
+            ->children()
+                ->arrayNode('channels')
+                    ->fixXmlConfig('channel', 'elements')
+                    ->canBeUnset()
+                    ->beforeNormalization()
+                        ->ifString()
+                        ->then(function ($v) { return ['elements' => [$v]]; })
+                    ->end()
+                    ->beforeNormalization()
+                        ->ifTrue(function ($v) { return \is_array($v) && is_numeric(key($v)); })
+                        ->then(function ($v) { return ['elements' => $v]; })
+                    ->end()
+                    ->validate()
+                        ->ifTrue(function ($v) { return empty($v); })
+                        ->thenUnset()
+                    ->end()
+                    ->validate()
+                        ->always(function ($v) {
+                            $isExclusive = null;
+                            if (isset($v['type'])) {
+                                $isExclusive = 'exclusive' === $v['type'];
+                            }
+
+                            $elements = [];
+                            foreach ($v['elements'] as $element) {
+                                if (0 === strpos($element, '!')) {
+                                    if (false === $isExclusive) {
+                                        throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channels list.');
+                                    }
+                                    $elements[] = substr($element, 1);
+                                    $isExclusive = true;
+                                } else {
+                                    if (true === $isExclusive) {
+                                        throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channels list');
+                                    }
+                                    $elements[] = $element;
+                                    $isExclusive = false;
+                                }
+                            }
+
+                            if (!\count($elements)) {
+                                return null;
+                            }
+
+                            // de-duplicating $elements here in case the handlers are redefined, see https://github.com/symfony/monolog-bundle/issues/433
+                            return ['type' => $isExclusive ? 'exclusive' : 'inclusive', 'elements' => array_unique($elements)];
+                        })
+                    ->end()
+                    ->children()
+                        ->scalarNode('type')
+                            ->validate()
+                                ->ifNotInArray(['inclusive', 'exclusive'])
+                                ->thenInvalid('The type of channels has to be inclusive or exclusive')
+                            ->end()
+                        ->end()
+                        ->arrayNode('elements')
+                            ->prototype('scalar')->end()
+                        ->end()
+                    ->end()
+                ->end()
             ->end();
     }
 
@@ -150,72 +217,6 @@ class TemplateConfiguration
             ->end();
     }
 
-    public function channels(): void
-    {
-        $this->node
-            ->children()
-                ->arrayNode('channels')
-                    ->fixXmlConfig('channel', 'elements')
-                    ->canBeUnset()
-                    ->beforeNormalization()
-                        ->ifString()
-                        ->then(function ($v) { return ['elements' => [$v]]; })
-                    ->end()
-                    ->beforeNormalization()
-                        ->ifTrue(function ($v) { return \is_array($v) && is_numeric(key($v)); })
-                        ->then(function ($v) { return ['elements' => $v]; })
-                    ->end()
-                    ->validate()
-                        ->ifTrue(function ($v) { return empty($v); })
-                        ->thenUnset()
-                    ->end()
-                    ->validate()
-                        ->always(function ($v) {
-                            $isExclusive = null;
-                            if (isset($v['type'])) {
-                                $isExclusive = 'exclusive' === $v['type'];
-                            }
-
-                            $elements = [];
-                            foreach ($v['elements'] as $element) {
-                                if (0 === strpos($element, '!')) {
-                                    if (false === $isExclusive) {
-                                        throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channels list.');
-                                    }
-                                    $elements[] = substr($element, 1);
-                                    $isExclusive = true;
-                                } else {
-                                    if (true === $isExclusive) {
-                                        throw new InvalidConfigurationException('Cannot combine exclusive/inclusive definitions in channels list');
-                                    }
-                                    $elements[] = $element;
-                                    $isExclusive = false;
-                                }
-                            }
-
-                            if (!\count($elements)) {
-                                return null;
-                            }
-
-                            // de-duplicating $elements here in case the handlers are redefined, see https://github.com/symfony/monolog-bundle/issues/433
-                            return ['type' => $isExclusive ? 'exclusive' : 'inclusive', 'elements' => array_unique($elements)];
-                        })
-                    ->end()
-                    ->children()
-                        ->scalarNode('type')
-                            ->validate()
-                                ->ifNotInArray(['inclusive', 'exclusive'])
-                                ->thenInvalid('The type of channels has to be inclusive or exclusive')
-                            ->end()
-                        ->end()
-                        ->arrayNode('elements')
-                            ->prototype('scalar')->end()
-                        ->end()
-                    ->end()
-                ->end()
-            ->end();
-    }
-
     public function mailer(HandlerType $type): void
     {
         $this->node
@@ -249,7 +250,7 @@ class TemplateConfiguration
                 ->booleanNode('lazy')->defaultValue(true)->end() // swift_mailer
                 ->template('base')
             ->end()
-            // TODO: adjust ifTrue conditions
+            // TODO: validate() from original MonologBundle/src/DependencyInjection/Configuration.php. Adjust ifTrue() conditions.
             ->validate()
                 ->ifTrue(function ($v) use ($type) { return HandlerType::SWIFT_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])); })
                 ->thenInvalid('The sender, recipient and subject or an email prototype have to be specified to use a SwiftMailerHandler')

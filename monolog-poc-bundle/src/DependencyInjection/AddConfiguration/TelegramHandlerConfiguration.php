@@ -1,6 +1,6 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
 class TelegramHandlerConfiguration extends HandlerConfiguration
 {
@@ -17,10 +17,11 @@ class TelegramHandlerConfiguration extends HandlerConfiguration
                 ->booleanNode('delay_between_messages')->defaultFalse()->end() // telegram
                 ->template('base')
             ->end()
-            // TODO: adjust ifTrue conditions
+            // TODO: validate() from original MonologBundle/src/DependencyInjection/Configuration.php. Adjust ifTrue() conditions.
             ->validate()
                 ->ifTrue(function ($v) { return 'telegram' === $v['type'] && (empty($v['token']) || empty($v['channel'])); })
                 ->thenInvalid('The token and channel have to be specified to use a TelegramBotHandler')
-            ->end()    ;
+            ->end()
+        ;
     }
 }
