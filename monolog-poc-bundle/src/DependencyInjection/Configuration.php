@@ -26,25 +26,41 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('handlers')
                     ->canBeUnset()
                     ->children()
-                        ->closure(static function(NodeBuilder $node): void {
-                            foreach (HandlerType::cases() as $type) {
-                                $node
-                                    ->arrayNode($type->value)
-                                        ->canBeUnset()
-                                        ->info(sprintf('All "%s" type handlers', $type->value))
-                                        ->useAttributeAsKey('name')
-                                        ->prototype('array')
-                                            ->children()
-                                                ->addHandler($type)
-                                            ->end()
-                                        ->end()
-                                    ->end();
-                            }
-                        })
+                        ->callable(static fn(NodeBuilder $node) => static::addHandlersByTypes($node))
                     ->end()
                 ->end()
             ->end();
 
         return $treeBuilder;
+    }
+
+    static public function addHandlersByTypes(NodeBuilder $node): void {
+        foreach (HandlerType::cases() as $type) {
+            $node
+                ->arrayNode($type->value)
+                    ->canBeUnset()
+                    ->info(sprintf('All "%s" type handlers', $type->value))
+                    ->useAttributeAsKey('name')
+                    ->prototype('array')
+                        ->children()
+                            ->configuration(static::getHandlerConfigurationClassByType($type))
+                        ->end()
+                    ->end()
+                ->end();
+        }
+    }
+
+    /**
+     * Add a handler configuration from a type.
+     */
+    static public function getHandlerConfigurationClassByType(HandlerType $type): string
+    {
+        $class = $type->getHandlerConfigurationClass();
+
+        if (!$class) {
+            throw new \RuntimeException(\sprintf('The handler configuration "%s" is not registered.', $type->value));
+        }
+
+        return $class;
     }
 }
