@@ -4,7 +4,7 @@ monolog_poc:
     channels:             []
     handlers:
 
-        # All "stream" type handlers
+        # All "stream" type handlers.
         stream:
 
             # Prototype
@@ -12,17 +12,24 @@ monolog_poc:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
                 file_permission:      null
                 use_locking:          false
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "console" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "console" type handlers.
         console:
 
             # Prototype
             name:
+
+                # Level => verbosity configuration.
                 verbosity_levels:
                     VERBOSITY_QUIET:      ERROR
                     VERBOSITY_NORMAL:     WARNING
@@ -30,35 +37,50 @@ monolog_poc:
                     VERBOSITY_VERY_VERBOSE: INFO
                     VERBOSITY_DEBUG:      DEBUG
                 console_formatter_options: []
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "firephp" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "firephp" type handlers.
         firephp:
 
             # Prototype
             name:
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "browser_console" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "browser_console" type handlers.
         browser_console:
 
             # Prototype
             name:
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "gelf" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "gelf" type handlers.
         gelf:
 
             # Prototype
@@ -68,24 +90,34 @@ monolog_poc:
                     hostname:             ~
                     port:                 12201
                     chunk_size:           1420
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "chromephp" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "chromephp" type handlers.
         chromephp:
 
             # Prototype
             name:
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "rotating_file" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "rotating_file" type handlers.
         rotating_file:
 
             # Prototype
@@ -95,39 +127,61 @@ monolog_poc:
                 use_locking:          false
                 filename_format:      '{filename}-{date}'
                 date_format:          Y-m-d
+
+                # Files to keep, defaults to zero (infinite).
                 max_files:            0
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "mongo" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "mongo" type handlers.
         mongo:
 
             # Prototype
             name:
                 mongo:
+
+                    # Optional if host is given.
                     id:                   ~
+
+                    # Database host name, optional if id is given.
                     host:                 ~
                     port:                 27017
                     user:                 ~
+
+                    # Mandatory only if user is present.
                     pass:                 ~
                     database:             monolog
                     collection:           logs
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "elasticsearch" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "elasticsearch" type handlers.
         elasticsearch:
 
             # Prototype
             name:
                 elasticsearch:
+
+                    # Optional if host is given.
                     id:                   ~
+
+                    # Elastic search host name, with scheme (e.g. "https://127.0.0.1:9200").
                     host:                 ~
                     port:                 9200
                     transport:            Http
@@ -136,53 +190,144 @@ monolog_poc:
                 index:                monolog
                 document_type:        logs
                 ignore_error:         false
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "fingers_crossed" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "elastica" type handlers.
+        elastica:
+
+            # Prototype
+            name:
+                elasticsearch:
+
+                    # Optional if host is given.
+                    id:                   ~
+
+                    # Elastic search host name - Do not prepend with http(s)://
+                    host:                 ~
+                    port:                 9200
+                    transport:            Http
+                    user:                 null
+                    password:             null
+                index:                monolog
+                document_type:        logs
+                ignore_error:         false
+
+                # Level name or int value, defaults to DEBUG.
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "fingers_crossed" type handlers.
         fingers_crossed:
 
             # Prototype
             name:
+
+                # The wrapped handler's name.
                 handler:              ~
+
+                # Minimum level or service id to activate the handler, defaults to WARNING.
                 action_level:         WARNING
+
+                # Minimum level or service id to activate the handler, defaults to WARNING.
                 activation_strategy:  null
-                stop_buffering:       true
-                passthru_level:       null
+
+                # If set, the strategy will be changed to one that excludes 404s coming from URLs matching any of those patterns.
                 excluded_404s:        []
+
+                # If set, the strategy will be changed to one that excludes specific HTTP codes (requires Symfony Monolog bridge 4.1+).
                 excluded_http_codes:
 
                     # Prototype
                     -
                         code:                 ~
                         urls:                 []
+
+                # Defaults to 0 (unlimited).
                 buffer_size:          0
+
+                # Bool to disable buffering once the handler has been activated, defaults to true.
+                stop_buffering:       true
+
+                # Level name or int value for messages to always flush, disabled by default.
+                passthru_level:       null
                 bubble:               true
 
-        # All "swift_mailer" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "filter" type handlers.
+        filter:
+
+            # Prototype
+            name:
+
+                # The wrapped handler's name.
+                handler:              ~
+
+                # List of levels to accept
+                accepted_levels:      []
+
+                # Minimum level to accept (only used if accepted_levels not specified).
+                min_level:            DEBUG
+
+                # Maximum level to accept (only used if accepted_levels not specified).
+                max_level:            EMERGENCY
+                bubble:               true
+
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "swift_mailer" type handlers.
         swift_mailer:
 
             # Prototype
             name:
+
+                # Optional if email_prototype is given.
                 from_email:           ~
+
+                # Optional if email_prototype is given.
                 to_email:             []
+
+                # Optional if email_prototype is given.
                 subject:              ~
                 content_type:         null
+
+                # Mailer service id, defaults to mailer.mailer.
                 mailer:               null
+
+                # Service id of a message, defaults to a default message with the three fields above.
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
                 lazy:                 true
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "native_mailer" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "native_mailer" type handlers.
         native_mailer:
 
             # Prototype
@@ -190,38 +335,64 @@ monolog_poc:
                 from_email:           ~
                 to_email:             []
                 subject:              ~
+
+                # Optional array containing additional headers: ['Foo: Bar', '...'].
                 headers:              []
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "symfony_mailer" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "symfony_mailer" type handlers.
         symfony_mailer:
 
             # Prototype
             name:
+
+                # Optional if email_prototype is given.
                 from_email:           ~
+
+                # Optional if email_prototype is given.
                 to_email:             []
+
+                # Optional if email_prototype is given.
                 subject:              ~
                 content_type:         null
+
+                # Mailer service id, defaults to mailer.mailer.
                 mailer:               null
+
+                # Service id of a message, defaults to a default message with the three fields above.
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "slack" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "slack" type handlers.
         slack:
 
             # Prototype
             name:
+
+                # Slack api token
                 token:                ~
+
+                # Channel name (with starting #).
                 channel:              null
                 bot_name:             Monolog
                 icon_emoji:           null
@@ -230,27 +401,76 @@ monolog_poc:
                 include_extra:        false
                 timeout:              ~
                 connection_timeout:   ~
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
 
-        # All "telegram" type handlers
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "rollbar" type handlers.
+        rollbar:
+
+            # Prototype
+            name:
+
+                # RollbarNotifier service (mandatory if token is not provided).
+                id:                   ~
+
+                # Rollbar api token (skip if you provide a RollbarNotifier service id).
+                token:                ~
+
+                # Config values from https://github.com/rollbar/rollbar-php#configuration-reference.
+                config:               []
+
+                # Level name or int value, defaults to DEBUG.
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+        # All "telegram" type handlers.
         telegram:
 
             # Prototype
             name:
+
+                # Telegram bot access token provided by BotFather.
                 token:                ~
+
+                # Telegram channel name.
                 channel:              null
+
+                # Optional the kind of formatting that is used for the message.
                 parse_mode:           null
+
+                # Disables link previews for links in the message.
                 disable_webpage_preview: null
+
+                # Sends the message silently. Users will receive a notification with no sound.
                 disable_notification: null
+
+                # Split messages longer than 4096 bytes into multiple messages.
                 split_long_messages:  false
+
+                # Adds a 1sec delay/sleep between sending split messages.
                 delay_between_messages: false
+
+                # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
                 bubble:               true
                 channels:
                     type:                 ~
                     elements:             []
+
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
 

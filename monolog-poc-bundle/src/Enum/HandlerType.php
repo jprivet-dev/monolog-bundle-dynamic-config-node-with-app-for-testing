@@ -5,12 +5,15 @@ namespace Local\Bundle\MonologPocBundle\Enum;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\BrowserConsoleHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\ChromePhpHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\ConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\ElasticaConsoleHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\ElasticsearchConsoleHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\FilterHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\FingerCrossedHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\FirePhpHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\GelfHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\MongoHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\NativeMailerHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\RollbarHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\RotatingFileHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\SlackHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\StreamHandlerConfiguration;
@@ -29,11 +32,11 @@ enum HandlerType: string
     case ROTATING_FILE = 'rotating_file';
     case MONGO = 'mongo';
     case ELASTICSEARCH = 'elasticsearch';
-//    case ELASTICA = 'elastica';
+    case ELASTICA = 'elastica';
 //    case REDIS = 'redis';
 //    case PREDIS = 'predis';
     case FINGERS_CROSSED = 'fingers_crossed';
-//    case FILTER = 'filter';
+    case FILTER = 'filter';
 //    case BUFFER = 'buffer';
 //    case DEDUPLICATION = 'deduplication';
 //    case GROUP = 'group';
@@ -63,7 +66,7 @@ enum HandlerType: string
 //    case LOGENTRIES = 'logentries';
 //    case INSIGHTOPS = 'insightops';
 //    case FLOWDOCK = 'flowdock';
-//    case ROLLBAR = 'rollbar';
+    case ROLLBAR = 'rollbar';
 //    case SERVER_LOG = 'server_log';
     case TELEGRAM = 'telegram';
 //    case SAMPLING = 'sampling';
@@ -79,12 +82,15 @@ enum HandlerType: string
             self::ROTATING_FILE => RotatingFileHandlerConfiguration::class,
             self::MONGO => MongoHandlerConfiguration::class,
             self::ELASTICSEARCH => ElasticsearchConsoleHandlerConfiguration::class,
+            self::ELASTICA => ElasticaConsoleHandlerConfiguration::class,
             self::FINGERS_CROSSED => FingerCrossedHandlerConfiguration::class,
+            self::FILTER => FilterHandlerConfiguration::class,
             self::CHROMEPHP => ChromePhpHandlerConfiguration::class,
             self::SWIFT_MAILER => SwiftMailerHandlerConfiguration::class,
             self::NATIVE_MAILER => NativeMailerHandlerConfiguration::class,
             self::SYMFONY_MAILER => SymfonyMailerHandlerConfiguration::class,
             self::SLACK => SlackHandlerConfiguration::class,
+            self::ROLLBAR => RollbarHandlerConfiguration::class,
             self::TELEGRAM => TelegramHandlerConfiguration::class,
         };
     }

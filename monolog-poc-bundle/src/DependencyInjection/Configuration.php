@@ -29,11 +29,12 @@ class Configuration implements ConfigurationInterface
                                 $node
                                     ->arrayNode($type->value)
                                         ->canBeUnset()
-                                        ->info(sprintf('All "%s" type handlers', $type->value))
+                                        ->info(sprintf('All "%s" type handlers.', $type->value))
                                         ->useAttributeAsKey('name')
                                         ->prototype('array')
                                             ->children()
                                                 ->addConfiguration(static::getHandlerConfigurationClassByType($type))
+                                                ->template('nested')
                                             ->end()
                                         ->end()
                                     ->end();

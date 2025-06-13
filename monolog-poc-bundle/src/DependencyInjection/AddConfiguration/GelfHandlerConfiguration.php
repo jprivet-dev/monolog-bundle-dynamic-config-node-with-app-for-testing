@@ -12,7 +12,7 @@ class GelfHandlerConfiguration extends AbstractAddConfiguration
                     ->canBeUnset()
                     ->beforeNormalization()
                         ->ifString()
-                        ->then(function ($v) { return ['id' => $v]; })
+                        ->then(static fn ($v) => ['id' => $v])
                     ->end()
                     ->children()
                         ->scalarNode('id')->end()
@@ -21,17 +21,15 @@ class GelfHandlerConfiguration extends AbstractAddConfiguration
                         ->scalarNode('chunk_size')->defaultValue(1420)->end()
                     ->end()
                     ->validate()
-                        ->ifTrue(function ($v) {
-                            return !isset($v['id']) && !isset($v['hostname']);
-                        })
+                        ->ifTrue(static fn ($v) => !isset($v['id']) && !isset($v['hostname']))
                         ->thenInvalid('What must be set is either the hostname or the id.')
                     ->end()
                 ->end()
                 ->template('base')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) { return 'gelf' === $v['type'] && !isset($v['publisher']); })
-                ->thenInvalid('The publisher has to be specified to use a GelfHandler')
+                ->ifTrue(static fn ($v) => 'gelf' === $v['type'] && !isset($v['publisher']))
+                ->thenInvalid('The publisher has to be specified to use a GelfHandler.')
             ->end()
         ;
     }

@@ -26,12 +26,24 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
+    public function nested(): void
+    {
+        $this->node
+            ->children()
+                ->booleanNode('nested')
+                    ->defaultFalse()
+                    ->info('All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.')
+                ->end()
+            ->end();
+    }
+
     public function level(): void
     {
         $this->node
             ->children()
                 ->scalarNode('level')
                 ->defaultValue('DEBUG')
+                ->info('Level name or int value, defaults to DEBUG.')
             ->end();
     }
 
@@ -110,6 +122,14 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
+    public function handler(): void
+    {
+        $this->node
+            ->children()
+                ->scalarNode('handler')->info('The wrapped handler\'s name.')->end()
+            ->end();
+    }
+
     public function file_permission(): void
     {
         $this->node
@@ -145,11 +165,20 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
+    public function id_host(): void
+    {
+        $this->node
+            ->children()
+                ->scalarNode('id')->info('Optional if host is given.')->end()
+            ->end();
+    }
+
     public function verbosity_levels(): void
     {
         $this->node
             ->children()
                 ->arrayNode('verbosity_levels') // console
+                    ->info('Level => verbosity configuration.')
                     ->beforeNormalization()
                         ->ifArray()
                         ->then(function ($v) {
@@ -220,24 +249,30 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
 
     public function mailer(HandlerType $type): void
     {
+        $infoOptional = in_array($type, [HandlerType::SWIFT_MAILER, HandlerType::SYMFONY_MAILER])
+            ? 'Optional if email_prototype is given.'
+            : '';
+
         $this->node
             ->children()
-                ->scalarNode('from_email')->end() // swift_mailer, native_mailer, symfony_mailer and flowdock
+                ->scalarNode('from_email')->info($infoOptional)->end() // swift_mailer, native_mailer, symfony_mailer and flowdock
                 ->arrayNode('to_email') // swift_mailer, native_mailer and symfony_mailer
                     ->prototype('scalar')->end()
+                    ->info($infoOptional)
                     ->beforeNormalization()
                         ->ifString()
                         ->then(function ($v) { return [$v]; })
                     ->end()
                 ->end()
-                ->scalarNode('subject')->end() // swift_mailer, native_mailer and symfony_mailer
+                ->scalarNode('subject')->info($infoOptional)->end() // swift_mailer, native_mailer and symfony_mailer
                 ->callable(static function(NodeBuilder $node) use ($type): void {
                     if(in_array($type, [HandlerType::SWIFT_MAILER, HandlerType::SYMFONY_MAILER])) {
                         $node
                             ->scalarNode('content_type')->defaultNull()->end() // swift_mailer and symfony_mailer
-                            ->scalarNode('mailer')->defaultNull()->end() // swift_mailer and symfony_mailer
+                            ->scalarNode('mailer')->defaultNull()->info('Mailer service id, defaults to mailer.mailer.')->end() // swift_mailer and symfony_mailer
                             ->arrayNode('email_prototype') // swift_mailer and symfony_mailer
                                 ->canBeUnset()
+                                ->info('Service id of a message, defaults to a default message with the three fields above.')
                                 ->beforeNormalization()
                                     ->ifString()
                                     ->then(function ($v) { return ['id' => $v]; })
@@ -259,6 +294,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                             ->arrayNode('headers') // native_mailer
                                 ->canBeUnset()
                                 ->scalarPrototype()->end()
+                                ->info("Optional array containing additional headers: ['Foo: Bar', '...'].")
                             ->end();
                     }
                 })

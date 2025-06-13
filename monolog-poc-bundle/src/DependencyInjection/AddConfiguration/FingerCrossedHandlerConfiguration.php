@@ -8,17 +8,17 @@ class FingerCrossedHandlerConfiguration extends AbstractAddConfiguration
     {
         $this->node
             ->children()
-                ->scalarNode('handler')->end() // fingers_crossed and buffer
-                ->scalarNode('action_level')->defaultValue('WARNING')->end() // fingers_crossed
-                ->scalarNode('activation_strategy')->defaultNull()->end() // fingers_crossed
-                ->booleanNode('stop_buffering')->defaultTrue()->end()// fingers_crossed
-                ->scalarNode('passthru_level')->defaultNull()->end() // fingers_crossed
+                ->template('handler')
+                ->scalarNode('action_level')->defaultValue('WARNING')->info('Minimum level or service id to activate the handler, defaults to WARNING.')->end() // fingers_crossed
+                ->scalarNode('activation_strategy')->defaultNull()->info('Minimum level or service id to activate the handler, defaults to WARNING.')->end() // fingers_crossed
                 ->arrayNode('excluded_404s') // fingers_crossed
                     ->canBeUnset()
                     ->prototype('scalar')->end()
+                    ->info('If set, the strategy will be changed to one that excludes 404s coming from URLs matching any of those patterns.')
                 ->end()
                 ->arrayNode('excluded_http_codes') // fingers_crossed
                     ->canBeUnset()
+                    ->info('If set, the strategy will be changed to one that excludes specific HTTP codes (requires Symfony Monolog bridge 4.1+).')
                     ->beforeNormalization()
                         ->always(function ($values) {
                             return array_map(function ($value) {
@@ -51,29 +51,26 @@ class FingerCrossedHandlerConfiguration extends AbstractAddConfiguration
                         ->end()
                     ->end()
                 ->end()
-                ->scalarNode('buffer_size')->defaultValue(0)->end() // fingers_crossed and buffer
+                ->scalarNode('buffer_size')->defaultValue(0)->info('Defaults to 0 (unlimited).')->end() // fingers_crossed and buffer
+                ->booleanNode('stop_buffering')->defaultTrue()->info('Bool to disable buffering once the handler has been activated, defaults to true.')->end()// fingers_crossed
+                ->scalarNode('passthru_level')->defaultNull()->info('Level name or int value for messages to always flush, disabled by default.')->end() // fingers_crossed
                 ->template('bubble')
             ->end()
-            // TODO: validate() from original MonologBundle/src/DependencyInjection/Configuration.php. Adjust ifTrue() conditions.
             ->validate()
-                ->ifTrue(function ($v) { return ('fingers_crossed' === $v['type'] || 'buffer' === $v['type'] || 'filter' === $v['type'] || 'sampling' === $v['type']) && empty($v['handler']); })
-                ->thenInvalid('The handler has to be specified to use a FingersCrossedHandler or BufferHandler or FilterHandler or SamplingHandler')
+                ->ifTrue(static fn ($v) => empty($v['handler']))
+                ->thenInvalid('The handler has to be specified to use a FingersCrossedHandler or BufferHandler or FilterHandler or SamplingHandler.')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) { return 'fingers_crossed' === $v['type'] && !empty($v['excluded_404s']) && !empty($v['activation_strategy']); })
-                ->thenInvalid('You can not use excluded_404s together with a custom activation_strategy in a FingersCrossedHandler')
+                ->ifTrue(static fn ($v) => !empty($v['excluded_404s']) && !empty($v['activation_strategy']))
+                ->thenInvalid('You can not use excluded_404s together with a custom activation_strategy in a FingersCrossedHandler.')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) { return 'fingers_crossed' === $v['type'] && !empty($v['excluded_http_codes']) && !empty($v['activation_strategy']); })
-                ->thenInvalid('You can not use excluded_http_codes together with a custom activation_strategy in a FingersCrossedHandler')
+                ->ifTrue(static fn ($v) => !empty($v['excluded_http_codes']) && !empty($v['activation_strategy']))
+                ->thenInvalid('You can not use excluded_http_codes together with a custom activation_strategy in a FingersCrossedHandler.')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) { return 'fingers_crossed' === $v['type'] && !empty($v['excluded_http_codes']) && !empty($v['excluded_404s']); })
-                ->thenInvalid('You can not use excluded_http_codes together with excluded_404s in a FingersCrossedHandler')
-            ->end()
-            ->validate()
-                ->ifTrue(function ($v) { return 'fingers_crossed' !== $v['type'] && (!empty($v['excluded_http_codes']) || !empty($v['excluded_404s'])); })
-                ->thenInvalid('You can only use excluded_http_codes/excluded_404s with a FingersCrossedHandler definition')
+                ->ifTrue(static fn ($v) => !empty($v['excluded_http_codes']) && !empty($v['excluded_404s']))
+                ->thenInvalid('You can not use excluded_http_codes together with excluded_404s in a FingersCrossedHandler.')
             ->end()
        ;
     }

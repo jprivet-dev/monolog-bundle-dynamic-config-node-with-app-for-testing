@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
-class ElasticsearchConsoleHandlerConfiguration extends AbstractAddConfiguration
+class ElasticaConsoleHandlerConfiguration extends AbstractAddConfiguration
 {
     public function __invoke(): void
     {
@@ -16,7 +16,7 @@ class ElasticsearchConsoleHandlerConfiguration extends AbstractAddConfiguration
                     ->end()
                     ->children()
                         ->template('id_host')
-                        ->scalarNode('host')->info('Elastic search host name, with scheme (e.g. "https://127.0.0.1:9200").')->end()
+                        ->scalarNode('host')->info('Elastic search host name - Do not prepend with http(s)://')->end()
                         ->scalarNode('port')->defaultValue(9200)->end()
                         ->scalarNode('transport')->defaultValue('Http')->end()
                         ->scalarNode('user')->defaultNull()->end()
