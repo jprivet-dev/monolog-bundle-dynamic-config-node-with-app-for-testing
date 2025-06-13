@@ -12,9 +12,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('monolog-poc');
-        $root = $treeBuilder->getRootNode();
-
-        $root
+        $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('use_microseconds')
                     ->defaultTrue()
@@ -26,7 +24,21 @@ class Configuration implements ConfigurationInterface
                 ->arrayNode('handlers')
                     ->canBeUnset()
                     ->children()
-                        ->callable(static fn(NodeBuilder $node) => static::addHandlerConfigurationByTypes($node))
+                        ->callable(static function(NodeBuilder $node): void {
+                            foreach (HandlerType::cases() as $type) {
+                                $node
+                                    ->arrayNode($type->value)
+                                        ->canBeUnset()
+                                        ->info(sprintf('All "%s" type handlers', $type->value))
+                                        ->useAttributeAsKey('name')
+                                        ->prototype('array')
+                                            ->children()
+                                                ->addConfiguration(static::getHandlerConfigurationClassByType($type))
+                                            ->end()
+                                        ->end()
+                                    ->end();
+                            }
+                        })
                     ->end()
                 ->end()
             ->end();
@@ -34,25 +46,6 @@ class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
-    static public function addHandlerConfigurationByTypes(NodeBuilder $node): void {
-        foreach (HandlerType::cases() as $type) {
-            $node
-                ->arrayNode($type->value)
-                    ->canBeUnset()
-                    ->info(sprintf('All "%s" type handlers', $type->value))
-                    ->useAttributeAsKey('name')
-                    ->prototype('array')
-                        ->children()
-                            ->addConfiguration(static::getHandlerConfigurationClassByType($type))
-                        ->end()
-                    ->end()
-                ->end();
-        }
-    }
-
-    /**
-     * Add a handler configuration from a type.
-     */
     static public function getHandlerConfigurationClassByType(HandlerType $type): string
     {
         $class = $type->getHandlerConfigurationClass();
