@@ -66,6 +66,14 @@ Symbolic links are created between :
     "symfony/monolog-bundle": "@dev"
   },
   "repositories": {
+    "monolog-poc-bundle": {
+      "type": "path",
+      "url": "../monolog-poc-bundle"
+    },
+    "alice": {
+      "type": "path",
+      "url": "../alice"
+    },
     "poc-bundle": {
       "type": "path",
       "url": "../poc-bundle"
@@ -84,7 +92,7 @@ Symbolic links are created between :
 
 ## Run tests
 
-### MonologBundle
+### `MonologBundle`
 
 ```shell
 cd monolog-bundle
@@ -92,7 +100,7 @@ composer update
 vendor/bin/simple-phpunit
 ```
 
-### PocBundle
+### `PocBundle`
 
 ```shell
 cd poc-bundle
@@ -106,7 +114,7 @@ At https://127.0.0.1:8000/, you'll see `You are using Symfony 7.2.x-DEV version`
 
 It's from the `php link` command in the `install.sh` script that the displayed version changes. For the moment, I don't know why!
 
-## What problem do we want to solve with MonologBundle?
+## What problem do we want to solve with `MonologBundle`?
 
 When you generate the default `MonologBundle` configuration, with the command `php bin/console config:dump monolog` (see output [config-dump-monolog.yaml](config-dump/config-dump-monolog.yaml)), all usable keys are attached to a single `handler` prototype.
 
@@ -149,7 +157,6 @@ Everything is being researched, and there is no definite choice yet. The configu
 
 The [poc-bundle](poc-bundle) is an area for experimentation, to easily present the possibilities, before applying these choices to https://github.com/jprivet-dev/monolog-bundle.
 
-
 | Configuration file          | See default config                                        
 |-----------------------------|----------------------------------------------------------- 
 | `framework.yaml`            | Yes                                                       
@@ -158,6 +165,47 @@ The [poc-bundle](poc-bundle) is an area for experimentation, to easily present t
 | `security.yaml`             | Yes                                                       
 | `sensiolabs_gotenberg.yaml` | Yes                                                       
 | `workflow.yaml`             | No extensions with configuration available for "workflow" 
+
+## `MonologPocBundle`: new structure of the `Configuration.php` file
+
+The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle` inherits the experiments of `PocBundle`).
+
+### Group configuration properties by handler type
+
+- Why?
+  - All properties of the 46 handlers are aligned in the configuration: as it stands, it's difficult to know which property is attached to which handler type (see [monolog.yaml](config/default-config/monolog.yaml)).
+  - Have a file generated with the `config:dump-reference` command, which is much more readable (example: [monolog_poc.yaml](config/default-config/monolog_poc.yaml)).
+- How?
+  - Have a configuration prototype per handler type.
+
+### Segment the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file
+
+- Why?
+  - Make the configuration of the 46 handlers easier to read.
+- How?
+  - Have one configuration file per handler. 
+  - Import handler configurations into the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file (e.g., `SymfonyMailerHandlerConfiguration`, using the `addConfiguration()` method).
+  - Allow common nodes to be reused and limit duplication (using the `template()` method).
+
+### No longer break the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) read chain
+
+- Why?
+  - View the entire node hierarchy at a glance.
+- How?
+  - Do not retrieve child nodes to enrich in a variable.
+  - Provide the ability to enrich a child node directly in the configuration chain (with the `addConfiguration()`, `template()`, or `callable()` methods).
+  - If the `Config` component builders are limited, extend them to the bare minimum.
+
+### Reuse part of the `MonologBundle` configuration
+
+- Why?
+  - `MonologBundle` is a very rich bundle and has already covered a good portion of the configuration and validation subtleties of the various handlers.
+  - If integrating the original `MonologBundle` configurations remains easy, then this will mean that...:
+    - we will be able to rely on common configuration practices and make them easier for developers to understand.
+    - we will be able to easily evolve and adapt the configurations.
+    - we will be able to save a lot of time restructuring the configuration of the 46 handlers.
+- How?
+  - Make good use of the enrichment mechanisms with the `NodeBuilder` and `NodeDefinition` classes.
 
 ## Resources
 
