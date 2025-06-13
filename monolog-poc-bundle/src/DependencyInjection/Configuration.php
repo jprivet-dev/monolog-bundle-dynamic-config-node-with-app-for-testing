@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('monolog-poc');
+        $treeBuilder = new TreeBuilder('monolog_poc');
         $treeBuilder->getRootNode()
             ->children()
                 ->scalarNode('use_microseconds')

@@ -1,5 +1,5 @@
 # Default configuration for extension with alias: "monolog_poc"
-monolog-poc:
+monolog_poc:
     use_microseconds:     true
     channels:             []
     handlers:
@@ -171,7 +171,6 @@ monolog-poc:
                 to_email:             []
                 subject:              ~
                 content_type:         null
-                headers:              []
                 mailer:               null
                 email_prototype:
                     id:                   ~ # Required
@@ -191,13 +190,7 @@ monolog-poc:
                 from_email:           ~
                 to_email:             []
                 subject:              ~
-                content_type:         null
                 headers:              []
-                mailer:               null
-                email_prototype:
-                    id:                   ~ # Required
-                    method:               null
-                lazy:                 true
                 level:                DEBUG
                 bubble:               true
                 channels:
@@ -213,12 +206,10 @@ monolog-poc:
                 to_email:             []
                 subject:              ~
                 content_type:         null
-                headers:              []
                 mailer:               null
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
-                lazy:                 true
                 level:                DEBUG
                 bubble:               true
                 channels:

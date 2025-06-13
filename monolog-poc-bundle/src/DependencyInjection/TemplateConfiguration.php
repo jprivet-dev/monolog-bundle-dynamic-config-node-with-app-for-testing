@@ -2,6 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection;
 
+use Local\Bundle\MonologPocBundle\Definition\Builder\NodeBuilder;
 use Local\Bundle\MonologPocBundle\Definition\Builder\NodeDefinitionAwareInterface;
 use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Monolog\Logger;
@@ -230,37 +231,49 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                     ->end()
                 ->end()
                 ->scalarNode('subject')->end() // swift_mailer, native_mailer and symfony_mailer
-                ->scalarNode('content_type')->defaultNull()->end() // swift_mailer and symfony_mailer
-                ->arrayNode('headers') // native_mailer
-                    ->canBeUnset()
-                    ->scalarPrototype()->end()
-                ->end()
-                ->scalarNode('mailer')->defaultNull()->end() // swift_mailer and symfony_mailer
-                ->arrayNode('email_prototype') // swift_mailer and symfony_mailer
-                    ->canBeUnset()
-                    ->beforeNormalization()
-                        ->ifString()
-                        ->then(function ($v) { return ['id' => $v]; })
-                    ->end()
-                    ->children()
-                        ->scalarNode('id')->isRequired()->end()
-                        ->scalarNode('method')->defaultNull()->end()
-                    ->end()
-                ->end()
-                ->booleanNode('lazy')->defaultValue(true)->end() // swift_mailer
+                ->callable(static function(NodeBuilder $node) use ($type): void {
+                    if(in_array($type, [HandlerType::SWIFT_MAILER, HandlerType::SYMFONY_MAILER])) {
+                        $node
+                            ->scalarNode('content_type')->defaultNull()->end() // swift_mailer and symfony_mailer
+                            ->scalarNode('mailer')->defaultNull()->end() // swift_mailer and symfony_mailer
+                            ->arrayNode('email_prototype') // swift_mailer and symfony_mailer
+                                ->canBeUnset()
+                                ->beforeNormalization()
+                                    ->ifString()
+                                    ->then(function ($v) { return ['id' => $v]; })
+                                ->end()
+                                ->children()
+                                    ->scalarNode('id')->isRequired()->end()
+                                    ->scalarNode('method')->defaultNull()->end()
+                                ->end()
+                            ->end();
+                    }
+
+                    if ($type === HandlerType::SWIFT_MAILER) {
+                        $node
+                            ->booleanNode('lazy')->defaultValue(true)->end(); // swift_mailer
+                    }
+
+                    if ($type === HandlerType::NATIVE_MAILER) {
+                        $node
+                            ->arrayNode('headers') // native_mailer
+                                ->canBeUnset()
+                                ->scalarPrototype()->end()
+                            ->end();
+                    }
+                })
                 ->template('base')
             ->end()
-            // TODO: validate() from original MonologBundle/src/DependencyInjection/Configuration.php. Adjust ifTrue() conditions.
             ->validate()
-                ->ifTrue(function ($v) use ($type) { return HandlerType::SWIFT_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])); })
+                ->ifTrue(static fn ($v): bool => HandlerType::SWIFT_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])))
                 ->thenInvalid('The sender, recipient and subject or an email prototype have to be specified to use a SwiftMailerHandler')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) use ($type) { return HandlerType::NATIVE_MAILER === $type && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])); })
+                ->ifTrue(static fn ($v): bool => HandlerType::NATIVE_MAILER === $type && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])))
                 ->thenInvalid('The sender, recipient and subject have to be specified to use a NativeMailerHandler')
             ->end()
             ->validate()
-                ->ifTrue(function ($v) use ($type) { return HandlerType::SYMFONY_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])); })
+                ->ifTrue(static fn ($v): bool => HandlerType::SYMFONY_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])))
                 ->thenInvalid('The sender, recipient and subject or an email prototype have to be specified to use the Symfony MailerHandler')
             ->end()
         ;
