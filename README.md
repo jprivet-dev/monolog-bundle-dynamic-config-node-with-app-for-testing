@@ -212,7 +212,7 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
 ### Extract documentation from `Configuration.php`
 
 - Why?
-  - The documentation in the `Configuration.php` file header is not found in the `yaml` file generated with the `config:dump-reference` command.
+  - The documentation in the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file header is not found in the `yaml` file generated with the `config:dump-reference` command.
 - How?
   - Retrieve this documentation and dispatch it to the relevant handlers in the configuration.
 
