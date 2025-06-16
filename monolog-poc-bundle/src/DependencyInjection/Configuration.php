@@ -21,7 +21,7 @@ class Configuration implements ConfigurationInterface
                     ->canBeUnset()
                     ->prototype('scalar')->end()
                 ->end()
-                ->arrayNode('handlers')
+                ->arrayNode('handlers_by_type')
                     ->canBeUnset()
                     ->children()
                         ->callable(static function(NodeBuilder $node): void {
@@ -39,6 +39,29 @@ class Configuration implements ConfigurationInterface
                                         ->end()
                                     ->end();
                             }
+                        })
+                    ->end()
+                ->end()
+                ->arrayNode('handlers')
+                    ->canBeUnset()
+                    ->useAttributeAsKey('name')
+                    ->validate()
+                        ->ifTrue(function ($v) { return isset($v['debug']); })
+                        ->thenInvalid('The "debug" name cannot be used as it is reserved for the handler of the profiler')
+                    ->end()
+                    ->prototype('array')
+                    ->children()
+                        ->scalarNode('type')
+                            ->isRequired()
+                            ->treatNullLike('null')
+                            ->beforeNormalization()
+                                ->always()
+                                ->then(static function ($v): string {
+                                    return strtolower($v);
+                                })
+                            ->end()
+                        ->end()
+                        ->callable(static function(NodeBuilder $node): void {
                         })
                     ->end()
                 ->end()

@@ -2,7 +2,7 @@
 monolog_poc:
     use_microseconds:     true
     channels:             []
-    handlers:
+    handlers_by_type:
 
         # All "stream" type handlers.
         stream:
@@ -473,4 +473,12 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+    handlers:
+
+        # Prototype
+        name:
+            type:                 ~ # Required
+
+            # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+            nested:               false
 
