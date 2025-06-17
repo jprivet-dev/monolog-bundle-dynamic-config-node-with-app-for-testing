@@ -528,7 +528,6 @@ monolog_poc:
             # "service" type handler (one type of handler per name and per environment).
             service:
                 id:                   ~
-                formatter:            ~
                 process_psr_3_messages:
                     enabled:              null
                     date_format:          ~

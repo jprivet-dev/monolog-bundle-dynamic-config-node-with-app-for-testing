@@ -9,7 +9,6 @@ class ServiceHandlerConfiguration extends AbstractAddConfiguration
         $this->node
             ->children()
                 ->scalarNode('id')->end()
-                ->scalarNode('formatter')->end()
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => empty($v['formatter']))
