@@ -11,7 +11,6 @@ class StreamHandlerConfiguration extends AbstractAddConfiguration
                 ->template('path')
                 ->template('file_permission')
                 ->template('use_locking')
-                ->template('base')
             ->end()
         ;
     }

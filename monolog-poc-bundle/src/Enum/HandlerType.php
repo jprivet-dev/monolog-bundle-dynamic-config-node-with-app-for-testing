@@ -15,6 +15,7 @@ use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\MongoHand
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\NativeMailerHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\RollbarHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\RotatingFileHandlerConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\ServiceHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\SlackHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\StreamHandlerConfiguration;
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\SwiftMailerHandlerConfiguration;
@@ -70,6 +71,7 @@ enum HandlerType: string
 //    case SERVER_LOG = 'server_log';
     case TELEGRAM = 'telegram';
 //    case SAMPLING = 'sampling';
+    case SERVICE = 'service';
 
     public function getHandlerConfigurationClass(): string
     {
@@ -92,6 +94,7 @@ enum HandlerType: string
             self::SLACK => SlackHandlerConfiguration::class,
             self::ROLLBAR => RollbarHandlerConfiguration::class,
             self::TELEGRAM => TelegramHandlerConfiguration::class,
+            self::SERVICE => ServiceHandlerConfiguration::class,
         };
     }
 }

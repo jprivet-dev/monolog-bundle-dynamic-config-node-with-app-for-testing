@@ -8,7 +8,6 @@ class ChromePhpHandlerConfiguration extends AbstractAddConfiguration
     {
         $this->node
             ->children()
-                ->template('base')
             ->end()
         ;
     }

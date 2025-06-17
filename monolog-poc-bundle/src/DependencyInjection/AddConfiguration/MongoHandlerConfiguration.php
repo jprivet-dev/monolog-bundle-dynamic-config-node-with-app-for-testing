@@ -32,7 +32,6 @@ class MongoHandlerConfiguration extends AbstractAddConfiguration
                         ->thenInvalid('If you set user, you must provide a password.')
                     ->end()
                 ->end()
-                ->template('base')
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => !isset($v['mongo']))

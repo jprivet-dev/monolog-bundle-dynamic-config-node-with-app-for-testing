@@ -6,10 +6,17 @@ monolog_poc:
 
         # Prototype
         name:
+
+            # "stream" type handler (one type of handler per name and per environment).
             stream:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
                 file_permission:      null
                 use_locking:          false
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -20,6 +27,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "console" type handler (one type of handler per name and per environment).
             console:
 
                 # Level => verbosity configuration.
@@ -30,6 +39,11 @@ monolog_poc:
                     VERBOSITY_VERY_VERBOSE: INFO
                     VERBOSITY_DEBUG:      DEBUG
                 console_formatter_options: []
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -40,7 +54,14 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "firephp" type handler (one type of handler per name and per environment).
             firephp:
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -51,7 +72,14 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "browser_console" type handler (one type of handler per name and per environment).
             browser_console:
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -62,12 +90,19 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "gelf" type handler (one type of handler per name and per environment).
             gelf:
                 publisher:
                     id:                   ~
                     hostname:             ~
                     port:                 12201
                     chunk_size:           1420
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -78,7 +113,14 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "chromephp" type handler (one type of handler per name and per environment).
             chromephp:
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -89,6 +131,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "rotating_file" type handler (one type of handler per name and per environment).
             rotating_file:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
                 file_permission:      null
@@ -98,6 +142,11 @@ monolog_poc:
 
                 # Files to keep, defaults to zero (infinite).
                 max_files:            0
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -108,6 +157,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "mongo" type handler (one type of handler per name and per environment).
             mongo:
                 mongo:
 
@@ -123,6 +174,11 @@ monolog_poc:
                     pass:                 ~
                     database:             monolog
                     collection:           logs
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -133,6 +189,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "elasticsearch" type handler (one type of handler per name and per environment).
             elasticsearch:
                 elasticsearch:
 
@@ -148,6 +206,11 @@ monolog_poc:
                 index:                monolog
                 document_type:        logs
                 ignore_error:         false
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -158,6 +221,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "elastica" type handler (one type of handler per name and per environment).
             elastica:
                 elasticsearch:
 
@@ -173,6 +238,11 @@ monolog_poc:
                 index:                monolog
                 document_type:        logs
                 ignore_error:         false
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -183,6 +253,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "fingers_crossed" type handler (one type of handler per name and per environment).
             fingers_crossed:
 
                 # The wrapped handler's name.
@@ -214,6 +286,11 @@ monolog_poc:
                 # Level name or int value for messages to always flush, disabled by default.
                 passthru_level:       null
                 bubble:               true
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -223,6 +300,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "filter" type handler (one type of handler per name and per environment).
             filter:
 
                 # The wrapped handler's name.
@@ -237,6 +316,11 @@ monolog_poc:
                 # Maximum level to accept (only used if accepted_levels not specified).
                 max_level:            EMERGENCY
                 bubble:               true
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -246,6 +330,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "swift_mailer" type handler (one type of handler per name and per environment).
             swift_mailer:
 
                 # Optional if email_prototype is given.
@@ -266,6 +352,11 @@ monolog_poc:
                     id:                   ~ # Required
                     method:               null
                 lazy:                 true
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -276,6 +367,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "native_mailer" type handler (one type of handler per name and per environment).
             native_mailer:
                 from_email:           ~
                 to_email:             []
@@ -283,6 +376,11 @@ monolog_poc:
 
                 # Optional array containing additional headers: ['Foo: Bar', '...'].
                 headers:              []
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -293,6 +391,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "symfony_mailer" type handler (one type of handler per name and per environment).
             symfony_mailer:
 
                 # Optional if email_prototype is given.
@@ -312,6 +412,11 @@ monolog_poc:
                 email_prototype:
                     id:                   ~ # Required
                     method:               null
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -322,6 +427,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "slack" type handler (one type of handler per name and per environment).
             slack:
 
                 # Slack api token
@@ -339,6 +446,11 @@ monolog_poc:
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
                 bubble:               true
                 channels:
                     type:                 ~
@@ -346,6 +458,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "rollbar" type handler (one type of handler per name and per environment).
             rollbar:
 
                 # RollbarNotifier service (mandatory if token is not provided).
@@ -356,6 +470,11 @@ monolog_poc:
 
                 # Config values from https://github.com/rollbar/rollbar-php#configuration-reference.
                 config:               []
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -366,6 +485,8 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
+
+            # "telegram" type handler (one type of handler per name and per environment).
             telegram:
 
                 # Telegram bot access token provided by BotFather.
@@ -388,6 +509,30 @@ monolog_poc:
 
                 # Adds a 1sec delay/sleep between sending split messages.
                 delay_between_messages: false
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
+
+                # Level name or int value, defaults to DEBUG.
+                level:                DEBUG
+                bubble:               true
+                channels:
+                    type:                 ~
+                    elements:             []
+
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
+            # "service" type handler (one type of handler per name and per environment).
+            service:
+                id:                   ~
+                formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG

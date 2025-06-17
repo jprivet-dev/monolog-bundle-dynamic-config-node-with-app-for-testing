@@ -18,7 +18,6 @@ class SlackHandlerConfiguration extends AbstractAddConfiguration
                 ->scalarNode('timeout')->end() // socket_handler, logentries, pushover, hipchat & slack
                 ->scalarNode('connection_timeout')->end() // socket_handler, logentries, pushover, hipchat & slack
                 ->template('level')
-                ->template('base')
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => empty($v['token']) || empty($v['channel']))

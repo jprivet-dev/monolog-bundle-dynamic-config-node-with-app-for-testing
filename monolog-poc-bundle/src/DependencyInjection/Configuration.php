@@ -35,6 +35,7 @@ class Configuration implements ConfigurationInterface
                                 $node
                                     ->arrayNode($type->value)
                                         ->canBeUnset()
+                                        ->info(sprintf('"%s" type handler (one type of handler per name and per environment).', $type->value))
                                         ->children()
                                             ->addConfiguration(static::getHandlerConfigurationClassByType($type))
                                             ->template('base')
@@ -44,7 +45,7 @@ class Configuration implements ConfigurationInterface
                         })
                     ->end()
                     ->validate()
-                        // Keep only last configured type
+                        // Overload: keep only last configured type
                         ->ifTrue(static fn (array $v): bool => true)
                         ->then(static fn (array $v): array => [\array_key_last($v) => \end($v)])
                     ->end()

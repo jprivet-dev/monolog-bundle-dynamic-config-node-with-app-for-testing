@@ -8,7 +8,6 @@ class BrowserConsoleHandlerConfiguration extends AbstractAddConfiguration
     {
         $this->node
             ->children()
-                ->template('base')
             ->end()
         ;
     }

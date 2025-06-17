@@ -10,7 +10,6 @@ class ConsoleHandlerConfiguration extends AbstractAddConfiguration
             ->children()
                 ->template('verbosity_levels')
                 ->template('console_formatter_options')
-                ->template('base')
             ->end()
         ;
     }

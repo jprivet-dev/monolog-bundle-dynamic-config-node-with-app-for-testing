@@ -8,7 +8,6 @@ class FirePhpHandlerConfiguration extends AbstractAddConfiguration
     {
         $this->node
             ->children()
-                ->template('base')
             ->end()
         ;
     }

@@ -17,13 +17,41 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
     {
     }
 
-    public function base(): void {
+    public function base(?HandlerType $type = null): void {
+
+        if ($type !== HandlerType::SERVICE) {
+            $this->node
+                ->children()
+                    ->template('formatter')
+                ->end();
+        }
+
         $this->node
             ->children()
+                ->template('process_psr_3_messages')
                 ->template('level')
                 ->template('bubble')
                 ->template('channels')
                 ->template('nested')
+            ->end();
+    }
+
+    public function process_psr_3_messages(): void
+    {
+        $this->node
+            ->children()
+                ->arrayNode('process_psr_3_messages')
+                    ->addDefaultsIfNotSet()
+                    ->beforeNormalization()
+                        ->ifTrue(static function ($v) { return !\is_array($v); })
+                        ->then(static function ($v) { return ['enabled' => $v]; })
+                    ->end()
+                    ->children()
+                        ->booleanNode('enabled')->defaultNull()->end()
+                        ->scalarNode('date_format')->end()
+                        ->booleanNode('remove_used_context_fields')->end()
+                    ->end()
+                ->end()
             ->end();
     }
 
@@ -120,6 +148,14 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                     ->defaultFalse()
                     ->info('All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.')
                 ->end()
+            ->end();
+    }
+
+    public function formatter(): void
+    {
+        $this->node
+            ->children()
+                ->scalarNode('formatter')->end()
             ->end();
     }
 

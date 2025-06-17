@@ -30,7 +30,6 @@ class ElasticsearchConsoleHandlerConfiguration extends AbstractAddConfiguration
                 ->scalarNode('index')->defaultValue('monolog')->end() // elasticsearch & elastic_search & elastica
                 ->scalarNode('document_type')->defaultValue('logs')->end() // elasticsearch & elastic_search & elastica
                 ->scalarNode('ignore_error')->defaultValue(false)->end() // elasticsearch & elastic_search & elastica
-                ->template('base')
             ->end()
         ;
     }

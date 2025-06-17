@@ -14,7 +14,6 @@ class RotatingFileHandlerConfiguration extends AbstractAddConfiguration
                 ->scalarNode('filename_format')->defaultValue('{filename}-{date}')->end()
                 ->scalarNode('date_format')->defaultValue('Y-m-d')->end()
                 ->scalarNode('max_files')->defaultValue(0)->info('Files to keep, defaults to zero (infinite).')->end()
-                ->template('base')
             ->end()
         ;
     }

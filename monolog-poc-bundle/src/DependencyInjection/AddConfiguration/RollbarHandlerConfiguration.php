@@ -15,7 +15,6 @@ class RollbarHandlerConfiguration extends AbstractAddConfiguration
                     ->info('Config values from https://github.com/rollbar/rollbar-php#configuration-reference.')
                     ->prototype('scalar')->end()
                 ->end()
-                ->template('base')
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => !empty($v['id']) && !empty($v['token']))

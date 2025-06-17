@@ -25,7 +25,6 @@ class GelfHandlerConfiguration extends AbstractAddConfiguration
                         ->thenInvalid('What must be set is either the hostname or the id.')
                     ->end()
                 ->end()
-                ->template('base')
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => 'gelf' === $v['type'] && !isset($v['publisher']))

@@ -15,7 +15,6 @@ class TelegramHandlerConfiguration extends AbstractAddConfiguration
                 ->booleanNode('disable_notification')->defaultNull()->info('Sends the message silently. Users will receive a notification with no sound.')->end() // telegram
                 ->booleanNode('split_long_messages')->defaultFalse()->info('Split messages longer than 4096 bytes into multiple messages.')->end() // telegram
                 ->booleanNode('delay_between_messages')->defaultFalse()->info('Adds a 1sec delay/sleep between sending split messages.')->end() // telegram
-                ->template('base')
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => empty($v['token']) || empty($v['channel']))
