@@ -4,7 +4,7 @@ monolog_poc:
     handlers:
         main:
             stream:
-                path: /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/app/var/log/dev.log
+                path: /app/var/log/dev.log
                 level: debug
                 channels:
                     type: exclusive

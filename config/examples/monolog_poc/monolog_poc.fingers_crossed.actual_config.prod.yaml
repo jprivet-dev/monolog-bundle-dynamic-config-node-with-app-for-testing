@@ -3,13 +3,31 @@ monolog_poc:
         - deprecation
     handlers:
         main:
+            fingers_crossed:
+                action_level: error
+                handler: nested
+                excluded_http_codes:
+                    -
+                        code: 404
+                        urls: {  }
+                    -
+                        code: 405
+                        urls: {  }
+                buffer_size: 50
+                activation_strategy: null
+                excluded_404s: {  }
+                stop_buffering: true
+                passthru_level: null
+                bubble: true
+                process_psr_3_messages:
+                    enabled: null
+                level: DEBUG
+                nested: false
+        nested:
             stream:
-                path: /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/app/var/log/dev.log
+                path: 'php://stderr'
                 level: debug
-                channels:
-                    type: exclusive
-                    elements:
-                        - event
+                formatter: monolog_poc.formatter.json
                 file_permission: null
                 use_locking: false
                 process_psr_3_messages:
@@ -25,8 +43,22 @@ monolog_poc:
                     elements:
                         - event
                         - doctrine
-                        - console
                 console_formatter_options: {  }
+                level: DEBUG
+                bubble: true
+                nested: false
+        deprecation:
+            stream:
+                channels:
+                    type: inclusive
+                    elements:
+                        - deprecation
+                path: 'php://stderr'
+                formatter: monolog_poc.formatter.json
+                file_permission: null
+                use_locking: false
+                process_psr_3_messages:
+                    enabled: null
                 level: DEBUG
                 bubble: true
                 nested: false
