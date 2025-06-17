@@ -2,13 +2,11 @@
 monolog_poc:
     use_microseconds:     true
     channels:             []
-    handlers_by_type:
+    handlers:
 
-        # All "stream" type handlers.
-        stream:
-
-            # Prototype
-            name:
+        # Prototype
+        name:
+            stream:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
                 file_permission:      null
                 use_locking:          false
@@ -22,12 +20,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "console" type handlers.
-        console:
-
-            # Prototype
-            name:
+            console:
 
                 # Level => verbosity configuration.
                 verbosity_levels:
@@ -47,12 +40,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "firephp" type handlers.
-        firephp:
-
-            # Prototype
-            name:
+            firephp:
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -63,12 +51,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "browser_console" type handlers.
-        browser_console:
-
-            # Prototype
-            name:
+            browser_console:
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -79,12 +62,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "gelf" type handlers.
-        gelf:
-
-            # Prototype
-            name:
+            gelf:
                 publisher:
                     id:                   ~
                     hostname:             ~
@@ -100,12 +78,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "chromephp" type handlers.
-        chromephp:
-
-            # Prototype
-            name:
+            chromephp:
 
                 # Level name or int value, defaults to DEBUG.
                 level:                DEBUG
@@ -116,12 +89,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "rotating_file" type handlers.
-        rotating_file:
-
-            # Prototype
-            name:
+            rotating_file:
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
                 file_permission:      null
                 use_locking:          false
@@ -140,12 +108,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "mongo" type handlers.
-        mongo:
-
-            # Prototype
-            name:
+            mongo:
                 mongo:
 
                     # Optional if host is given.
@@ -170,12 +133,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "elasticsearch" type handlers.
-        elasticsearch:
-
-            # Prototype
-            name:
+            elasticsearch:
                 elasticsearch:
 
                     # Optional if host is given.
@@ -200,12 +158,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "elastica" type handlers.
-        elastica:
-
-            # Prototype
-            name:
+            elastica:
                 elasticsearch:
 
                     # Optional if host is given.
@@ -230,12 +183,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "fingers_crossed" type handlers.
-        fingers_crossed:
-
-            # Prototype
-            name:
+            fingers_crossed:
 
                 # The wrapped handler's name.
                 handler:              ~
@@ -267,14 +215,15 @@ monolog_poc:
                 passthru_level:       null
                 bubble:               true
 
+                # Level name or int value, defaults to DEBUG.
+                level:                DEBUG
+                channels:
+                    type:                 ~
+                    elements:             []
+
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "filter" type handlers.
-        filter:
-
-            # Prototype
-            name:
+            filter:
 
                 # The wrapped handler's name.
                 handler:              ~
@@ -289,14 +238,15 @@ monolog_poc:
                 max_level:            EMERGENCY
                 bubble:               true
 
+                # Level name or int value, defaults to DEBUG.
+                level:                DEBUG
+                channels:
+                    type:                 ~
+                    elements:             []
+
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "swift_mailer" type handlers.
-        swift_mailer:
-
-            # Prototype
-            name:
+            swift_mailer:
 
                 # Optional if email_prototype is given.
                 from_email:           ~
@@ -326,12 +276,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "native_mailer" type handlers.
-        native_mailer:
-
-            # Prototype
-            name:
+            native_mailer:
                 from_email:           ~
                 to_email:             []
                 subject:              ~
@@ -348,12 +293,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "symfony_mailer" type handlers.
-        symfony_mailer:
-
-            # Prototype
-            name:
+            symfony_mailer:
 
                 # Optional if email_prototype is given.
                 from_email:           ~
@@ -382,12 +322,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "slack" type handlers.
-        slack:
-
-            # Prototype
-            name:
+            slack:
 
                 # Slack api token
                 token:                ~
@@ -411,12 +346,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "rollbar" type handlers.
-        rollbar:
-
-            # Prototype
-            name:
+            rollbar:
 
                 # RollbarNotifier service (mandatory if token is not provided).
                 id:                   ~
@@ -436,12 +366,7 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-
-        # All "telegram" type handlers.
-        telegram:
-
-            # Prototype
-            name:
+            telegram:
 
                 # Telegram bot access token provided by BotFather.
                 token:                ~
@@ -473,12 +398,4 @@ monolog_poc:
 
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
-    handlers:
-
-        # Prototype
-        name:
-            type:                 ~ # Required
-
-            # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
-            nested:               false
 

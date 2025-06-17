@@ -23,17 +23,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                 ->template('level')
                 ->template('bubble')
                 ->template('channels')
-            ->end();
-    }
-
-    public function nested(): void
-    {
-        $this->node
-            ->children()
-                ->booleanNode('nested')
-                    ->defaultFalse()
-                    ->info('All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.')
-                ->end()
+                ->template('nested')
             ->end();
     }
 
@@ -118,6 +108,17 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                             ->prototype('scalar')->end()
                         ->end()
                     ->end()
+                ->end()
+            ->end();
+    }
+
+    public function nested(): void
+    {
+        $this->node
+            ->children()
+                ->booleanNode('nested')
+                    ->defaultFalse()
+                    ->info('All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.')
                 ->end()
             ->end();
     }

@@ -1,0 +1,20 @@
+# $ php bin/console debug:config monolog_poc --env=prod
+monolog_poc:
+    use_microseconds: true
+    channels:
+        - hello
+    handlers:
+        my_handler_1:
+            native_mailer:
+                from_email: from_email@native_mailer.com
+                to_email:
+                    - to_email@native_mailer.com
+                subject: 'subject native_mailer'
+                level: ERROR
+                channels:
+                    type: inclusive
+                    elements:
+                        - hello
+                headers: {  }
+                bubble: true
+                nested: false
