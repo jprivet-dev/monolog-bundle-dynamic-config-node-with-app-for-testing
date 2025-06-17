@@ -45,7 +45,7 @@ class Configuration implements ConfigurationInterface
                         })
                     ->end()
                     ->validate()
-                        // Overload: keep only last configured type
+                        // Overload by environment: keep only last configured type by name
                         ->ifTrue(static fn (array $v): bool => true)
                         ->then(static fn (array $v): array => [\array_key_last($v) => \end($v)])
                     ->end()
