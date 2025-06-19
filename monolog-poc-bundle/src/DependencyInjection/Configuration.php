@@ -30,7 +30,7 @@ class Configuration implements ConfigurationInterface
                     ->end()
                     ->prototype('array')
                     ->children()
-                        ->callable(static function(NodeBuilder $node): void {
+                        ->closure(static function(NodeBuilder $node): void {
                             foreach (HandlerType::cases() as $type) {
                                 $node
                                     ->arrayNode($type->value)

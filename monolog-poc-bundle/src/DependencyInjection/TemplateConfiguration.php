@@ -302,7 +302,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                     ->end()
                 ->end()
                 ->scalarNode('subject')->info($infoOptional)->end() // swift_mailer, native_mailer and symfony_mailer
-                ->callable(static function(NodeBuilder $node) use ($type): void {
+                ->closure(static function(NodeBuilder $node) use ($type): void {
                     if(in_array($type, [HandlerType::SWIFT_MAILER, HandlerType::SYMFONY_MAILER])) {
                         $node
                             ->scalarNode('content_type')->defaultNull()->end() // swift_mailer and symfony_mailer

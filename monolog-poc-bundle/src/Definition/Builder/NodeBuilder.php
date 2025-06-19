@@ -8,9 +8,9 @@ use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 
 class NodeBuilder extends BaseNodeBuilder
 {
-    public function callable(callable $callable): static
+    public function closure(\Closure $closure): static
     {
-        $callable($this);
+        $closure($this);
 
         return $this;
     }
