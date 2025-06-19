@@ -29,29 +29,30 @@ class Configuration implements ConfigurationInterface
                         ->thenInvalid('The "debug" name cannot be used as it is reserved for the handler of the profiler')
                     ->end()
                     ->prototype('array')
-                    ->children()
-                        ->closure(static function(NodeBuilder $node): void {
-                            foreach (HandlerType::cases() as $type) {
-                                $node
-                                    ->arrayNode($type->value)
-                                        ->canBeUnset()
-                                        ->info(sprintf('"%s" type handler (one type of handler per name and per environment).', $type->value))
-                                        ->children()
-                                            ->addConfiguration(static::getHandlerConfigurationClassByType($type))
-                                            ->template('base', $type)
-                                        ->end()
-                                    ->end();
-                            }
-                        })
-                    ->end()
-                    ->validate()
-                        ->ifTrue(static fn (array $v): bool => count($v) > 1)
-                        // Keeps only the last key/value pair in the types array.
-                        ->then(static fn (array $v): array => array_slice($v, -1, 1, true))
-                    ->end()
-                    ->validate()
-                        ->ifTrue(static fn (array $v): bool => count($v) > 1)
-                        ->thenInvalid('A handler must contain only one key to define its type. Check your configuration.')
+                        ->children()
+                            ->closure(static function(NodeBuilder $node): void {
+                                foreach (HandlerType::cases() as $type) {
+                                    $node
+                                        ->arrayNode($type->value)
+                                            ->canBeUnset()
+                                            ->info(sprintf('"%s" type handler (one type of handler per name and per environment).', $type->value))
+                                            ->children()
+                                                ->addConfiguration(static::getHandlerConfigurationClassByType($type))
+                                                ->template('base', $type)
+                                            ->end()
+                                        ->end();
+                                }
+                            })
+                        ->end()
+                        ->validate()
+                            ->ifTrue(static fn (array $v): bool => count($v) > 1)
+                            // Keeps only the last key/value pair in the types array.
+                            ->then(static fn (array $v): array => array_slice($v, -1, 1, true))
+                        ->end()
+                        ->validate()
+                            ->ifTrue(static fn (array $v): bool => count($v) > 1)
+                            ->thenInvalid('A handler must contain only one key to define its type. Check your configuration.')
+                        ->end()
                     ->end()
                 ->end()
             ->end();
