@@ -45,9 +45,13 @@ class Configuration implements ConfigurationInterface
                         })
                     ->end()
                     ->validate()
-                        // Overload by environment: keep only last configured type by name
-                        ->ifTrue(static fn (array $v): bool => true)
-                        ->then(static fn (array $v): array => [\array_key_last($v) => \end($v)])
+                        ->ifTrue(static fn (array $v): bool => count($v) > 1)
+                        // Keeps only the last key/value pair in the types array.
+                        ->then(static fn (array $v): array => array_slice($v, -1, 1, true))
+                    ->end()
+                    ->validate()
+                        ->ifTrue(static fn (array $v): bool => count($v) > 1)
+                        ->thenInvalid('A handler must contain only one key to define its type. Check your configuration.')
                     ->end()
                 ->end()
             ->end();
