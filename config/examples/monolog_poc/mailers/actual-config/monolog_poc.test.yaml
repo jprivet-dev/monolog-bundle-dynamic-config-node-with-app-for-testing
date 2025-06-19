@@ -1,0 +1,28 @@
+
+Current configuration for extension with alias "monolog_poc"
+============================================================
+
+monolog_poc:
+    use_microseconds: true
+    channels:
+        - hello
+    handlers:
+        my_handler_1:
+            swift_mailer:
+                from_email: email@swift_mailer.com
+                to_email:
+                    - to_email@swift_mailer.com
+                subject: 'subject swift_mailer'
+                level: DEBUG
+                channels:
+                    type: inclusive
+                    elements:
+                        - hello
+                content_type: null
+                mailer: null
+                lazy: true
+                process_psr_3_messages:
+                    enabled: null
+                bubble: true
+                nested: false
+

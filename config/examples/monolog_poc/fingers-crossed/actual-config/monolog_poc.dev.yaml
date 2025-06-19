@@ -1,0 +1,38 @@
+
+Current configuration for extension with alias "monolog_poc"
+============================================================
+
+monolog_poc:
+    channels:
+        - deprecation
+    handlers:
+        main:
+            stream:
+                path: /app/var/log/dev.log
+                level: debug
+                channels:
+                    type: exclusive
+                    elements:
+                        - event
+                file_permission: null
+                use_locking: false
+                process_psr_3_messages:
+                    enabled: null
+                bubble: true
+                nested: false
+        console:
+            console:
+                process_psr_3_messages:
+                    enabled: false
+                channels:
+                    type: exclusive
+                    elements:
+                        - event
+                        - doctrine
+                        - console
+                console_formatter_options: {  }
+                level: DEBUG
+                bubble: true
+                nested: false
+    use_microseconds: true
+

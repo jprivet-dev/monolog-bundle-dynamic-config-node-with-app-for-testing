@@ -1,4 +1,7 @@
-# $ php bin/console debug:config monolog_poc
+
+Current configuration for extension with alias "monolog_poc"
+============================================================
+
 monolog_poc:
     use_microseconds: true
     channels:
@@ -18,5 +21,8 @@ monolog_poc:
                 content_type: null
                 mailer: null
                 lazy: true
+                process_psr_3_messages:
+                    enabled: null
                 bubble: true
                 nested: false
+

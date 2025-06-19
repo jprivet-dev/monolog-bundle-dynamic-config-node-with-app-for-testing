@@ -1,3 +1,7 @@
+
+Current configuration for extension with alias "monolog_poc"
+============================================================
+
 monolog_poc:
     channels:
         - deprecation
@@ -63,3 +67,4 @@ monolog_poc:
                 bubble: true
                 nested: false
     use_microseconds: true
+

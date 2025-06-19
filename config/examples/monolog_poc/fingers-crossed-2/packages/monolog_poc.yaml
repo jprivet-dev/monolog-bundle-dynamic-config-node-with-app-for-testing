@@ -1,0 +1,50 @@
+monolog_poc:
+    channels:
+        - deprecation
+    handlers:
+        main:
+            fingers_crossed:
+                action_level: error
+                handler: stream
+                excluded_http_codes: [404, 405]
+                channels: ["!event"]
+        stream:
+            stream:
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: debug
+                channels: ["!event"]
+        console:
+            console:
+                process_psr_3_messages: false
+                channels: ["!event", "!doctrine", "!console"]
+
+when@test:
+    monolog_poc:
+        handlers:
+            main:
+                fingers_crossed:
+                    handler: console
+
+when@prod:
+    monolog_poc:
+        handlers:
+            main:
+                fingers_crossed:
+                    action_level: error
+                    handler: nested
+                    excluded_http_codes: [404, 405]
+                    buffer_size: 50
+            nested:
+                stream:
+                    path: php://stderr
+                    level: debug
+                    formatter: monolog_poc.formatter.json
+            console:
+                console:
+                    process_psr_3_messages: false
+                    channels: ["!event", "!doctrine"]
+            deprecation:
+                stream:
+                    channels: [deprecation]
+                    path: php://stderr
+                    formatter: monolog_poc.formatter.json
