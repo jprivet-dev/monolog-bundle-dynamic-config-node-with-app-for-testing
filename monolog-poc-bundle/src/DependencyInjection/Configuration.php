@@ -47,7 +47,7 @@ class Configuration implements ConfigurationInterface
                         //  TODO: Do not work with beforeNormalization. Find why.
                         ->validate()
                             ->ifTrue(static fn (array $v): bool => count($v) > 1)
-                            // Keeps only the last key/value pair in the types array.
+                            // Keeps only the last key/value pair in the types array, all environments combined.
                             ->then(static fn (array $v): array => array_slice($v, -1, 1, true))
                         ->end()
                         ->validate()
