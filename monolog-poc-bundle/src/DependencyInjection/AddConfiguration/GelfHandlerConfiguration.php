@@ -27,7 +27,7 @@ class GelfHandlerConfiguration extends AbstractAddConfiguration
                 ->end()
             ->end()
             ->validate()
-                ->ifTrue(static fn ($v) => 'gelf' === $v['type'] && !isset($v['publisher']))
+                ->ifTrue(static fn ($v) => !isset($v['publisher']))
                 ->thenInvalid('The publisher has to be specified to use a GelfHandler.')
             ->end()
         ;
