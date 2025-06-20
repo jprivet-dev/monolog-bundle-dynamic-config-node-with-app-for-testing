@@ -1,12 +1,12 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
 
-class SlackHandlerConfiguration extends AbstractAddConfiguration
+class SlackHandlerConfiguration implements HandlerConfigurationInterface
 {
     public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
@@ -21,7 +21,7 @@ class SlackHandlerConfiguration extends AbstractAddConfiguration
                 ->scalarNode('include_extra')->defaultFalse()->end() // slack & slackwebhook
                 ->scalarNode('timeout')->end() // socket_handler, logentries, pushover, hipchat & slack
                 ->scalarNode('connection_timeout')->end() // socket_handler, logentries, pushover, hipchat & slack
-                ->fragments()->level()
+                //->fragments()->level()
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => empty($v['token']) || empty($v['channel']))

@@ -1,31 +1,188 @@
-Error {#7669
-  #message: "Call to a member function fragments() on null"
-  #code: 0
-  #file: "/home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/monolog-poc-bundle/src/DependencyInjection/AddConfiguration/StreamHandlerConfiguration.php"
-  #line: 16
-  trace: {
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/monolog-poc-bundle/src/DependencyInjection/AddConfiguration/StreamHandlerConfiguration.php:16 {
-      Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\StreamHandlerConfiguration->__invoke(Symfony\Component\Config\Definition\Builder\NodeDefinition|Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition|Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition $node): void
-      › ->fragments()->path()
-      › ->fragments()->filePermission()
-      › ->fragments()->useLocking()
-    }
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/monolog-poc-bundle/src/Definition/Builder/NodeBuilder.php:63 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/monolog-poc-bundle/src/DependencyInjection/Configuration.php:40 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/monolog-poc-bundle/src/Definition/Builder/NodeBuilder.php:35 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/monolog-poc-bundle/src/DependencyInjection/Configuration.php:33 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/Config/Definition/Processor.php:46 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/DependencyInjection/Compiler/ValidateEnvPlaceholdersPass.php:74 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/DependencyInjection/Compiler/Compiler.php:73 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/DependencyInjection/ContainerBuilder.php:814 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/HttpKernel/Kernel.php:499 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/HttpKernel/Kernel.php:744 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/HttpKernel/Kernel.php:120 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:177 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Bundle/FrameworkBundle/Console/Application.php:69 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/Console/Application.php:193 { …}
-    /home/jeriv/Repo/contributing/monolog-bundle-dynamic-config-node-with-app-for-testing/symfony/src/Symfony/Component/Runtime/Runner/Symfony/ConsoleApplicationRunner.php:49 { …}
-    ./vendor/autoload_runtime.php:29 { …}
-    ./bin/console:15 { …}
-  }
-}
+# Default configuration for extension with alias: "monolog_poc"
+monolog_poc:
+    use_microseconds:     true
+    channels:             []
+    handlers:
+
+        # Prototype
+        name:
+
+            # "stream" type handler (one type of handler per name and per environment).
+            stream:               []
+
+            # "console" type handler (one type of handler per name and per environment).
+            console:              []
+
+            # "firephp" type handler (one type of handler per name and per environment).
+            firephp:              []
+
+            # "browser_console" type handler (one type of handler per name and per environment).
+            browser_console:      []
+
+            # "gelf" type handler (one type of handler per name and per environment).
+            gelf:
+                publisher:
+                    id:                   ~
+                    hostname:             ~
+                    port:                 12201
+                    chunk_size:           1420
+
+            # "chromephp" type handler (one type of handler per name and per environment).
+            chromephp:            []
+
+            # "rotating_file" type handler (one type of handler per name and per environment).
+            rotating_file:
+                filename_format:      '{filename}-{date}'
+                date_format:          Y-m-d
+
+                # Files to keep, defaults to zero (infinite).
+                max_files:            0
+
+            # "mongo" type handler (one type of handler per name and per environment).
+            mongo:
+                mongo:
+
+                    # Database host name, optional if id is given.
+                    host:                 ~
+                    port:                 27017
+                    user:                 ~
+
+                    # Mandatory only if user is present.
+                    pass:                 ~
+                    database:             monolog
+                    collection:           logs
+
+            # "elasticsearch" type handler (one type of handler per name and per environment).
+            elasticsearch:
+                elasticsearch:
+
+                    # Elastic search host name, with scheme (e.g. "https://127.0.0.1:9200").
+                    host:                 ~
+                    port:                 9200
+                    transport:            Http
+                    user:                 null
+                    password:             null
+                index:                monolog
+                document_type:        logs
+                ignore_error:         false
+
+            # "elastica" type handler (one type of handler per name and per environment).
+            elastica:
+                elasticsearch:
+
+                    # Elastic search host name - Do not prepend with http(s)://
+                    host:                 ~
+                    port:                 9200
+                    transport:            Http
+                    user:                 null
+                    password:             null
+                index:                monolog
+                document_type:        logs
+                ignore_error:         false
+
+            # "fingers_crossed" type handler (one type of handler per name and per environment).
+            fingers_crossed:
+
+                # Minimum level or service id to activate the handler, defaults to WARNING.
+                action_level:         WARNING
+
+                # Minimum level or service id to activate the handler, defaults to WARNING.
+                activation_strategy:  null
+
+                # If set, the strategy will be changed to one that excludes 404s coming from URLs matching any of those patterns.
+                excluded_404s:        []
+
+                # If set, the strategy will be changed to one that excludes specific HTTP codes (requires Symfony Monolog bridge 4.1+).
+                excluded_http_codes:
+
+                    # Prototype
+                    -
+                        code:                 ~
+                        urls:                 []
+
+                # Defaults to 0 (unlimited).
+                buffer_size:          0
+
+                # Bool to disable buffering once the handler has been activated, defaults to true.
+                stop_buffering:       true
+
+                # Level name or int value for messages to always flush, disabled by default.
+                passthru_level:       null
+
+            # "filter" type handler (one type of handler per name and per environment).
+            filter:
+
+                # List of levels to accept
+                accepted_levels:      []
+
+                # Minimum level to accept (only used if accepted_levels not specified).
+                min_level:            DEBUG
+
+                # Maximum level to accept (only used if accepted_levels not specified).
+                max_level:            EMERGENCY
+
+            # "swift_mailer" type handler (one type of handler per name and per environment).
+            swift_mailer:         []
+
+            # "native_mailer" type handler (one type of handler per name and per environment).
+            native_mailer:        []
+
+            # "symfony_mailer" type handler (one type of handler per name and per environment).
+            symfony_mailer:       []
+
+            # "slack" type handler (one type of handler per name and per environment).
+            slack:
+
+                # Slack api token
+                token:                ~
+
+                # Channel name (with starting #).
+                channel:              null
+                bot_name:             Monolog
+                icon_emoji:           null
+                use_attachment:       true
+                use_short_attachment: false
+                include_extra:        false
+                timeout:              ~
+                connection_timeout:   ~
+
+            # "rollbar" type handler (one type of handler per name and per environment).
+            rollbar:
+
+                # RollbarNotifier service (mandatory if token is not provided).
+                id:                   ~
+
+                # Rollbar api token (skip if you provide a RollbarNotifier service id).
+                token:                ~
+
+                # Config values from https://github.com/rollbar/rollbar-php#configuration-reference.
+                config:               []
+
+            # "telegram" type handler (one type of handler per name and per environment).
+            telegram:
+
+                # Telegram bot access token provided by BotFather.
+                token:                ~
+
+                # Telegram channel name.
+                channel:              null
+
+                # Optional the kind of formatting that is used for the message.
+                parse_mode:           null
+
+                # Disables link previews for links in the message.
+                disable_webpage_preview: null
+
+                # Sends the message silently. Users will receive a notification with no sound.
+                disable_notification: null
+
+                # Split messages longer than 4096 bytes into multiple messages.
+                split_long_messages:  false
+
+                # Adds a 1sec delay/sleep between sending split messages.
+                delay_between_messages: false
+
+            # "service" type handler (one type of handler per name and per environment).
+            service:
+                id:                   ~
+

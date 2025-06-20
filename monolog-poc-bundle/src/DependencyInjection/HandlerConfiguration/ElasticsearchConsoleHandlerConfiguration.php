@@ -1,12 +1,12 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
 
-class ElasticaConsoleHandlerConfiguration extends AbstractAddConfiguration
+class ElasticsearchConsoleHandlerConfiguration implements HandlerConfigurationInterface
 {
     public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
@@ -19,8 +19,8 @@ class ElasticaConsoleHandlerConfiguration extends AbstractAddConfiguration
                         ->then(function ($v) { return ['id' => $v]; })
                     ->end()
                     ->children()
-                        ->fragments()->idHost()
-                        ->scalarNode('host')->info('Elastic search host name - Do not prepend with http(s)://')->end()
+                        //->fragments()->idHost()
+                        ->scalarNode('host')->info('Elastic search host name, with scheme (e.g. "https://127.0.0.1:9200").')->end()
                         ->scalarNode('port')->defaultValue(9200)->end()
                         ->scalarNode('transport')->defaultValue('Http')->end()
                         ->scalarNode('user')->defaultNull()->end()

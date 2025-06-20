@@ -2,7 +2,7 @@
 
 namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
-use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\AbstractAddConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\HandlerConfigurationInterface;
 use Local\Bundle\MonologPocBundle\DependencyInjection\ConfigurationFragments;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 
@@ -21,14 +21,14 @@ class NodeBuilder extends BaseNodeBuilder
      *         ->end()
      *     ;
      */
-    public function fragments(): ConfigurationFragments
-    {
-        if($this->configurationFragments === null) {
-            $this->configurationFragments = new ConfigurationFragments($this->parent);
-        }
-
-        return $this->configurationFragments;
-    }
+//    public function fragments(): ConfigurationFragments
+//    {
+//        if($this->configurationFragments === null) {
+//            $this->configurationFragments = new ConfigurationFragments($this->parent);
+//        }
+//
+//        return $this->configurationFragments;
+//    }
 
     public function closure(\Closure $closure): static
     {
@@ -38,17 +38,17 @@ class NodeBuilder extends BaseNodeBuilder
     }
 
     /**
-     * Add a configuration from a class.
+     * Add a handler configuration from a class.
      *
      * Usage:
      *
      *      $node = new NodeBuilder('name')
      *          ->children()
-     *              ->addConfiguration(FooConfiguration::class)
+     *              ->addHandlerConfiguration(FooHandlerConfiguration::class)
      *          ->end()
      *      ;
      */
-    public function addConfiguration(string $class): static
+    public function addHandlerConfiguration(string $class): static
     {
         if (!class_exists($class)) {
             throw new \RuntimeException(\sprintf('The class "%s" does not exist.', $class));
@@ -56,8 +56,8 @@ class NodeBuilder extends BaseNodeBuilder
 
         $configuration = new $class();
 
-        if (!$configuration instanceof AbstractAddConfiguration) {
-            throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AbstractAddConfiguration::class, \get_debug_type($configuration)));
+        if (!$configuration instanceof HandlerConfigurationInterface) {
+            throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', HandlerConfigurationInterface::class, \get_debug_type($configuration)));
         }
 
         $configuration($this->parent);

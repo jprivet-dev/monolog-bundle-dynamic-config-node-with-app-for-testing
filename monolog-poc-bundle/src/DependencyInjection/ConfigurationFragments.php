@@ -23,17 +23,17 @@ class ConfigurationFragments implements NodeDefinitionAwareInterface
         if ($type !== HandlerType::SERVICE) {
             $this->node
                 ->children()
-                    ->fragments()->formatter()
+                    //->fragments()->formatter()
                 ->end();
         }
 
         $this->node
             ->children()
-                ->fragments()->processPsr3Messages()
-                ->fragments()->level()
-                ->fragments()->bubble()
-                ->fragments()->channels()
-                ->fragments()->nested()
+                //->fragments()->processPsr3Messages()
+                //->fragments()->level()
+                //->fragments()->bubble()
+                //->fragments()->channels()
+                //->fragments()->nested()
             ->end();
     }
 
@@ -336,7 +336,7 @@ class ConfigurationFragments implements NodeDefinitionAwareInterface
                             ->end();
                     }
                 })
-                ->fragments()->base()
+                //->fragments()->base()
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v): bool => HandlerType::SWIFT_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])))

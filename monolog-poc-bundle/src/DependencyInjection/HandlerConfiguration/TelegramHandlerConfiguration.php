@@ -1,12 +1,12 @@
 <?php
 
-namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
+namespace Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration;
 
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
 
-class TelegramHandlerConfiguration extends AbstractAddConfiguration
+class TelegramHandlerConfiguration implements HandlerConfigurationInterface
 {
     public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {

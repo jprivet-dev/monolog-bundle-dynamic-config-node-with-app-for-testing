@@ -37,8 +37,8 @@ class Configuration implements ConfigurationInterface
                                             ->canBeUnset()
                                             ->info(sprintf('"%s" type handler (one type of handler per name and per environment).', $type->value))
                                             ->children()
-                                                ->addConfiguration(static::getHandlerConfigurationClassByType($type))
-                                                ->fragments()->base($type)
+                                                ->addHandlerConfiguration(static::getHandlerConfigurationClassByType($type))
+                                                //->fragments()->base($type)
                                             ->end()
                                         ->end();
                                 }
