@@ -2,11 +2,15 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class TelegramHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
                 ->scalarNode('token')->info('Telegram bot access token provided by BotFather.')->end() // pushover & hipchat & loggly & logentries & flowdock & rollbar & slack & slackbot & insightops & telegram
                 ->scalarNode('channel')->defaultNull()->info('Telegram channel name.')->end() // slack & slackwebhook & slackbot & telegram

@@ -3,11 +3,33 @@
 namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
 use Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration\AbstractAddConfiguration;
-use Local\Bundle\MonologPocBundle\DependencyInjection\TemplateConfiguration;
+use Local\Bundle\MonologPocBundle\DependencyInjection\ConfigurationFragments;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
 
 class NodeBuilder extends BaseNodeBuilder
 {
+    private ?ConfigurationFragments $configurationFragments = null;
+
+    /**
+     * Appends a node definition from a "ConfigurationFragments" method.
+     *
+     * Usage:
+     *
+     *     $node = new NodeBuilder('name')
+     *         ->children()
+     *             ->fragments()->foo() // Use ConfigurationFragments::foo()
+     *         ->end()
+     *     ;
+     */
+    public function fragments(): ConfigurationFragments
+    {
+        if($this->configurationFragments === null) {
+            $this->configurationFragments = new ConfigurationFragments($this->parent);
+        }
+
+        return $this->configurationFragments;
+    }
+
     public function closure(\Closure $closure): static
     {
         $closure($this);
@@ -32,38 +54,13 @@ class NodeBuilder extends BaseNodeBuilder
             throw new \RuntimeException(\sprintf('The class "%s" does not exist.', $class));
         }
 
-        $configuration = new $class($this->parent);
+        $configuration = new $class();
 
         if (!$configuration instanceof AbstractAddConfiguration) {
             throw new \RuntimeException(\sprintf('Expected class of type "%s", "%s" given', AbstractAddConfiguration::class, \get_debug_type($configuration)));
         }
 
-        $configuration();
-
-        return $this;
-    }
-
-    /**
-     * Appends a node definition from a "TemplateConfiguration" method.
-     *
-     * Usage:
-     *
-     *     $node = new NodeBuilder('name')
-     *         ->children()
-     *             ->template('foo') // Use TemplateConfiguration::foo()
-     *         ->end()
-     *     ;
-     */
-    public function template(string $name, mixed ...$arguments): static
-    {
-        // TODO: Decouple that.
-        $template = new TemplateConfiguration($this->parent);
-
-        if (!method_exists($template, $name)) {
-            throw new \RuntimeException(\sprintf('The method "%s()" on class "%s" is not defined.', $name, \get_debug_type($template)));
-        }
-
-        $template->$name(...$arguments);
+        $configuration($this->parent);
 
         return $this;
     }

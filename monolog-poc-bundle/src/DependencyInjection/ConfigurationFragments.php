@@ -8,10 +8,11 @@ use Local\Bundle\MonologPocBundle\Enum\HandlerType;
 use Monolog\Logger;
 use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
-use Symfony\Component\Config\Definition\Builder\VariableNodeDefinition;
 use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
 
-class TemplateConfiguration implements NodeDefinitionAwareInterface
+
+class ConfigurationFragments implements NodeDefinitionAwareInterface
 {
     public function __construct(protected NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node)
     {
@@ -22,21 +23,21 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
         if ($type !== HandlerType::SERVICE) {
             $this->node
                 ->children()
-                    ->template('formatter')
+                    ->fragments()->formatter()
                 ->end();
         }
 
         $this->node
             ->children()
-                ->template('process_psr_3_messages')
-                ->template('level')
-                ->template('bubble')
-                ->template('channels')
-                ->template('nested')
+                ->fragments()->processPsr3Messages()
+                ->fragments()->level()
+                ->fragments()->bubble()
+                ->fragments()->channels()
+                ->fragments()->nested()
             ->end();
     }
 
-    public function process_psr_3_messages(): void
+    public function processPsr3Messages(): void
     {
         $this->node
             ->children()
@@ -167,7 +168,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
-    public function file_permission(): void
+    public function filePermission(): void
     {
         $this->node
             ->children()
@@ -186,7 +187,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
-    public function use_locking(): void
+    public function useLocking(): void
     {
         $this->node
             ->children()
@@ -202,7 +203,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
-    public function id_host(): void
+    public function idHost(): void
     {
         $this->node
             ->children()
@@ -210,7 +211,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
-    public function verbosity_levels(): void
+    public function verbosityLevels(): void
     {
         $this->node
             ->children()
@@ -270,7 +271,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
             ->end();
     }
 
-    public function console_formatter_options(): void
+    public function consoleFormatterOptions(): void
     {
         $this->node
             ->children()
@@ -335,7 +336,7 @@ class TemplateConfiguration implements NodeDefinitionAwareInterface
                             ->end();
                     }
                 })
-                ->template('base')
+                ->fragments()->base()
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v): bool => HandlerType::SWIFT_MAILER === $type && empty($v['email_prototype']) && (empty($v['from_email']) || empty($v['to_email']) || empty($v['subject'])))

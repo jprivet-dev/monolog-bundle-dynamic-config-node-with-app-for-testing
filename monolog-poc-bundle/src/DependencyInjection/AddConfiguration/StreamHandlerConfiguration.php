@@ -2,15 +2,19 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class StreamHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
-                ->template('path')
-                ->template('file_permission')
-                ->template('use_locking')
+                ->fragments()->path()
+                ->fragments()->filePermission()
+                ->fragments()->useLocking()
             ->end()
         ;
     }

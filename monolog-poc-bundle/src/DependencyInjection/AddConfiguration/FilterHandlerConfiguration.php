@@ -2,13 +2,17 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class FilterHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
-                ->template('handler')
+                ->fragments()->handler()
                 ->arrayNode('accepted_levels') // filter
                     ->canBeUnset()
                     ->prototype('scalar')->end()
@@ -16,7 +20,7 @@ class FilterHandlerConfiguration extends AbstractAddConfiguration
                 ->end()
                 ->scalarNode('min_level')->defaultValue('DEBUG')->info('Minimum level to accept (only used if accepted_levels not specified).')->end() // filter
                 ->scalarNode('max_level')->defaultValue('EMERGENCY')->info('Maximum level to accept (only used if accepted_levels not specified).')->end() // filter
-                ->template('bubble')
+                ->fragments()->bubble()
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => empty($v['handler']))

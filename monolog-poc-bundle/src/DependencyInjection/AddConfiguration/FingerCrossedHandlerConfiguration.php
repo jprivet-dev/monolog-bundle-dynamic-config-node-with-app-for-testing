@@ -2,13 +2,17 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class FingerCrossedHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
-                ->template('handler')
+                ->fragments()->handler()
                 ->scalarNode('action_level')->defaultValue('WARNING')->info('Minimum level or service id to activate the handler, defaults to WARNING.')->end() // fingers_crossed
                 ->scalarNode('activation_strategy')->defaultNull()->info('Minimum level or service id to activate the handler, defaults to WARNING.')->end() // fingers_crossed
                 ->arrayNode('excluded_404s') // fingers_crossed
@@ -54,7 +58,7 @@ class FingerCrossedHandlerConfiguration extends AbstractAddConfiguration
                 ->scalarNode('buffer_size')->defaultValue(0)->info('Defaults to 0 (unlimited).')->end() // fingers_crossed and buffer
                 ->booleanNode('stop_buffering')->defaultTrue()->info('Bool to disable buffering once the handler has been activated, defaults to true.')->end()// fingers_crossed
                 ->scalarNode('passthru_level')->defaultNull()->info('Level name or int value for messages to always flush, disabled by default.')->end() // fingers_crossed
-                ->template('bubble')
+                ->fragments()->bubble()
             ->end()
             ->validate()
                 ->ifTrue(static fn ($v) => empty($v['handler']))

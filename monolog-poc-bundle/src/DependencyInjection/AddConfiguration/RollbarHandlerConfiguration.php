@@ -2,11 +2,15 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class RollbarHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
                 ->scalarNode('id')->info('RollbarNotifier service (mandatory if token is not provided).')->end() // service & rollbar
                 ->scalarNode('token')->info('Rollbar api token (skip if you provide a RollbarNotifier service id).')->end() // pushover & hipchat & loggly & logentries & flowdock & rollbar & slack & slackbot & insightops & telegram

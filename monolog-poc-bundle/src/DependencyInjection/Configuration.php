@@ -38,7 +38,7 @@ class Configuration implements ConfigurationInterface
                                             ->info(sprintf('"%s" type handler (one type of handler per name and per environment).', $type->value))
                                             ->children()
                                                 ->addConfiguration(static::getHandlerConfigurationClassByType($type))
-                                                ->template('base', $type)
+                                                ->fragments()->base($type)
                                             ->end()
                                         ->end();
                                 }

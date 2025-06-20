@@ -2,11 +2,15 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class ElasticaConsoleHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
                 ->arrayNode('elasticsearch')
                     ->canBeUnset()
@@ -15,7 +19,7 @@ class ElasticaConsoleHandlerConfiguration extends AbstractAddConfiguration
                         ->then(function ($v) { return ['id' => $v]; })
                     ->end()
                     ->children()
-                        ->template('id_host')
+                        ->fragments()->idHost()
                         ->scalarNode('host')->info('Elastic search host name - Do not prepend with http(s)://')->end()
                         ->scalarNode('port')->defaultValue(9200)->end()
                         ->scalarNode('transport')->defaultValue('Http')->end()

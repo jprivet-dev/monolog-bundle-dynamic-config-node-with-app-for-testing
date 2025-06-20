@@ -2,11 +2,15 @@
 
 namespace Local\Bundle\MonologPocBundle\DependencyInjection\AddConfiguration;
 
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Tests\Fixtures\Builder\VariableNodeDefinition;
+
 class MongoHandlerConfiguration extends AbstractAddConfiguration
 {
-    public function __invoke(): void
+    public function __invoke(NodeDefinition|ArrayNodeDefinition|VariableNodeDefinition $node): void
     {
-        $this->node
+        $node
             ->children()
                 ->arrayNode('mongo')
                     ->canBeUnset()
@@ -15,7 +19,7 @@ class MongoHandlerConfiguration extends AbstractAddConfiguration
                         ->then(static fn ($v) => ['id' => $v])
                     ->end()
                     ->children()
-                        ->template('id_host')
+                        ->fragments()->idHost()
                         ->scalarNode('host')->info('Database host name, optional if id is given.')->end()
                         ->scalarNode('port')->defaultValue(27017)->end()
                         ->scalarNode('user')->end()
