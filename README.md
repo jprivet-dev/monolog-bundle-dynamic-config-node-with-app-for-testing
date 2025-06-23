@@ -2,15 +2,15 @@
 
 ## Description
 
-This repository (https://github.com/jprivet-dev/monolog-bundle-dynamic-config-node-with-app-for-testing) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/symfony/tree/monolog-bundle-dynamic-config-node, in a Symfony application.
+This repository (https://github.com/jprivet-dev/monolog-bundle-with-app-for-testing) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/monolog-bundle/tree/handler-configuration-segmentation, in a Symfony application.
 
 ## Install
 
 - Clone the project:
 
 ```shell
-git clone git@github.com:jprivet-dev/monolog-bundle-dynamic-config-node-with-app-for-testing.git
-cd monolog-bundle-dynamic-config-node-with-app-for-testing
+git clone git@github.com:jprivet-dev/monolog-bundle-with-app-for-testing.git
+cd monolog-bundle-with-app-for-testing
 ```
 
 - Run the installation script:
