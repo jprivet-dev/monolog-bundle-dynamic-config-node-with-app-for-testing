@@ -53,7 +53,7 @@ function install_contributing_env() {
     echo "----------------------------------------------------"
 
     cd ${root}
-    git clone git@github.com:jprivet-dev/monolog-bundle.git --branch monolog-bundle-dynamic-config-node
+    git clone git@github.com:jprivet-dev/monolog-bundle.git --branch handler-configuration-segmentation
 
     echo
     echo "# Links dependencies of the app project to the local clones"
