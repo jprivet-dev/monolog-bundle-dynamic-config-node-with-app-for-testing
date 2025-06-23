@@ -4,7 +4,9 @@ namespace Local\Bundle\MonologPocBundle\Definition\Builder;
 
 use Local\Bundle\MonologPocBundle\DependencyInjection\HandlerConfiguration\HandlerConfigurationInterface;
 use Local\Bundle\MonologPocBundle\DependencyInjection\ConfigurationFragments;
+use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder as BaseNodeBuilder;
+use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 
 class NodeBuilder extends BaseNodeBuilder
 {
@@ -29,6 +31,17 @@ class NodeBuilder extends BaseNodeBuilder
 //
 //        return $this->configurationFragments;
 //    }
+
+    public function fragments(): ArrayNodeDefinition
+    {
+        $class = $this->getNodeClass($type);
+
+        $node = new $class($name);
+
+        $this->append($node);
+
+        return $node;
+    }
 
     public function closure(\Closure $closure): static
     {
