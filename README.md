@@ -1,51 +1,59 @@
 # Monolog bundle with app for testing
 
+_A dedicated environment to develop and test MonologBundle configuration evolutions._
+
 ## Description
 
-This repository (https://github.com/jprivet-dev/monolog-bundle-with-app-for-testing) automatically generates the environment needed to test `MonologBundle` evolutions, from https://github.com/jprivet-dev/monolog-bundle/tree/handler-configuration-segmentation, in a Symfony application.
+This repository provides an automated environment for testing evolutions of the **MonologBundle** configuration. Specifically, it integrates and facilitates development for the [handler-configuration-segmentation](https://github.com/jprivet-dev/monolog-bundle/tree/handler-configuration-segmentation) branch of the [jprivet-dev/monolog-bundle](https://github.com/jprivet-dev/monolog-bundle) fork within a Symfony application.
 
 ## Install
 
-- Clone the project:
+To set up the environment, follow these steps:
+
+- **Clone the repository:**
 
 ```shell
 git clone git@github.com:jprivet-dev/monolog-bundle-with-app-for-testing.git
 cd monolog-bundle-with-app-for-testing
 ```
 
-- Run the installation:
+- **Run the installation script:**
 
 ```shell
 make install
 ```
 
-- Go on https://127.0.0.1:8000/.
+- **Access the application:**
 
-After installation, you will have the following structure :
+Once the installation is complete, open your browser and navigate to [https://127.0.0.1:8000/](https://127.0.0.1:8000/).
+
+## Environment structure after installation
+
+You will have the following structure:
 
 ```
 tree -A -L 1 -F --dirsfirst
 
 ./
-├── alice/            # Contains Nelmio/Alice project
-├── app/              # New app project for testing
-├── GotenbergBundle/  # Contains GotenbergBundle project
-├── monolog-bundle/   # Contains MonologBundle project (jprivet-dev fork)
-├── poc-bundle/       # Contains local PocBundle project (experimental area)
-├── symfony/          # Contains symfony project
+├── alice/            # Contains the Nelmio/Alice project.
+├── app/              # The new Symfony application project for testing.
+├── GotenbergBundle/  # Contains the SensioLabs GotenbergBundle project.
+├── monolog-bundle/   # Contains the forked MonologBundle project (jprivet-dev's fork).
+├── poc-bundle/       # Contains a local PocBundle project (experimental area).
+├── symfony/          # Contains the Symfony framework core project.
 ├── ...
 └── README.md
 ```
 
-Symbolic links are created between :
+The installation process establishes **symbolic links** for seamless integration:
 
-- `app/vendor/sensiolabs` and `GotenbergBundle` directory
-- `app/vendor/local` and `poc-bundle` directory
-- `app/vendor/symfony` and `monolog-bundle` and `symfony` directories
+- `app/vendor/sensiolabs` links to the `GotenbergBundle` directory.
+- `app/vendor/local` links to the `poc-bundle` directory.
+- `app/vendor/symfony` links to the `monolog-bundle` and `symfony` core directories.
 
-... with the `php link` command and `composer` configuration (see `make install`).
+These links are managed by the `php link` command and Composer's path repository configuration (see the`make install` target in the `Makefile` for details).
 
-app/composer.json :
+**app/composer.json:**
 
 ```json
 {
@@ -81,9 +89,9 @@ app/composer.json :
 }
 ```
 
-## Run tests
+## Running Tests
 
-### `MonologBundle`
+### MonologBundle
 
 ```shell
 make monolog_test
@@ -91,15 +99,18 @@ make monolog_test
 
 ## Troubleshooting
 
-At https://127.0.0.1:8000/, you'll see `You are using Symfony 7.2.x-DEV version`, whereas you should see `You are using Symfony 7.2.x version`. According to the `app/composer.json`, it is indeed a `7.2.x` version that is installed.
+When accessing [https://127.0.0.1:8000/](https://127.0.0.1:8000/), you might notice the message "You are using Symfony 7.3.x-DEV version" instead of "You are using Symfony 7.3.x version". This discrepancy arises from the `php link` command used during installation. While `app/composer.json` correctly indicates a 7.3.x release, the `php link` script appears to alter the reported version string. The root cause of this behavior is currently unknown and under investigation.
 
-It's from the `php link` command in the `install.sh` script that the displayed version changes. For the moment, I don't know why!
+## What problem do we want to solve with MonologBundle?
 
-## What problem do we want to solve with `MonologBundle`?
+When generating the default **MonologBundle** configuration using `php bin/console config:dump monolog`  (see output: [default-config/monolog.yaml](config/default-config/monolog.yaml)), all available configuration keys are currently attached to a single **handler prototype**.
 
-When you generate the default `MonologBundle` configuration, with the command `php bin/console config:dump monolog` (see output [config-dump-monolog.yaml](config-dump/config-dump-monolog.yaml)), all usable keys are attached to a single `handler` prototype.
+```shell
+php bin/console config:dump-reference monolog # Dump the default configuration for an extension
+php bin/console debug:config monolog          # Dump the current configuration for an extension
+```
 
-However, depending on the type of handler, not all keys can be activated. Under these conditions, it is not easy to anticipate and know which key to use depending on the `handler`.
+However, not all keys are applicable to every handler type. This makes it challenging to anticipate and determine which specific keys should be used for a given handler.
 
 For example, the `max_files` key can only be used for a handler of type `rotating_file`:
 
@@ -132,29 +143,30 @@ monolog:
       # ...
 ```
 
-The aim would be to modify the `MonologBundle`, to propose a new configuration structure and a dump which would make it easier to read, by explicitly attaching the authorised keys according to the `type` chosen.
+The goal is to modify **MonologBundle** to introduce a new configuration structure and a  `config:dump-reference` output that improves readability by explicitly associating authorized keys with their respective handler types.
 
-Everything is being researched, and there is no definite choice yet. The configurations of `SecurityBundle` ([config-dump-security.yaml](config-dump/config-dump-security.yaml)) or GotenbergBundle ([config-dump-gotenberg.yaml](config-dump/config-dump-gotenberg.yaml)) will be the first sources of inspiration.
+This is an ongoing research and development effort, with no definitive choices made yet. Initial sources of inspiration include the configurations of **SecurityBundle** ([default-config/security.yaml](config/default-config/security.yaml)) and **GotenbergBundle** ([default-config/sensiolabs_gotenberg.yaml](config/default-config/sensiolabs_gotenberg.yaml)).
 
 The [poc-bundle](poc-bundle) is an area for experimentation, to easily present the possibilities, before applying these choices to https://github.com/jprivet-dev/monolog-bundle.
 
-| Configuration file          | See default config                                        
-|-----------------------------|----------------------------------------------------------- 
-| `framework.yaml`            | Yes                                                       
-| `monolog.yaml`              | Yes (but without authorized keys by type)                 
-| `poc.yaml`                  | Yes (experimental)                                        
-| `security.yaml`             | Yes                                                       
-| `sensiolabs_gotenberg.yaml` | Yes                                                       
-| `workflow.yaml`             | No extensions with configuration available for "workflow" 
+| Configuration file        | See default config                                
+|---------------------------|--------------------------------------------------- 
+| framework.yaml            | Yes                                               
+| monolog.yaml              | Yes (but without authorized keys by type)         
+| monolog_poc.yaml          | Yes (with authorized keys by type - experimental) 
+| poc.yaml                  | Yes (experimental)                                
+| security.yaml             | Yes                                               
+| sensiolabs_gotenberg.yaml | Yes                                               
+| workflow.yaml             | No configuration extensions available             
 
-## `MonologPocBundle`: new structure of the `Configuration.php` file
+## MonologPocBundle: new structure of the `Configuration.php` file
 
-The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle` inherits the experiments of `PocBundle`).
+The idea is to propose a new approach in `Configuration.php` (**MonologPocBundle** inherits the experiments of **PocBundle**).
 
 ### Group configuration properties by handler type
 
 - Why?
-  - All properties of the 46 handlers are aligned in the configuration: as it stands, it's difficult to know which property is attached to which handler type:
+  - Currently, all 46 handler properties are listed in a single configuration block, making it difficult to discern which property belongs to which handler type:
     - See [monolog.yaml](config/default-config/monolog.yaml).
   - Have a file generated with the `config:dump-reference` command, which is much more readable :
     - See [monolog_poc.yaml](config/default-config/monolog_poc.yaml) (Contains the configuration of 17 of the original 46 handlers).
@@ -166,7 +178,7 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
 - Why?
   - Make the configuration of the 46 handlers easier to read.
 - How?
-  - Have one configuration file per handler. 
+  - Have one configuration file per handler.
   - Import handler configurations into the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file (e.g., `SymfonyMailerHandlerConfiguration`, using the `addConfiguration()` method).
   - Allow common nodes to be reused and limit duplication (using the `template()` method).
 
@@ -176,14 +188,14 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
   - View the entire node hierarchy at a glance.
 - How?
   - Do not retrieve child nodes to enrich in a variable.
-  - Provide the ability to enrich a child node directly in the configuration chain (with the `addConfiguration()`, `template()`, or `callable()` methods).
+  - Provide the ability to enrich a child node directly in the configuration chain (with the `addConfiguration()`, `template()`, or `closure()` methods).
   - If the `Config` component builders are limited, extend them to the bare minimum.
 
-### Reuse part of the `MonologBundle` configuration
+### Reuse part of the MonologBundle configuration
 
 - Why?
-  - `MonologBundle` is a very rich bundle and has already covered a good portion of the configuration and validation subtleties of the various handlers.
-  - If integrating the original `MonologBundle` configurations remains easy, then this will mean that...:
+  - **MonologBundle** is a very rich bundle and has already covered a good portion of the configuration and validation subtleties of the various handlers.
+  - If integrating the original **MonologBundle** configurations proves straightforward, this indicates that:
     - we will be able to rely on common configuration practices and make them easier for developers to understand.
     - we will be able to easily evolve and adapt the configurations.
     - we will be able to save a lot of time restructuring the configuration of the 46 handlers.
@@ -207,7 +219,16 @@ The idea is to propose a new approach in `Configuration.php` (`MonologPocBundle`
   - https://symfony.com/doc/current/security.html
   - https://github.com/sensiolabs/GotenbergBundle
   - https://github.com/symfony/workflow
+  - https://github.com/nelmio/alice
 - The Bundle System:
   - https://symfony.com/doc/current/bundles.html
   - https://symfony.com/doc/current/bundles/best_practices.html
   - https://symfony.com/doc/current/components/config/definition.html
+
+## Comments, suggestions?
+
+Feel free to make comments/suggestions to me in the [Git issues section](https://github.com/jprivet-dev/monolog-bundle-with-app-for-testing/issues).
+
+## License
+
+This project is released under the [**MIT License**](https://github.com/jprivet-dev/monolog-bundle-with-app-for-testing/blob/main/LICENSE).
