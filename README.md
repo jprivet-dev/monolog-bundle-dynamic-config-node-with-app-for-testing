@@ -1,4 +1,4 @@
-# Monolog bundle dynamic config node with Symfony app for testing
+# Monolog bundle with app for testing
 
 ## Description
 
@@ -13,21 +13,10 @@ git clone git@github.com:jprivet-dev/monolog-bundle-with-app-for-testing.git
 cd monolog-bundle-with-app-for-testing
 ```
 
-- Run the installation script:
+- Run the installation:
 
 ```shell
-. install.sh
-```
-
-- Activate `PocBundle` and `MonologPocBundle` in the `app`:
-
-```php
-// app/config/bundles.php
-return [
-    // ...
-    Local\Bundle\PocBundle\PocBundle::class => ['dev' => true],
-    Local\Bundle\MonologPocBundle\MonologPocBundle::class => ['dev' => true],
-];
+make install
 ```
 
 - Go on https://127.0.0.1:8000/.
@@ -38,6 +27,7 @@ After installation, you will have the following structure :
 tree -A -L 1 -F --dirsfirst
 
 ./
+├── alice/            # Contains Nelmio/Alice project
 ├── app/              # New app project for testing
 ├── GotenbergBundle/  # Contains GotenbergBundle project
 ├── monolog-bundle/   # Contains MonologBundle project (jprivet-dev fork)
@@ -53,10 +43,11 @@ Symbolic links are created between :
 - `app/vendor/local` and `poc-bundle` directory
 - `app/vendor/symfony` and `monolog-bundle` and `symfony` directories
 
-... with the `php link` command and `composer` configuration (see `install.sh`) :
+... with the `php link` command and `composer` configuration (see `make install`).
+
+app/composer.json :
 
 ```json
-// app/composer.json
 {
   "...": {},
   "require": {
@@ -95,17 +86,7 @@ Symbolic links are created between :
 ### `MonologBundle`
 
 ```shell
-cd monolog-bundle
-composer update
-vendor/bin/simple-phpunit
-```
-
-### `PocBundle`
-
-```shell
-cd poc-bundle
-composer update
-vendor/bin/simple-phpunit
+make monolog_test
 ```
 
 ## Troubleshooting
