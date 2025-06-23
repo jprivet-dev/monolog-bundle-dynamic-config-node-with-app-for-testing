@@ -1,3 +1,7 @@
+#
+# DIRECTORIES
+#
+
 APP_DIR=app
 ALICE_DIR=alice
 GOTENBERG_BUNDLE_DIR=GotenbergBundle
@@ -5,8 +9,12 @@ MONOLOG_BUNDLE_DIR=monolog-bundle
 MONOLOG_POC_BUNDLE_DIR=monolog-poc-bundle
 POC_BUNDLE_DIR=poc-bundle
 SYMFONY_CORE_DIR=symfony
-SYMFONY_VERSION=7.3
 
+#
+# OTHER VARIABLES
+#
+
+SYMFONY_VERSION=7.3
 CONSOLE=cd app && php bin/console
 
 ## — 🎵 🚀 MONOLOG BUNDLE WITH APP FOR TESTING MAKEFILE 🚀 🎵 —————————————————
@@ -33,47 +41,80 @@ all: install
 
 .PHONY: install
 install: ## Start full environment setup
-	@echo "\n--- 1. Creating a new test app project in $(APP_DIR)/ ---"
-	@symfony check:requirements || { echo "Symfony requirements check failed. Please ensure your environment meets the requirements."; exit 1; }
-	@symfony new $(APP_DIR) --version=$(SYMFONY_VERSION) || { echo "Failed to create Symfony app. Is Symfony CLI installed and accessible?"; exit 1; }
-
-	@echo "\n--- 2. Adding base dependencies to $(APP_DIR)/ ---"
+	@echo "---"
+	@echo "--- 1. Creating a new test app project in $(APP_DIR)/"
+	@echo "---"
+	@if [ ! -d "$(APP_DIR)" ]; then \
+		echo "Create Symfony app..."; \
+		symfony check:requirements || { echo "Symfony requirements check failed. Please ensure your environment meets the requirements."; exit 1; }; \
+		symfony new $(APP_DIR) --version=$(SYMFONY_VERSION) || { echo "Failed to create Symfony app. Is Symfony CLI installed and accessible?"; exit 1; }; \
+	else \
+		echo "Symfony app already exists in $(APP_DIR)/, skipping create app."; \
+	fi
+	@echo "---"
+	@echo "--- 2. Adding base dependencies to $(APP_DIR)/"
+	@echo "---"
 	@cd $(APP_DIR) && \
 	composer require symfony/http-client symfony/security-bundle symfony/workflow || { echo "Failed to install base dependencies."; exit 1; }
-
-	@echo "\n--- 3. Cloning external repositories ---"
-	@git clone git@github.com:symfony/symfony.git --branch $(SYMFONY_VERSION) --depth 1 $(SYMFONY_CORE_DIR) || { echo "Failed to clone Symfony core."; exit 1; }
-	@git clone git@github.com:Jean-Beru/GotenbergBundle.git --branch 1.x $(GOTENBERG_BUNDLE_DIR) || { echo "Failed to clone GotenbergBundle."; exit 1; }
-	@git clone git@github.com:jprivet-dev/monolog-bundle.git --branch handler-configuration-segmentation $(MONOLOG_BUNDLE_DIR) || { echo "Failed to clone MonologBundle."; exit 1; }
-	@git clone git@github.com:nelmio/alice.git $(ALICE_DIR) || { echo "Failed to clone Nelmio/Alice."; exit 1; }
-
-	@echo "\n--- 4. Linking local bundles to $(APP_DIR)/ ---"
+	@echo "---"
+	@echo "--- 3. Cloning external repositories"
+	@echo "---"
+	@if [ ! -d "$(SYMFONY_CORE_DIR)" ]; then \
+		echo "Cloning $(SYMFONY_CORE_DIR)..."; \
+		git clone git@github.com:symfony/symfony.git --branch $(SYMFONY_VERSION) --depth 1 $(SYMFONY_CORE_DIR) || { echo "Failed to clone Symfony core."; exit 1; }; \
+	else \
+		echo "$(SYMFONY_CORE_DIR) already exists, skipping clone."; \
+	fi
+	@if [ ! -d "$(GOTENBERG_BUNDLE_DIR)" ]; then \
+		echo "Cloning $(GOTENBERG_BUNDLE_DIR)..."; \
+		git clone git@github.com:Jean-Beru/GotenbergBundle.git --branch 1.x $(GOTENBERG_BUNDLE_DIR) || { echo "Failed to clone GotenbergBundle."; exit 1; }; \
+	else \
+		echo "$(GOTENBERG_BUNDLE_DIR) already exists, skipping clone."; \
+	fi
+	@if [ ! -d "$(MONOLOG_BUNDLE_DIR)" ]; then \
+		echo "Cloning $(MONOLOG_BUNDLE_DIR)..."; \
+		git clone git@github.com:jprivet-dev/monolog-bundle.git --branch handler-configuration-segmentation $(MONOLOG_BUNDLE_DIR) || { echo "Failed to clone MonologBundle."; exit 1; }; \
+	else \
+		echo "$(MONOLOG_BUNDLE_DIR) already exists, skipping clone."; \
+	fi
+	@if [ ! -d "$(ALICE_DIR)" ]; then \
+		echo "Cloning $(ALICE_DIR)..."; \
+		git clone git@github.com:nelmio/alice.git $(ALICE_DIR) || { echo "Failed to clone Nelmio/Alice."; exit 1; }; \
+	else \
+		echo "$(ALICE_DIR) already exists, skipping clone."; \
+	fi
+	@echo "---"
+	@echo "--- 4. Linking local bundles to $(APP_DIR)/"
+	@echo "---"
 	@cd $(APP_DIR) && \
 	php ../$(SYMFONY_CORE_DIR)/link . || { echo "Failed to link Symfony core."; exit 1; } && \
 	composer config repositories.gotenberg-bundle path ../$(GOTENBERG_BUNDLE_DIR) || { echo "Failed to configure GotenbergBundle repository."; exit 1; } && \
-	composer require sensiolabs/gotenberg-bundle:@dev || { echo "Failed to require GotenbergBundle."; exit 1; } && \
+	SYMFONY_REQUIRE="$(SYMFONY_VERSION).*" SYMFONY_DOCKER=0 \
+	composer require --no-interaction sensiolabs/gotenberg-bundle:@dev || { echo "Failed to require GotenbergBundle."; exit 1; } && \
 	composer config repositories.monolog-bundle path ../$(MONOLOG_BUNDLE_DIR) || { echo "Failed to configure MonologBundle repository."; exit 1; } && \
-	composer require symfony/monolog-bundle:@dev || { echo "Failed to require MonologBundle."; exit 1; } && \
+	SYMFONY_REQUIRE="$(SYMFONY_VERSION).*" SYMFONY_DOCKER=0 \
+	composer require --no-interaction symfony/monolog-bundle:@dev || { echo "Failed to require MonologBundle."; exit 1; } && \
 	composer config repositories.alice path ../$(ALICE_DIR) || { echo "Failed to configure Nelmio/Alice repository."; exit 1; } && \
 	composer require nelmio/alice:@dev || { echo "Failed to require Nelmio/Alice."; exit 1; } && \
 	composer config repositories.poc-bundle path ../$(POC_BUNDLE_DIR) || { echo "Failed to configure PocBundle repository."; exit 1; } && \
 	composer require local/poc-bundle:@dev || { echo "Failed to require PocBundle."; exit 1; } && \
 	composer config repositories.monolog-poc-bundle path ../$(MONOLOG_POC_BUNDLE_DIR) || { echo "Failed to configure MonologPocBundle repository."; exit 1; } && \
 	composer require local/monolog-poc-bundle:@dev || { echo "Failed to require MonologPocBundle."; exit 1; }
-
-	@echo "\n--- 5. Installing development tools in $(APP_DIR)/ ---"
+	@echo "---"
+	@echo "--- 5. Installing development tools in $(APP_DIR)/"
+	@echo "---"
 	@cd $(APP_DIR) && \
-	composer require --dev "phpunit/phpunit:^9.5.10" "symfony/phpunit-bridge:^7.1" || { echo "Failed to install PHPUnit and Bridge."; exit 1; } && \
+	composer require --dev "phpunit/phpunit:^9.5.10" "symfony/phpunit-bridge:^7.1" --with-all-dependencies || { echo "Failed to install PHPUnit and Bridge."; exit 1; } && \
 	composer require --dev symfony/maker-bundle || { echo "Failed to install MakerBundle."; exit 1; } && \
 	composer require doctrine/orm || { echo "Failed to install Doctrine ORM."; exit 1; } && \
 	composer require --dev symfony/profiler-pack || { echo "Failed to install Profiler Pack."; exit 1; }
-
-	@echo "\n--- Full environment setup complete. ---"
-	@echo "You can now start the server with: make start-server"
-	@echo "And run tests with: make run-tests"
+	@echo "---"
+	@echo "--- Full environment setup complete."
+	@echo "---"
+	@echo "You can now start the server with: make start"
 
 .PHONY: clean
-clean: ## Clean up the entire environment
+clean: stop ## Clean up the entire environment
 	rm -rf $(APP_DIR) $(GOTENBERG_BUNDLE_DIR) $(MONOLOG_BUNDLE_DIR) $(SYMFONY_CORE_DIR) $(ALICE_DIR)
 
 ## — APP (SYMFONY) 🎵 —————————————————————————————————————————————————————————
@@ -123,7 +164,7 @@ actual_config: ## Generate in yaml files the actual config values used by the ap
 ## — MONOLOG 📝 ———————————————————————————————————————————————————————————————
 
 default_config@monolog: BUNDLE=monolog
-default_config@monolog: default_config_by_bundle ##
+default_config@monolog: default_config_by_bundle ## Generate the default
 
 actual_config@monolog: BUNDLE=monolog
 actual_config@monolog: actual_config_by_bundle ##
