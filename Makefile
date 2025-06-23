@@ -54,6 +54,9 @@ install: ## Set up the complete development environment.
 	@echo "---"
 	@echo "--- 2. Adding base dependencies to $(APP_DIR)/"
 	@echo "---"
+	@# symfony/http-client - Avoid cache:clear error: HttpClient support cannot be enabled as the component is not installed
+	@# symfony/security-bundle - Source of inspiration
+	@# symfony/workflow - Source of inspiration
 	@cd $(APP_DIR) && \
 	composer require symfony/http-client symfony/security-bundle symfony/workflow || { echo "Failed to install base dependencies."; exit 1; }
 	@echo "---"
@@ -86,6 +89,7 @@ install: ## Set up the complete development environment.
 	@echo "---"
 	@echo "--- 4. Linking local bundles to $(APP_DIR)/"
 	@echo "---"
+	@# See https://getcomposer.org/doc/05-repositories.md#using-private-repositories
 	@cd $(APP_DIR) && \
 	php ../$(SYMFONY_CORE_DIR)/link . || { echo "Failed to link Symfony core."; exit 1; } && \
 	composer config repositories.gotenberg-bundle path ../$(GOTENBERG_BUNDLE_DIR) || { echo "Failed to configure GotenbergBundle repository."; exit 1; } && \
