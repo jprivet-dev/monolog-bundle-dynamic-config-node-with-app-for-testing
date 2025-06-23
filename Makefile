@@ -74,7 +74,7 @@ install: ## Start full environment setup
 
 .PHONY: clean
 clean: ## Clean up the entire environment
-	rm -rf $(APP_DIR) $(GOTENBERG_BUNDLE_DIR) $(MONOLOG_BUNDLE_DIR) $(MONOLOG_POC_BUNDLE_DIR) $(POC_BUNDLE_DIR) $(SYMFONY_CORE_DIR)
+	rm -rf $(APP_DIR) $(GOTENBERG_BUNDLE_DIR) $(MONOLOG_BUNDLE_DIR) $(SYMFONY_CORE_DIR) $(ALICE_DIR)
 
 ## — APP (SYMFONY) 🎵 —————————————————————————————————————————————————————————
 
