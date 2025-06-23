@@ -10,7 +10,7 @@ function install_contributing_env() {
 
     symfony check:requirements
 
-    symfony new app --version=7.2
+    symfony new app --version=7.3
     cd ${root}/app
 
     composer require symfony/http-client     # Avoid cache:clear error: HttpClient support cannot be enabled as the component is not installed
