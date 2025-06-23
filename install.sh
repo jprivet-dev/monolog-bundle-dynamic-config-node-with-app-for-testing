@@ -22,7 +22,7 @@ function install_contributing_env() {
     echo "---------------------------"
 
     cd ${root}
-    git clone git@github.com:symfony/symfony.git --branch 7.2 --depth 1
+    git clone git@github.com:symfony/symfony.git --branch 7.3 --depth 1
 
     echo
     echo "# Links dependencies of the app project to the local clones"
