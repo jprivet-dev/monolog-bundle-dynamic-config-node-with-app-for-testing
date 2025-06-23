@@ -25,7 +25,7 @@ CONSOLE=cd app && php bin/console
 
 .DEFAULT_GOAL=help
 .PHONY: help
-help: ## Display this help message with available commands.
+help: ## Display this help message with available commands
 	@grep -E '(^[.a-zA-Z_-]+[^:]+:.*##.*?$$)|(^#{2})' Makefile | awk 'BEGIN {FS = "## "}; { \
 		split($$1, line, ":"); targets=line[1]; description=$$2; \
 		if (targets == "##") { printf "\033[33m%s\n", ""; } \
@@ -40,7 +40,7 @@ help: ## Display this help message with available commands.
 all: install
 
 .PHONY: install
-install: ## Set up the complete development environment.
+install: ## Set up the complete development environment
 	@echo "---"
 	@echo "--- 1. Creating a new test app project in $(APP_DIR)/"
 	@echo "---"
@@ -118,29 +118,24 @@ install: ## Set up the complete development environment.
 	@echo "You can now start the server with: make start"
 
 .PHONY: clean
-clean: stop ## Remove the entire development environment.
+clean: stop ## Remove the entire development environment
 	rm -rf $(APP_DIR) $(GOTENBERG_BUNDLE_DIR) $(MONOLOG_BUNDLE_DIR) $(SYMFONY_CORE_DIR) $(ALICE_DIR)
 
 ## — APP (SYMFONY) 🎵 —————————————————————————————————————————————————————————
 
 .PHONY: start
-start: app ## Start the local web server.
+start: app ## Start the local web server
 	symfony server:start --dir="app" --daemon
 
 .PHONY: stop
-stop: app ## Stop the local web server.
+stop: app ## Stop the local web server
 	symfony server:stop --dir="app"
 
 .PHONY: cc
-cc: app ## Clear the Symfony application cache.
+cc: app ## Clear the Symfony application cache
 	$(CONSOLE) cache:clear
 
-default_config_by_bundle: app ## Generate a YAML file with the default config for a specific bundle.
-	@$(if $(BUNDLE),, $(error BUNDLE argument is required))
-	@printf "#\n# [$(BUNDLE)] Generate the default config values defined by Symfony\n#\n"
-	$(CONSOLE) config:dump-reference $(BUNDLE) >../config/default-config/$(BUNDLE).yaml
-
-default_config: ## Generate YAML files with the default config for various core bundles.
+default_config: ## Generate YAML files with the default config for various core bundles
 	-make default_config_by_bundle BUNDLE=framework
 	-make default_config_by_bundle BUNDLE=monolog
 	-make default_config_by_bundle BUNDLE=poc
@@ -149,14 +144,12 @@ default_config: ## Generate YAML files with the default config for various core 
 	-make default_config_by_bundle BUNDLE=sensiolabs_gotenberg
 	-make default_config_by_bundle BUNDLE=workflow
 
-actual_config_by_bundle: app ## Generate a YAML file with the actual config for a specific bundle, per environment (test, dev and prod).
+default_config_by_bundle: app ## Generate a YAML file with the default config for a specific bundle
 	@$(if $(BUNDLE),, $(error BUNDLE argument is required))
-	@printf "#\n# [$(BUNDLE)] Generate the actual config values used by the app\n#\n"
-	$(CONSOLE) debug:config $(BUNDLE) --env=test >../config/actual-config/$(BUNDLE).test.yaml
-	$(CONSOLE) debug:config $(BUNDLE) --env=dev >../config/actual-config/$(BUNDLE).dev.yaml
-	$(CONSOLE) debug:config $(BUNDLE) --env=prod >../config/actual-config/$(BUNDLE).prod.yaml
+	@printf "#\n# [$(BUNDLE)] Generate the default config values defined by Symfony\n#\n"
+	$(CONSOLE) config:dump-reference $(BUNDLE) >../config/default-config/$(BUNDLE).yaml
 
-actual_config: ## Generate YAML files with the actual config for various core bundles, per environment.
+actual_config: ## Generate YAML files with the actual config for various core bundles, per environment
 	-make actual_config_by_bundle BUNDLE=framework
 	-make actual_config_by_bundle BUNDLE=monolog
 	-make actual_config_by_bundle BUNDLE=poc
@@ -165,13 +158,21 @@ actual_config: ## Generate YAML files with the actual config for various core bu
 	-make actual_config_by_bundle BUNDLE=sensiolabs_gotenberg
 	-make actual_config_by_bundle BUNDLE=workflow
 
+actual_config_by_bundle: app ## Generate a YAML file with the actual config for a specific bundle, per environment (test, dev and prod).
+	@$(if $(BUNDLE),, $(error BUNDLE argument is required))
+	@printf "#\n# [$(BUNDLE)] Generate the actual config values used by the app\n#\n"
+	$(CONSOLE) debug:config $(BUNDLE) --env=test >../config/actual-config/$(BUNDLE).test.yaml
+	$(CONSOLE) debug:config $(BUNDLE) --env=dev >../config/actual-config/$(BUNDLE).dev.yaml
+	$(CONSOLE) debug:config $(BUNDLE) --env=prod >../config/actual-config/$(BUNDLE).prod.yaml
+
+
 ## — MONOLOG 📝 ———————————————————————————————————————————————————————————————
 
 default_config@monolog: BUNDLE=monolog
-default_config@monolog: default_config_by_bundle ## Generate the default Monolog Bundle configuration values defined by Symfony.
+default_config@monolog: default_config_by_bundle ## Generate the default Monolog Bundle configuration values defined by Symfony
 
 actual_config@monolog: BUNDLE=monolog
-actual_config@monolog: actual_config_by_bundle ## Generate the actual Monolog Bundle configuration values used by the app.
+actual_config@monolog: actual_config_by_bundle ## Generate the actual Monolog Bundle configuration values used by the app
 
-monolog_test: app ## Run all Monolog Bundle tests.
+test@monolog: app ## Run all Monolog Bundle tests
 	cd app && ./vendor/bin/phpunit vendor/symfony/monolog-bundle/Tests $(ARG)
