@@ -17,6 +17,9 @@ function install_contributing_env() {
     composer require symfony/security-bundle # Source of inspiration
     composer require symfony/workflow        # Source of inspiration
 
+    composer require --dev phpunit/phpunit:^9.5.10
+    composer require --dev symfony/phpunit-bridge:^7.1
+
     echo
     echo "Get the Symfony Source Code"
     echo "---------------------------"
