@@ -108,7 +108,7 @@ install: ## Set up the complete development environment
 	@echo "--- 5. Installing development tools in $(APP_DIR)/"
 	@echo "---"
 	@cd $(APP_DIR) && \
-	composer require --dev "phpunit/phpunit:^9.5.10" "symfony/phpunit-bridge:^7.1" --with-all-dependencies || { echo "Failed to install PHPUnit and Bridge."; exit 1; } && \
+	composer require --dev "phpunit/phpunit:^9.5.10" "symfony/phpunit-bridge:^7.1" "friendsofphp/php-cs-fixer:^3.0" --with-all-dependencies || { echo "Failed to install PHPUnit and Bridge."; exit 1; } && \
 	composer require --dev symfony/maker-bundle || { echo "Failed to install MakerBundle."; exit 1; } && \
 	composer require doctrine/orm || { echo "Failed to install Doctrine ORM."; exit 1; } && \
 	composer require --dev symfony/profiler-pack || { echo "Failed to install Profiler Pack."; exit 1; }
