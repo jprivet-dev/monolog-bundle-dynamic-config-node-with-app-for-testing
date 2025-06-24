@@ -1,26 +1,26 @@
+# http://editorconfig.org
+
 root = true
 
 [*]
 charset = utf-8
 end_of_line = lf
-indent_size = 4
 indent_style = space
-insert_final_newline = true
-max_line_length = 800
+indent_size = 4
 tab_width = 4
+insert_final_newline = true
 trim_trailing_whitespace = true
 
 [{*.css,*.scss}]
 indent_size = 2
 tab_width = 2
 
-[{*.dist,.bowerrc,.sasslintrc,package.json}]
+[{*.json,*.yml,*.yaml,*.ini,.env,.env.dist,*.dist,.bowerrc,package.json}]
 indent_size = 2
 tab_width = 2
 
 [*.md]
 indent_size = 2
-trim_trailing_whitespace = false
 
 [Makefile]
 indent_style = tab
@@ -28,3 +28,10 @@ indent_style = tab
 [phpunit.xml.dist]
 indent_size = 4
 tab_width = 4
+
+[*.xml]
+indent_size = 4
+tab_width = 4
+
+[*.html]
+max_line_length = 300
