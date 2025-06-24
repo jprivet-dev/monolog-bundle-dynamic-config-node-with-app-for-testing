@@ -166,3 +166,144 @@ monolog:
                 # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
                 nested:               false
 
+            # "console" type handler (one type of handler per name and per environment).
+            type_console:         []
+
+            # "firephp" type handler (one type of handler per name and per environment).
+            type_firephp:         []
+
+            # "browser_console" type handler (one type of handler per name and per environment).
+            type_browser_console: []
+
+            # "gelf" type handler (one type of handler per name and per environment).
+            type_gelf:            []
+
+            # "chromephp" type handler (one type of handler per name and per environment).
+            type_chromephp:       []
+
+            # "rotating_file" type handler (one type of handler per name and per environment).
+            type_rotating_file:   []
+
+            # "mongo" type handler (one type of handler per name and per environment).
+            type_mongo:           []
+
+            # "elasticsearch" type handler (one type of handler per name and per environment).
+            type_elasticsearch:   []
+
+            # "elastica" type handler (one type of handler per name and per environment).
+            type_elastica:        []
+
+            # "redis" type handler (one type of handler per name and per environment).
+            type_redis:           []
+
+            # "predis" type handler (one type of handler per name and per environment).
+            type_predis:          []
+
+            # "fingers_crossed" type handler (one type of handler per name and per environment).
+            type_fingers_crossed: []
+
+            # "filter" type handler (one type of handler per name and per environment).
+            type_filter:          []
+
+            # "buffer" type handler (one type of handler per name and per environment).
+            type_buffer:          []
+
+            # "deduplication" type handler (one type of handler per name and per environment).
+            type_deduplication:   []
+
+            # "group" type handler (one type of handler per name and per environment).
+            type_group:           []
+
+            # "whatfailuregroup" type handler (one type of handler per name and per environment).
+            type_whatfailuregroup: []
+
+            # "fallbackgroup" type handler (one type of handler per name and per environment).
+            type_fallbackgroup:   []
+
+            # "syslog" type handler (one type of handler per name and per environment).
+            type_syslog:          []
+
+            # "syslogudp" type handler (one type of handler per name and per environment).
+            type_syslogudp:       []
+
+            # "swift_mailer" type handler (one type of handler per name and per environment).
+            type_swift_mailer:    []
+
+            # "native_mailer" type handler (one type of handler per name and per environment).
+            type_native_mailer:   []
+
+            # "symfony_mailer" type handler (one type of handler per name and per environment).
+            type_symfony_mailer:  []
+
+            # "socket" type handler (one type of handler per name and per environment).
+            type_socket:          []
+
+            # "pushover" type handler (one type of handler per name and per environment).
+            type_pushover:        []
+
+            # "raven" type handler (one type of handler per name and per environment).
+            type_raven:           []
+
+            # "sentry" type handler (one type of handler per name and per environment).
+            type_sentry:          []
+
+            # "newrelic" type handler (one type of handler per name and per environment).
+            type_newrelic:        []
+
+            # "hipchat" type handler (one type of handler per name and per environment).
+            type_hipchat:         []
+
+            # "slack" type handler (one type of handler per name and per environment).
+            type_slack:           []
+
+            # "slackwebhook" type handler (one type of handler per name and per environment).
+            type_slackwebhook:    []
+
+            # "slackbot" type handler (one type of handler per name and per environment).
+            type_slackbot:        []
+
+            # "cube" type handler (one type of handler per name and per environment).
+            type_cube:            []
+
+            # "amqp" type handler (one type of handler per name and per environment).
+            type_amqp:            []
+
+            # "error_log" type handler (one type of handler per name and per environment).
+            type_error_log:       []
+
+            # "null" type handler (one type of handler per name and per environment).
+            type_null:            []
+
+            # "test" type handler (one type of handler per name and per environment).
+            type_test:            []
+
+            # "debug" type handler (one type of handler per name and per environment).
+            type_debug:           []
+
+            # "loggly" type handler (one type of handler per name and per environment).
+            type_loggly:          []
+
+            # "logentries" type handler (one type of handler per name and per environment).
+            type_logentries:      []
+
+            # "insightops" type handler (one type of handler per name and per environment).
+            type_insightops:      []
+
+            # "flowdock" type handler (one type of handler per name and per environment).
+            type_flowdock:        []
+
+            # "rollbar" type handler (one type of handler per name and per environment).
+            type_rollbar:         []
+
+            # "server_log" type handler (one type of handler per name and per environment).
+            type_server_log:      []
+
+            # "telegram" type handler (one type of handler per name and per environment).
+            type_telegram:        []
+
+            # "sampling" type handler (one type of handler per name and per environment).
+            type_sampling:        []
+
+            # "service" type handler (one type of handler per name and per environment).
+            type_service:         []
+
