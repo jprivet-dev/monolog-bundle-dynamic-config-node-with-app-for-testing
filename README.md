@@ -4,26 +4,27 @@ _A dedicated environment to develop and test MonologBundle configuration evoluti
 
 ## Description
 
-This repository provides an automated environment for testing evolutions of the **MonologBundle** configuration. Specifically, it integrates and facilitates development for the [handler-configuration-segmentation](https://github.com/jprivet-dev/monolog-bundle/tree/handler-configuration-segmentation) branch of the [jprivet-dev/monolog-bundle](https://github.com/jprivet-dev/monolog-bundle) fork within a Symfony application.
+This repository provides an automated environment for testing evolutions of the **MonologBundle** configuration. Specifically, it integrates and facilitates development for the [handler-configuration-segmentation](https://github.com/jprivet-dev/monolog-bundle/tree/handler-configuration-segmentation)
+branch of the [jprivet-dev/monolog-bundle](https://github.com/jprivet-dev/monolog-bundle) fork within a Symfony application.
 
 ## Install
 
 To set up the environment, follow these steps:
 
-- **Clone the repository:**
+* **Clone the repository:**
 
 ```shell
 git clone git@github.com:jprivet-dev/monolog-bundle-with-app-for-testing.git
 cd monolog-bundle-with-app-for-testing
 ```
 
-- **Run the installation script:**
+* **Run the installation script:**
 
 ```shell
 make install
 ```
 
-- **Access the application:**
+* **Access the application:**
 
 Once the installation is complete, open your browser and navigate to [https://127.0.0.1:8000/](https://127.0.0.1:8000/).
 
@@ -47,9 +48,9 @@ tree -A -L 1 -F --dirsfirst
 
 The installation process establishes **symbolic links** for seamless integration:
 
-- `app/vendor/sensiolabs` links to the `GotenbergBundle` directory.
-- `app/vendor/local` links to the `poc-bundle` directory.
-- `app/vendor/symfony` links to the `monolog-bundle` and `symfony` core directories.
+* `app/vendor/sensiolabs` links to the `GotenbergBundle` directory.
+* `app/vendor/local` links to the `poc-bundle` directory.
+* `app/vendor/symfony` links to the `monolog-bundle` and `symfony` core directories.
 
 These links are managed by the `php link` command and Composer's path repository configuration (see the`make install` target in the `Makefile` for details).
 
@@ -99,7 +100,8 @@ make monolog_test
 
 ## Troubleshooting
 
-When accessing [https://127.0.0.1:8000/](https://127.0.0.1:8000/), you might notice the message "You are using Symfony 7.3.x-DEV version" instead of "You are using Symfony 7.3.x version". This discrepancy arises from the `php link` command used during installation. While `app/composer.json` correctly indicates a 7.3.x release, the `php link` script appears to alter the reported version string. The root cause of this behavior is currently unknown and under investigation.
+When accessing [https://127.0.0.1:8000/](https://127.0.0.1:8000/), you might notice the message "You are using Symfony 7.3.x-DEV version" instead of "You are using Symfony 7.3.x version". This discrepancy arises from the `php link` command used during installation. While `app/composer.json`
+correctly indicates a 7.3.x release, the `php link` script appears to alter the reported version string. The root cause of this behavior is currently unknown and under investigation.
 
 ## What problem do we want to solve with MonologBundle?
 
@@ -145,19 +147,20 @@ monolog:
 
 The goal is to modify **MonologBundle** to introduce a new configuration structure and a  `config:dump-reference` output that improves readability by explicitly associating authorized keys with their respective handler types.
 
-This is an ongoing research and development effort, with no definitive choices made yet. Initial sources of inspiration include the configurations of **SecurityBundle** ([default-config/security.yaml](config/default-config/security.yaml)) and **GotenbergBundle** ([default-config/sensiolabs_gotenberg.yaml](config/default-config/sensiolabs_gotenberg.yaml)).
+This is an ongoing research and development effort, with no definitive choices made yet. Initial sources of inspiration include the configurations of **SecurityBundle** ([default-config/security.yaml](config/default-config/security.yaml)) and **GotenbergBundle
+** ([default-config/sensiolabs_gotenberg.yaml](config/default-config/sensiolabs_gotenberg.yaml)).
 
 The [poc-bundle](poc-bundle) is an area for experimentation, to easily present the possibilities, before applying these choices to https://github.com/jprivet-dev/monolog-bundle.
 
-| Configuration file        | See default config                                
-|---------------------------|--------------------------------------------------- 
-| framework.yaml            | Yes                                               
-| monolog.yaml              | Yes (but without authorized keys by type)         
-| monolog_poc.yaml          | Yes (with authorized keys by type - experimental) 
-| poc.yaml                  | Yes (experimental)                                
-| security.yaml             | Yes                                               
-| sensiolabs_gotenberg.yaml | Yes                                               
-| workflow.yaml             | No configuration extensions available             
+| Configuration file        | See default config
+|---------------------------|---------------------------------------------------
+| framework.yaml            | Yes
+| monolog.yaml              | Yes (but without authorized keys by type)
+| monolog_poc.yaml          | Yes (with authorized keys by type - experimental)
+| poc.yaml                  | Yes (experimental)
+| security.yaml             | Yes
+| sensiolabs_gotenberg.yaml | Yes
+| workflow.yaml             | No configuration extensions available
 
 ## MonologPocBundle: new structure of the `Configuration.php` file
 
@@ -165,65 +168,128 @@ The idea is to propose a new approach in `Configuration.php` (**MonologPocBundle
 
 ### Group configuration properties by handler type
 
-- Why?
-  - Currently, all 46 handler properties are listed in a single configuration block, making it difficult to discern which property belongs to which handler type:
-    - See [monolog.yaml](config/default-config/monolog.yaml).
-  - Have a file generated with the `config:dump-reference` command, which is much more readable :
-    - See [monolog_poc.yaml](config/default-config/monolog_poc.yaml) (Contains the configuration of 17 of the original 46 handlers).
-- How?
-  - Have a configuration prototype per handler type.
+* Why?
+  * Currently, all 46 handler properties are listed in a single configuration block, making it difficult to discern which property belongs to which handler type:
+    * See [monolog.yaml](config/default-config/monolog.yaml).
+  * Have a file generated with the `config:dump-reference` command, which is much more readable :
+    * See [monolog_poc.yaml](config/default-config/monolog_poc.yaml) (Contains the configuration of 17 of the original 46 handlers).
+* How?
+  * Have a configuration prototype per handler type.
 
 ### Segment the `Configuration.php` file
 
-- Why?
-  - Make the configuration of the 46 handlers easier to read.
-- How?
-  - Have one configuration file per handler.
-  - Import handler configurations into the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file (e.g., `SymfonyMailerHandlerConfiguration`, using the `addConfiguration()` method).
-  - Allow common nodes to be reused and limit duplication (using the `template()` method).
+* Why?
+  * Make the configuration of the 46 handlers easier to read.
+* How?
+  * Have one configuration file per handler.
+  * Import handler configurations into the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file (e.g., `SymfonyMailerHandlerConfiguration`, using the `addConfiguration()` method).
+  * Allow common nodes to be reused and limit duplication (using the `template()` method).
 
 ### No longer break the `Configuration.php` read chain
 
-- Why?
-  - View the entire node hierarchy at a glance.
-- How?
-  - Do not retrieve child nodes to enrich in a variable.
-  - Provide the ability to enrich a child node directly in the configuration chain (with the `addConfiguration()`, `template()`, or `closure()` methods).
-  - If the `Config` component builders are limited, extend them to the bare minimum.
+* Why?
+  * View the entire node hierarchy at a glance.
+* How?
+  * Do not retrieve child nodes to enrich in a variable.
+  * Provide the ability to enrich a child node directly in the configuration chain (with the `addConfiguration()`, `template()`, or `closure()` methods).
+  * If the `Config` component builders are limited, extend them to the bare minimum.
 
 ### Reuse part of the MonologBundle configuration
 
-- Why?
-  - **MonologBundle** is a very rich bundle and has already covered a good portion of the configuration and validation subtleties of the various handlers.
-  - If integrating the original **MonologBundle** configurations proves straightforward, this indicates that:
-    - we will be able to rely on common configuration practices and make them easier for developers to understand.
-    - we will be able to easily evolve and adapt the configurations.
-    - we will be able to save a lot of time restructuring the configuration of the 46 handlers.
-- How?
-  - Make good use of the enrichment mechanisms with the `NodeBuilder` and `NodeDefinition` classes.
+* Why?
+  * **MonologBundle** is a very rich bundle and has already covered a good portion of the configuration and validation subtleties of the various handlers.
+  * If integrating the original **MonologBundle** configurations proves straightforward, this indicates that:
+    * we will be able to rely on common configuration practices and make them easier for developers to understand.
+    * we will be able to easily evolve and adapt the configurations.
+    * we will be able to save a lot of time restructuring the configuration of the 46 handlers.
+* How?
+  * Make good use of the enrichment mechanisms with the `NodeBuilder` and `NodeDefinition` classes.
 
 ### Extract documentation from `Configuration.php`
 
-- Why?
-  - The documentation in the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file header is not found in the `yaml` file generated with the `config:dump-reference` command.
-- How?
-  - Retrieve this documentation and dispatch it to the relevant handlers in the configuration.
+* Why?
+  * The documentation in the [Configuration.php](monolog-poc-bundle/src/DependencyInjection/Configuration.php) file header is not found in the `yaml` file generated with the `config:dump-reference` command.
+* How?
+  * Retrieve this documentation and dispatch it to the relevant handlers in the configuration.
+
+## Development Environment Configuration (PhpStorm)
+
+To ensure an optimal development experience and consistent code, please configure PhpStorm by following these steps.
+
+### 1. Open the Project
+
+* Open the **root directory** of this repository (the one containing `app/`, `alice/`, `GotenbergBundle/`, etc.) directly in PhpStorm as a single project.
+
+### 2. Configure Directories (Sources, Tests, Exclusions)
+
+To optimize auto-completion, navigation, and code analysis, it's crucial to configure directory types. In PhpStorm's `File > Settings / Preferences > Directories` section, you'll find these options:
+
+* **Mark code directories as `Sources` (known as `Sources Root` in the context menu):**
+  * `app/src/`
+  * `alice/src/`
+  * `GotenbergBundle/src/`
+  * `monolog-bundle/` (For `MonologBundle`, the main PHP code is directly under this root, not in a `src/` subfolder.)
+  * `monolog-poc-bundle/src/`
+  * `poc-bundle/src/`
+  * _(Optional: `symfony/src/` if you need to modify framework code directly; otherwise, it can remain excluded.)_
+* **Mark test directories as `Tests` (known as `Test Sources Root` in the context menu):**
+  * `app/tests/`
+  * `alice/tests/`
+  * `GotenbergBundle/tests/`
+  * `monolog-bundle/Tests/`
+  * `monolog-poc-bundle/tests/`
+  * `poc-bundle/tests/`
+* **Exclude irrelevant directories:**
+  * `app/vendor/` (Mark the folder as **`Excluded`**)
+  * `app/var/` (Mark the folder as **`Excluded (recursively)`** or exclude `cache/`, `log/`, `sessions/`, `tmp/` individually)
+  * `alice/vendor-bin/`
+  * Any other generated or temporary folders (e.g., `build/`, `node_modules/` if you have JS/TS).
+
+### 3. PHP Code Style (Formatting)
+
+We follow the Symfony code standard, which is based on PSR-12.
+
+* Go to `File > Settings / Preferences > Editor > Code Style > PHP`.
+* Click the **`Set From...`** button.
+* Choose **`Symfony2`** from the dropdown list.
+* Ensure the `Tabs and Indents` tab is configured with **4 spaces** for `Tab size`, `Indent`, and `Continuation indent`, and that `Use tab character` is **unchecked**.
+
+### 4. Quality Tools (PHP-CS-Fixer)
+
+We use **PHP-CS-Fixer** to maintain code consistency. It's installed as a development dependency via Composer (ensure you've run `composer install` in the `app/` directory).
+
+* **PhpStorm Configuration:**
+  * Go to `File > Settings / Preferences > Languages & Frameworks > PHP > Quality Tools`.
+  * Expand the **`PHP CS Fixer`** section.
+  * Verify that the path to the executable is correctly configured (PhpStorm should detect `vendor/bin/php-cs-fixer` if you chose `Use project Composer autoloader`).
+  * Check the **`Enable`** box.
+* **Applying Formatting:**
+  * To manually reformat a file or selection: `Ctrl + Alt + L` (Windows/Linux) or `Cmd + Option + L` (macOS).
+  * To run PHP-CS-Fixer on a file: Right-click the file > `More Actions` (or directly in the context menu) > `Run PHP CS Fixer`.
+
+### 5. PHP Interpreter
+
+Configure your PHP interpreter (Docker, WSL, local):
+
+* Go to `File > Settings / Preferences > Languages & Frameworks > PHP`.
+* Under `CLI Interpreter`, click the `...` button and add/select your correct PHP interpreter.
+
 
 ## Resources
 
-- Monolog:
-  - https://symfony.com/packages/Monolog%20Bundle
-  - https://symfony.com/doc/current/logging.html
-  - https://github.com/symfony/recipes/tree/main/symfony/monolog-bundle/3.7
-- Sources of inspiration:
-  - https://symfony.com/doc/current/security.html
-  - https://github.com/sensiolabs/GotenbergBundle
-  - https://github.com/symfony/workflow
-  - https://github.com/nelmio/alice
-- The Bundle System:
-  - https://symfony.com/doc/current/bundles.html
-  - https://symfony.com/doc/current/bundles/best_practices.html
-  - https://symfony.com/doc/current/components/config/definition.html
+* Monolog:
+  * https://symfony.com/packages/Monolog%20Bundle
+  * https://symfony.com/doc/current/logging.html
+  * https://github.com/symfony/recipes/tree/main/symfony/monolog-bundle/3.7
+* Sources of inspiration:
+  * https://symfony.com/doc/current/security.html
+  * https://github.com/sensiolabs/GotenbergBundle
+  * https://github.com/symfony/workflow
+  * https://github.com/nelmio/alice
+* The Bundle System:
+  * https://symfony.com/doc/current/bundles.html
+  * https://symfony.com/doc/current/bundles/best_practices.html
+  * https://symfony.com/doc/current/components/config/definition.html
 
 ## Comments, suggestions?
 
