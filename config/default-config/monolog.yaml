@@ -153,3 +153,16 @@ monolog:
                 type:                 ~
                 elements:             []
 
+            # "stream" type handler (one type of handler per name and per environment).
+            type_stream:
+
+                # Level name or int value, defaults to DEBUG.
+                level:                DEBUG
+                bubble:               true
+                path:                 '%kernel.logs_dir%/%kernel.environment%.log'
+                file_permission:      null
+                use_locking:          false
+
+                # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
+                nested:               false
+
