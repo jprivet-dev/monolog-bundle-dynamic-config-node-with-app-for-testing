@@ -95,7 +95,7 @@ These links are managed by the `php link` command and Composer's path repository
 ### MonologBundle
 
 ```shell
-make monolog_test
+make test@monolog
 ```
 
 ## Troubleshooting
@@ -224,26 +224,54 @@ To ensure an optimal development experience and consistent code, please configur
 
 To optimize auto-completion, navigation, and code analysis, it's crucial to configure directory types. In PhpStorm's `File > Settings / Preferences > Directories` section, you'll find these options:
 
-* **Mark code directories as `Sources` (known as `Sources Root` in the context menu):**
-  * `app/src/`
-  * `alice/src/`
-  * `GotenbergBundle/src/`
-  * `monolog-bundle/` (For `MonologBundle`, the main PHP code is directly under this root, not in a `src/` subfolder.)
-  * `monolog-poc-bundle/src/`
-  * `poc-bundle/src/`
-  * _(Optional: `symfony/src/` if you need to modify framework code directly; otherwise, it can remain excluded.)_
-* **Mark test directories as `Tests` (known as `Test Sources Root` in the context menu):**
-  * `app/tests/`
-  * `alice/tests/`
-  * `GotenbergBundle/tests/`
-  * `monolog-bundle/Tests/`
-  * `monolog-poc-bundle/tests/`
-  * `poc-bundle/tests/`
-* **Exclude irrelevant directories:**
-  * `app/vendor/` (Mark the folder as **`Excluded`**)
-  * `app/var/` (Mark the folder as **`Excluded (recursively)`** or exclude `cache/`, `log/`, `sessions/`, `tmp/` individually)
-  * `alice/vendor-bin/`
-  * Any other generated or temporary folders (e.g., `build/`, `node_modules/` if you have JS/TS).
+```
+./
+├── alice/
+│   ├── doc/
+│   ├── fixtures/
+│   ├── profiling/
+│   ├── src/             # Resource Root
+│   ├── tests/           # Tests (Test Sources Root in the context menu)
+│   └── vendor-bin/      # Excluded
+├── app/
+│   ├── bin/
+│   ├── config/
+│   ├── public/
+│   ├── src/             # Resource Root
+│   ├── templates/
+│   ├── tests/           # Tests (Test Sources Root in the context menu)
+│   ├── var/             # Excluded
+│   └── vendor/          # Excluded
+├── GotenbergBundle/
+│   ├── bin/
+│   ├── config/
+│   ├── docs/
+│   ├── src/             # Resource Root
+│   ├── templates/
+│   └── tests/           # Tests (Test Sources Root in the context menu)
+├── monolog-bundle/      # Resource Root
+│   ├── DependencyInjection/
+│   ├── Resources/
+│   ├── SwiftMailer/
+│   └── Tests/
+├── monolog-poc-bundle/
+│   ├── config/
+│   ├── src/             # Resource Root
+│   └── tests/           # Tests (Test Sources Root in the context menu)
+├── poc-bundle/
+│   ├── config/
+│   ├── src/             # Resource Root
+│   └── tests/           # Tests (Test Sources Root in the context menu)
+└── symfony/
+    └── src/             # Resource Root
+```
+
+#### Understanding Directory Types
+
+* **`Resource Root`**: Mark these folders if they contain code, configuration files, or other assets that PhpStorm needs to index for auto-completion and navigation, but which might not strictly follow PSR-4 naming conventions (e.g., `App\Class` in `src/Class.php`). This helps avoid false-positive
+  warnings related to namespace compliance while keeping code browsable.
+* **`Tests`** (or `Test Sources Root` in the context menu): These directories contain your test files. Marking them as `Tests` ensures PhpStorm runs relevant inspections and allows you to easily run tests directly from the IDE.
+* **`Excluded`**: These directories will be ignored by PhpStorm during indexing, search, and code analysis. This significantly improves IDE performance by focusing only on relevant files. Typically, you'll exclude generated files, caches, logs, and third-party vendor directories.
 
 ### 3. PHP Code Style (Formatting)
 
@@ -273,7 +301,6 @@ Configure your PHP interpreter (Docker, WSL, local):
 
 * Go to `File > Settings / Preferences > Languages & Frameworks > PHP`.
 * Under `CLI Interpreter`, click the `...` button and add/select your correct PHP interpreter.
-
 
 ## Resources
 
