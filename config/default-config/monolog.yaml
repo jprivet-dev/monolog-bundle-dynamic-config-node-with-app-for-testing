@@ -14,6 +14,8 @@ monolog:
             type:                 ~ # Required
             id:                   ~
             priority:             0
+
+            # Level name or int value, defaults to DEBUG.
             level:                DEBUG
             bubble:               true
             app_name:             null
@@ -97,7 +99,11 @@ monolog:
             factor:               1
             tags:                 []
             formatter:            ~
+
+            # All handlers can also be marked with `nested: true` to make sure they are never added explicitly to the stack.
             nested:               false
+            console_formater_options: ~ # Deprecated (Since symfony/monolog-bundle 3.7: "monolog.handlers.name.console_formater_options" is deprecated, use "monolog.handlers.name.console_formatter_options" instead.)
+            console_formatter_options: []
             publisher:
                 id:                   ~
                 hostname:             ~
@@ -150,8 +156,6 @@ monolog:
             channels:
                 type:                 ~
                 elements:             []
-            console_formater_options: ~ # Deprecated (Since symfony/monolog-bundle 3.7: "monolog.handlers.name.console_formater_options" is deprecated, use "monolog.handlers.name.console_formatter_options" instead.)
-            console_formatter_options: []
 
             # "stream" type handler (one type of handler per name and per environment).
             type_stream:
