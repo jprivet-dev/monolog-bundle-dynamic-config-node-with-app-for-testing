@@ -96,8 +96,6 @@ monolog:
             delay_between_messages: false
             factor:               1
             tags:                 []
-            console_formater_options: ~ # Deprecated (Since symfony/monolog-bundle 3.7: "monolog.handlers.name.console_formater_options" is deprecated, use "monolog.handlers.name.console_formatter_options" instead.)
-            console_formatter_options: []
             formatter:            ~
             nested:               false
             publisher:
@@ -137,12 +135,12 @@ monolog:
             to_email:             []
             subject:              ~
             content_type:         null
-            headers:              []
             mailer:               null
             email_prototype:
                 id:                   ~ # Required
                 method:               null
             lazy:                 true
+            headers:              []
             verbosity_levels:
                 VERBOSITY_QUIET:      ERROR
                 VERBOSITY_NORMAL:     WARNING
@@ -152,6 +150,8 @@ monolog:
             channels:
                 type:                 ~
                 elements:             []
+            console_formater_options: ~ # Deprecated (Since symfony/monolog-bundle 3.7: "monolog.handlers.name.console_formater_options" is deprecated, use "monolog.handlers.name.console_formatter_options" instead.)
+            console_formatter_options: []
 
             # "stream" type handler (one type of handler per name and per environment).
             type_stream:
@@ -167,7 +167,8 @@ monolog:
                 nested:               false
 
             # "console" type handler (one type of handler per name and per environment).
-            type_console:         []
+            type_console:
+                console_formatter_options: []
 
             # "firephp" type handler (one type of handler per name and per environment).
             type_firephp:         []
@@ -260,13 +261,35 @@ monolog:
             type_syslogudp:       []
 
             # "swift_mailer" type handler (one type of handler per name and per environment).
-            type_swift_mailer:    []
+            type_swift_mailer:
+                from_email:           ~
+                to_email:             []
+                subject:              ~
+                content_type:         null
+                mailer:               null
+                email_prototype:
+                    id:                   ~ # Required
+                    method:               null
+                lazy:                 true
 
             # "native_mailer" type handler (one type of handler per name and per environment).
-            type_native_mailer:   []
+            type_native_mailer:
+                from_email:           ~
+                to_email:             []
+                subject:              ~
+                headers:              []
 
             # "symfony_mailer" type handler (one type of handler per name and per environment).
-            type_symfony_mailer:  []
+            type_symfony_mailer:
+                from_email:           ~
+                to_email:             []
+                subject:              ~
+                content_type:         null
+                headers:              []
+                mailer:               null
+                email_prototype:
+                    id:                   ~ # Required
+                    method:               null
 
             # "verbosity_levels" type handler (one type of handler per name and per environment).
             type_verbosity_levels:
