@@ -176,7 +176,12 @@ monolog:
             type_browser_console: []
 
             # "gelf" type handler (one type of handler per name and per environment).
-            type_gelf:            []
+            type_gelf:
+                publisher:
+                    id:                   ~
+                    hostname:             ~
+                    port:                 12201
+                    chunk_size:           1420
 
             # "chromephp" type handler (one type of handler per name and per environment).
             type_chromephp:       []
@@ -185,19 +190,47 @@ monolog:
             type_rotating_file:   []
 
             # "mongo" type handler (one type of handler per name and per environment).
-            type_mongo:           []
+            type_mongo:
+                mongo:
+                    id:                   ~
+                    host:                 ~
+                    port:                 27017
+                    user:                 ~
+                    pass:                 ~
+                    database:             monolog
+                    collection:           logs
 
             # "elasticsearch" type handler (one type of handler per name and per environment).
-            type_elasticsearch:   []
+            type_elasticsearch:
+                elasticsearch:
+                    id:                   ~
+                    host:                 ~
+                    port:                 9200
+                    transport:            Http
+                    user:                 null
+                    password:             null
+                index:                monolog
+                document_type:        logs
+                ignore_error:         false
 
             # "elastica" type handler (one type of handler per name and per environment).
             type_elastica:        []
 
             # "redis" type handler (one type of handler per name and per environment).
-            type_redis:           []
+            type_redis:
+                redis:
+                    id:                   ~
+                    host:                 ~
+                    password:             null
+                    port:                 6379
+                    database:             0
+                    key_name:             monolog_redis
 
             # "predis" type handler (one type of handler per name and per environment).
-            type_predis:          []
+            type_predis:
+                predis:
+                    id:                   ~
+                    host:                 ~
 
             # "fingers_crossed" type handler (one type of handler per name and per environment).
             type_fingers_crossed: []
@@ -234,6 +267,21 @@ monolog:
 
             # "symfony_mailer" type handler (one type of handler per name and per environment).
             type_symfony_mailer:  []
+
+            # "verbosity_levels" type handler (one type of handler per name and per environment).
+            type_verbosity_levels:
+                verbosity_levels:
+                    VERBOSITY_QUIET:      ERROR
+                    VERBOSITY_NORMAL:     WARNING
+                    VERBOSITY_VERBOSE:    NOTICE
+                    VERBOSITY_VERY_VERBOSE: INFO
+                    VERBOSITY_DEBUG:      DEBUG
+
+            # "channels" type handler (one type of handler per name and per environment).
+            type_channels:
+                channels:
+                    type:                 ~
+                    elements:             []
 
             # "socket" type handler (one type of handler per name and per environment).
             type_socket:          []
