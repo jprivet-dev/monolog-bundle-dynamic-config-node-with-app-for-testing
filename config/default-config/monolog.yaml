@@ -44,19 +44,29 @@ monolog:
                 hostname:             ~
                 port:                 12201
                 chunk_size:           1420
+
+            # Files to keep, defaults to zero (infinite).
             max_files:            0
             filename_format:      '{filename}-{date}'
             date_format:          Y-m-d
             mongo:
                 id:                   ~
+
+                # Database host name, optional if id is given.
                 host:                 ~
                 port:                 27017
+
+                # Database user name
                 user:                 ~
+
+                # Mandatory only if user is present.
                 pass:                 ~
                 database:             monolog
                 collection:           logs
             elasticsearch:
                 id:                   ~
+
+                # Elastic search host name. Do not prepend with http(s)://.
                 host:                 ~
                 port:                 9200
                 transport:            Http
@@ -66,6 +76,8 @@ monolog:
             document_type:        logs
             ignore_error:         false
             redis:
+
+                # Optional if host is given.
                 id:                   ~
                 host:                 ~
                 password:             null
@@ -73,13 +85,29 @@ monolog:
                 database:             0
                 key_name:             monolog_redis
             predis:
+
+                # Optional if host is given.
                 id:                   ~
+
+                # tcp://10.0.0.1:6379
                 host:                 ~
+
+            # The wrapped handler's name.
             handler:              ~
+
+            # Minimum level or service id to activate the handler, defaults to WARNING.
             action_level:         WARNING
+
+            # Bool to disable buffering once the handler has been activated, defaults to true.
             stop_buffering:       true
+
+            # Level name or int value for messages to always flush, disabled by default.
             passthru_level:       null
+
+            # If set, the strategy will be changed to one that excludes 404s coming from URLs matching any of those patterns.
             excluded_404s:        []
+
+            # If set, the strategy will be changed to one that excludes specific HTTP codes (requires Symfony Monolog bridge 4.1+).
             excluded_http_codes:
 
                 # Prototype
@@ -87,8 +115,14 @@ monolog:
                     code:                 ~
                     urls:                 []
             buffer_size:          0
+
+            # List of levels to accept
             accepted_levels:      []
+
+            # Minimum level to accept (only used if accepted_levels not specified).
             min_level:            DEBUG
+
+            # Maximum level to accept (only used if accepted_levels not specified).
             max_level:            EMERGENCY
             flush_on_overflow:    false
             time:                 60
@@ -123,6 +157,8 @@ monolog:
             timeout:              ~
             connection_timeout:   ~
             persistent:           ~
+
+            # Telegram bot access token provided by BotFather.
             token:                ~
             user:                 ~
             title:                null
@@ -140,6 +176,8 @@ monolog:
             notify:               false
             nickname:             Monolog
             use_ssl:              true
+
+            # Telegram channel name.
             channel:              null
             bot_name:             Monolog
             use_attachment:       true
@@ -156,16 +194,27 @@ monolog:
             region:               ~
             source:               ~
             id:                   ~
+
+            # Config values from https://github.com/rollbar/rollbar-php#configuration-reference.
             config:               []
+
+            # Optional the kind of formatting that is used for the message.
             parse_mode:           null
+
+            # Disables link previews for links in the message.
             disable_webpage_preview: null
+
+            # Sends the message silently. Users will receive a notification with no sound.
             disable_notification: null
+
+            # Split messages longer than 4096 bytes into multiple messages.
             split_long_messages:  false
+
+            # Adds a 1sec delay/sleep between sending split messages.
             delay_between_messages: false
             factor:               1
 
-            # Define a "stream" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to a specified stream or file.
+            # [Output Handlers] Writes log records to a specified stream or file.
             type_stream:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -189,8 +238,7 @@ monolog:
                 file_permission:      null
                 use_locking:          false
 
-            # Define a "console" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to the console (Symfony Console output).
+            # [Output Handlers] Writes log records to the console (Symfony Console output).
             type_console:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -216,8 +264,7 @@ monolog:
                     remove_used_context_fields: ~
                 console_formatter_options: []
 
-            # Define a "firephp" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to FirePHP in the browser console.
+            # [Output Handlers] Sends log records to FirePHP in the browser console.
             type_firephp:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -238,8 +285,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "browser_console" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to the browser JavaScript console.
+            # [Output Handlers] Sends log records to the browser JavaScript console.
             type_browser_console:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -260,8 +306,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "gelf" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to a Graylog Extended Log Format (GELF) server.
+            # [Output Handlers] Sends log records to a Graylog Extended Log Format (GELF) server.
             type_gelf:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -287,8 +332,7 @@ monolog:
                     port:                 12201
                     chunk_size:           1420
 
-            # Define a "chromephp" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to the ChromePHP extension.
+            # [Output Handlers] Sends log records to the ChromePHP extension.
             type_chromephp:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -309,8 +353,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "rotating_file" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to files that are rotated daily.
+            # [Output Handlers] Writes log records to files that are rotated daily.
             type_rotating_file:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -331,14 +374,15 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
                 path:                 '%kernel.logs_dir%/%kernel.environment%.log'
+
+                # Files to keep, defaults to zero (infinite).
                 max_files:            0
                 file_permission:      null
                 use_locking:          false
                 filename_format:      '{filename}-{date}'
                 date_format:          Y-m-d
 
-            # Define a "mongo" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to a MongoDB database.
+            # [Output Handlers] Writes log records to a MongoDB database.
             type_mongo:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -360,15 +404,20 @@ monolog:
                 formatter:            ~
                 mongo:
                     id:                   ~
+
+                    # Database host name, optional if id is given.
                     host:                 ~
                     port:                 27017
+
+                    # Database user name
                     user:                 ~
+
+                    # Mandatory only if user is present.
                     pass:                 ~
                     database:             monolog
                     collection:           logs
 
-            # Define a "elasticsearch" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to an Elasticsearch server.
+            # [Output Handlers] Writes log records to an Elasticsearch server.
             type_elasticsearch:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -390,6 +439,8 @@ monolog:
                 formatter:            ~
                 elasticsearch:
                     id:                   ~
+
+                    # Elastic search host name, with scheme (e.g. "https://127.0.0.1:9200").
                     host:                 ~
                     port:                 9200
                     transport:            Http
@@ -399,8 +450,7 @@ monolog:
                 document_type:        logs
                 ignore_error:         false
 
-            # Define a "elastica" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to an Elasticsearch server using the Elastica client.
+            # [Output Handlers] Writes log records to an Elasticsearch server using the Elastica client.
             type_elastica:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -420,9 +470,20 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                elasticsearch:
+                    id:                   ~
 
-            # Define a "redis" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to a Redis server.
+                    # Elastic search host name. Do not prepend with http(s)://.
+                    host:                 ~
+                    port:                 9200
+                    transport:            Http
+                    user:                 null
+                    password:             null
+                index:                monolog
+                document_type:        logs
+                ignore_error:         false
+
+            # [Output Handlers] Writes log records to a Redis server.
             type_redis:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -443,6 +504,8 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
                 redis:
+
+                    # Optional if host is given.
                     id:                   ~
                     host:                 ~
                     password:             null
@@ -450,8 +513,7 @@ monolog:
                     database:             0
                     key_name:             monolog_redis
 
-            # Define a "predis" handler (one type of handler per name and per environment).
-            # This is an output handler that writes log records to a Redis server using Predis.
+            # [Output Handlers] Writes log records to a Redis server using Predis.
             type_predis:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -472,11 +534,14 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
                 predis:
+
+                    # Optional if host is given.
                     id:                   ~
+
+                    # tcp://10.0.0.1:6379
                     host:                 ~
 
-            # Define a "fingers_crossed" handler (one type of handler per name and per environment).
-            # This is a buffering wrapper handler that buffers log records and flushes them to a nested handler when a specific action level is reached. It requires a nested handler.
+            # [Buffering Wrappers] Buffers log records and flushes them to a nested handler when a specific action level is reached. It requires a nested handler.
             type_fingers_crossed:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -496,21 +561,34 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # The wrapped handler's name.
                 handler:              ~
+
+                # Minimum level or service id to activate the handler, defaults to WARNING.
                 action_level:         WARNING
+
+                # Bool to disable buffering once the handler has been activated, defaults to true.
                 stop_buffering:       true
+
+                # Level name or int value for messages to always flush, disabled by default.
                 passthru_level:       null
+
+                # If set, the strategy will be changed to one that excludes 404s coming from URLs matching any of those patterns.
                 excluded_404s:        []
+
+                # If set, the strategy will be changed to one that excludes specific HTTP codes (requires Symfony Monolog bridge 4.1+).
                 excluded_http_codes:
 
                     # Prototype
                     -
                         code:                 ~
                         urls:                 []
+
+                # Defaults to 0 (unlimited).
                 buffer_size:          0
 
-            # Define a "filter" handler (one type of handler per name and per environment).
-            # This is a filtering wrapper handler that passes log records to a nested handler only if their level matches predefined criteria. It requires a nested handler.
+            # [Filtering Wrappers] Passes log records to a nested handler only if their level matches predefined criteria. It requires a nested handler.
             type_filter:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -530,12 +608,20 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # The wrapped handler's name.
+                handler:              ~
+
+                # List of levels to accept
                 accepted_levels:      []
+
+                # Minimum level to accept (only used if accepted_levels not specified).
                 min_level:            DEBUG
+
+                # Maximum level to accept (only used if accepted_levels not specified).
                 max_level:            EMERGENCY
 
-            # Define a "buffer" handler (one type of handler per name and per environment).
-            # This is a buffering wrapper handler that accumulates log records and flushes them to a nested handler under specific conditions (e.g., buffer full, shutdown). It requires a nested handler.
+            # [Buffering Wrappers] Accumulates log records and flushes them to a nested handler under specific conditions (e.g., buffer full, shutdown). It requires a nested handler.
             type_buffer:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -555,12 +641,13 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # The wrapped handler's name.
                 handler:              ~
                 buffer_size:          0
                 flush_on_overflow:    false
 
-            # Define a "deduplication" handler (one type of handler per name and per environment).
-            # This is a deduplication wrapper handler that prevents duplicate log records from being sent to a nested handler within a defined time frame. It requires a nested handler.
+            # [Deduplication Wrappers] Prevents duplicate log records from being sent to a nested handler within a defined time frame. It requires a nested handler.
             type_deduplication:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -580,12 +667,14 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # The wrapped handler's name.
+                handler:              ~
                 time:                 60
                 deduplication_level:  400
                 store:                null
 
-            # Define a "group" handler (one type of handler per name and per environment).
-            # This is a grouping wrapper handler that sends all log records to multiple nested handlers simultaneously. It requires one or more nested handlers.
+            # [Grouping Wrappers] Sends all log records to multiple nested handlers simultaneously. It requires one or more nested handlers.
             type_group:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -607,8 +696,7 @@ monolog:
                 formatter:            ~
                 members:              []
 
-            # Define a "whatfailuregroup" handler (one type of handler per name and per environment).
-            # This is a grouping wrapper handler that attempts to send log records to the first working nested handler in a list, falling back to others if failures occur. It requires one or more nested handlers.
+            # [Grouping Wrappers] Attempts to send log records to the first working nested handler in a list, falling back to others if failures occur. It requires one or more nested handlers.
             type_whatfailuregroup:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -630,8 +718,7 @@ monolog:
                 formatter:            ~
                 members:              []
 
-            # Define a "fallbackgroup" handler (one type of handler per name and per environment).
-            # This is a grouping wrapper handler that sends log records to the first nested handler, and if it fails, falls back to the next, similar to WhatFailureGroupHandler. It requires one or more nested handlers.
+            # [Grouping Wrappers] Sends log records to the first nested handler, and if it fails, falls back to the next, similar to WhatFailureGroupHandler. It requires one or more nested handlers.
             type_fallbackgroup:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -653,8 +740,7 @@ monolog:
                 formatter:            ~
                 members:              []
 
-            # Define a "syslog" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to the syslogd system logger.
+            # [Output Handlers] Sends log records to the syslogd system logger.
             type_syslog:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -678,8 +764,7 @@ monolog:
                 facility:             user
                 logopts:              1
 
-            # Define a "syslogudp" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to a remote syslogd server via UDP.
+            # [Output Handlers] Sends log records to a remote syslogd server via UDP.
             type_syslogudp:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -705,8 +790,7 @@ monolog:
                 host:                 null
                 port:                 514
 
-            # Define a "swift_mailer" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records via SwiftMailer.
+            # [Output Handlers] Sends log records via SwiftMailer.
             type_swift_mailer:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -736,8 +820,7 @@ monolog:
                     method:               null
                 lazy:                 true
 
-            # Define a "native_mailer" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records via PHP's native mail() function.
+            # [Output Handlers] Sends log records via PHP's native mail() function.
             type_native_mailer:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -762,8 +845,7 @@ monolog:
                 subject:              ~
                 headers:              []
 
-            # Define a "symfony_mailer" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records via Symfony Mailer.
+            # [Output Handlers] Sends log records via Symfony Mailer.
             type_symfony_mailer:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -793,8 +875,7 @@ monolog:
                     id:                   ~ # Required
                     method:               null
 
-            # Define a "verbosity_levels" handler (one type of handler per name and per environment).
-            # This is a filtering wrapper handler that only activates a nested handler if the Symfony Console verbosity level is sufficient. It requires a nested handler.
+            # [Filtering Wrappers] Only activates a nested handler if the Symfony Console verbosity level is sufficient. It requires a nested handler.
             type_verbosity_levels:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -821,8 +902,7 @@ monolog:
                     VERBOSITY_VERY_VERBOSE: INFO
                     VERBOSITY_DEBUG:      DEBUG
 
-            # Define a "channels" handler (one type of handler per name and per environment).
-            # This is a filtering wrapper handler that passes log records to a nested handler only if they belong to specific Monolog channels. It requires a nested handler.
+            # [Filtering Wrappers] Passes log records to a nested handler only if they belong to specific Monolog channels. It requires a nested handler.
             type_channels:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -846,8 +926,7 @@ monolog:
                     type:                 ~
                     elements:             []
 
-            # Define a "socket" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records over a network socket.
+            # [Output Handlers] Sends log records over a network socket.
             type_socket:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -872,8 +951,7 @@ monolog:
                 connection_timeout:   ~
                 persistent:           ~
 
-            # Define a "pushover" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records as Pushover notifications.
+            # [Output Handlers] Sends log records as Pushover notifications.
             type_pushover:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -899,8 +977,7 @@ monolog:
                 timeout:              ~
                 connection_timeout:   ~
 
-            # Define a "raven" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to a Sentry server (Raven client).
+            # [Output Handlers] Sends log records to a Sentry server (Raven client).
             type_raven:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -926,8 +1003,7 @@ monolog:
                 release:              null
                 environment:          null
 
-            # Define a "sentry" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to a Sentry server (Sentry SDK).
+            # [Output Handlers] Sends log records to a Sentry server (Sentry SDK).
             type_sentry:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -954,8 +1030,7 @@ monolog:
                 release:              null
                 environment:          null
 
-            # Define a "newrelic" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to New Relic.
+            # [Output Handlers] Sends log records to New Relic.
             type_newrelic:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -977,8 +1052,7 @@ monolog:
                 formatter:            ~
                 app_name:             null
 
-            # Define a "hipchat" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to HipChat.
+            # [Output Handlers] Sends log records to HipChat.
             type_hipchat:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1009,8 +1083,7 @@ monolog:
                 timeout:              ~
                 connection_timeout:   ~
 
-            # Define a "slack" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Slack via a custom API token.
+            # [Output Handlers] Sends log records to Slack via a custom API token.
             type_slack:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1030,18 +1103,21 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # Channel name (with starting #).
                 channel:              null
                 bot_name:             Monolog
                 use_attachment:       true
                 use_short_attachment: false
                 include_extra:        false
                 icon_emoji:           null
+
+                # Slack api token
                 token:                ~
                 timeout:              ~
                 connection_timeout:   ~
 
-            # Define a "slackwebhook" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Slack via a webhook.
+            # [Output Handlers] Sends log records to Slack via a webhook.
             type_slackwebhook:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1069,8 +1145,7 @@ monolog:
                 icon_emoji:           null
                 webhook_url:          ~
 
-            # Define a "slackbot" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Slack via a Slackbot integration.
+            # [Output Handlers] Sends log records to Slack via a Slackbot integration.
             type_slackbot:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1094,8 +1169,7 @@ monolog:
                 team:                 ~
                 token:                ~
 
-            # Define a "cube" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to a Cube server.
+            # [Output Handlers] Sends log records to a Cube server.
             type_cube:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1117,8 +1191,7 @@ monolog:
                 formatter:            ~
                 url:                  ~
 
-            # Define a "amqp" handler (one type of handler per name and per environment).
-            # This is an output handler that publishes log records to an AMQP exchange.
+            # [Output Handlers] publishes log records to an AMQP exchange.
             type_amqp:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1141,8 +1214,7 @@ monolog:
                 exchange:             ~
                 exchange_name:        log
 
-            # Define a "error_log" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to PHP's error_log function.
+            # [Output Handlers] Sends log records to PHP's error_log function.
             type_error_log:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1164,8 +1236,7 @@ monolog:
                 formatter:            ~
                 message_type:         0
 
-            # Define a "null" handler (one type of handler per name and per environment).
-            # This is an output handler that discards all log records, effectively doing nothing.
+            # [Output Handlers] Discards all log records, effectively doing nothing.
             type_null:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1186,8 +1257,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "test" handler (one type of handler per name and per environment).
-            # This is an output handler primarily used for testing, collecting log records in memory.
+            # [Output Handlers] Primarily used for testing, collecting log records in memory.
             type_test:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1208,8 +1278,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "debug" handler (one type of handler per name and per environment).
-            # This is an output handler that sends all log records to the Symfony debug bar.
+            # [Output Handlers] Sends all log records to the Symfony debug bar.
             type_debug:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1230,8 +1299,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "loggly" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Loggly.
+            # [Output Handlers] Sends log records to Loggly.
             type_loggly:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1254,8 +1322,7 @@ monolog:
                 token:                ~
                 tags:                 []
 
-            # Define a "logentries" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Logentries.
+            # [Output Handlers] Sends log records to Logentries.
             type_logentries:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1280,8 +1347,7 @@ monolog:
                 timeout:              ~
                 connection_timeout:   ~
 
-            # Define a "insightops" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to InsightOps (formerly Logentries).
+            # [Output Handlers] Sends log records to InsightOps (formerly Logentries).
             type_insightops:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1305,8 +1371,7 @@ monolog:
                 region:               ~
                 use_ssl:              true
 
-            # Define a "flowdock" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Flowdock.
+            # [Output Handlers] Sends log records to Flowdock.
             type_flowdock:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1329,8 +1394,7 @@ monolog:
                 token:                ~
                 source:               ~
 
-            # Define a "rollbar" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to Rollbar.
+            # [Output Handlers] Sends log records to Rollbar.
             type_rollbar:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1350,12 +1414,17 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # RollbarNotifier service (mandatory if token is not provided).
                 id:                   ~
+
+                # Rollbar api token (skip if you provide a RollbarNotifier service id).
                 token:                ~
+
+                # Config values from https://github.com/rollbar/rollbar-php#configuration-reference.
                 config:               []
 
-            # Define a "server_log" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records to the Symfony VarDumper server for real-time debugging.
+            # [Output Handlers] Sends log records to the Symfony VarDumper server for real-time debugging.
             type_server_log:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1376,8 +1445,7 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
 
-            # Define a "telegram" handler (one type of handler per name and per environment).
-            # This is an output handler that sends log records as Telegram messages.
+            # [Output Handlers] Sends log records as Telegram messages.
             type_telegram:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1397,16 +1465,29 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # Telegram channel name.
                 channel:              null
+
+                # Telegram bot access token provided by BotFather.
                 token:                ~
+
+                # Optional the kind of formatting that is used for the message.
                 parse_mode:           null
+
+                # Disables link previews for links in the message.
                 disable_webpage_preview: null
+
+                # Sends the message silently. Users will receive a notification with no sound.
                 disable_notification: null
+
+                # Split messages longer than 4096 bytes into multiple messages.
                 split_long_messages:  false
+
+                # Adds a 1sec delay/sleep between sending split messages.
                 delay_between_messages: false
 
-            # Define a "sampling" handler (one type of handler per name and per environment).
-            # This is a sampling wrapper handler that only passes a fraction of log records to a nested handler based on a configured factor. It requires a nested handler.
+            # [Sampling Wrappers] Only passes a fraction of log records to a nested handler based on a configured factor. It requires a nested handler.
             type_sampling:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
@@ -1426,10 +1507,12 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+
+                # The wrapped handler's name.
+                handler:              ~
                 factor:               1
 
-            # Define a "service" handler (one type of handler per name and per environment).
-            # This is an output handler that references an existing service as the Monolog handler.
+            # [Output Handlers] references an existing service as the Monolog handler.
             type_service:
 
                 # Defines the processing order; handlers with a higher priority value are executed first.
