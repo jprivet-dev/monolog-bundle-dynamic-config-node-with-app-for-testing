@@ -12,30 +12,6 @@ monolog:
         # Prototype
         name:
             type:                 ~ # Required
-            process_psr_3_messages:
-                enabled:              null
-                date_format:          ~
-                remove_used_context_fields: ~
-            path:                 '%kernel.logs_dir%/%kernel.environment%.log'
-            file_permission:      null
-            use_locking:          false
-            filename_format:      '{filename}-{date}'
-            date_format:          Y-m-d
-            ident:                false
-            logopts:              1
-            facility:             user
-            max_files:            0
-            action_level:         WARNING
-            activation_strategy:  null
-            stop_buffering:       true
-            passthru_level:       null
-            excluded_404s:        []
-            excluded_http_codes:
-
-                # Prototype
-                -
-                    code:                 ~
-                    urls:                 []
             accepted_levels:      []
             min_level:            DEBUG
             max_level:            EMERGENCY
@@ -107,6 +83,13 @@ monolog:
 
             # The formatter used to format the log records. Can be a service ID or a formatter configuration.
             formatter:            ~
+            path:                 '%kernel.logs_dir%/%kernel.environment%.log'
+            file_permission:      null
+            use_locking:          false
+            process_psr_3_messages:
+                enabled:              null
+                date_format:          ~
+                remove_used_context_fields: ~
             console_formater_options: ~ # Deprecated (Since symfony/monolog-bundle 3.7: "monolog.handlers.name.console_formater_options" is deprecated, use "monolog.handlers.name.console_formatter_options" instead.)
             console_formatter_options: []
             publisher:
@@ -114,6 +97,9 @@ monolog:
                 hostname:             ~
                 port:                 12201
                 chunk_size:           1420
+            max_files:            0
+            filename_format:      '{filename}-{date}'
+            date_format:          Y-m-d
             mongo:
                 id:                   ~
                 host:                 ~
@@ -142,6 +128,19 @@ monolog:
             predis:
                 id:                   ~
                 host:                 ~
+            action_level:         WARNING
+            stop_buffering:       true
+            passthru_level:       null
+            excluded_404s:        []
+            excluded_http_codes:
+
+                # Prototype
+                -
+                    code:                 ~
+                    urls:                 []
+            ident:                false
+            facility:             user
+            logopts:              1
             from_email:           ~
             to_email:             []
             subject:              ~
@@ -211,6 +210,10 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                process_psr_3_messages:
+                    enabled:              null
+                    date_format:          ~
+                    remove_used_context_fields: ~
                 console_formatter_options: []
 
             # Define a "firephp" handler (one type of handler per name and per environment).
@@ -327,6 +330,12 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                path:                 '%kernel.logs_dir%/%kernel.environment%.log'
+                max_files:            0
+                file_permission:      null
+                use_locking:          false
+                filename_format:      '{filename}-{date}'
+                date_format:          Y-m-d
 
             # Define a "mongo" handler (one type of handler per name and per environment).
             # This is an output handler that writes log records to a MongoDB database.
@@ -487,6 +496,16 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                action_level:         WARNING
+                stop_buffering:       true
+                passthru_level:       null
+                excluded_404s:        []
+                excluded_http_codes:
+
+                    # Prototype
+                    -
+                        code:                 ~
+                        urls:                 []
 
             # Define a "filter" handler (one type of handler per name and per environment).
             # This is a filtering wrapper handler that passes log records to a nested handler only if their level matches predefined criteria. It requires a nested handler.
@@ -641,6 +660,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                ident:                false
+                facility:             user
+                logopts:              1
 
             # Define a "syslogudp" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to a remote syslogd server via UDP.
@@ -663,6 +685,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                ident:                false
+                facility:             user
+                logopts:              1
 
             # Define a "swift_mailer" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records via SwiftMailer.
