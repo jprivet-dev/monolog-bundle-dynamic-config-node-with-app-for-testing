@@ -12,59 +12,6 @@ monolog:
         # Prototype
         name:
             type:                 ~ # Required
-            accepted_levels:      []
-            min_level:            DEBUG
-            max_level:            EMERGENCY
-            buffer_size:          0
-            flush_on_overflow:    false
-            handler:              ~
-            url:                  ~
-            exchange:             ~
-            exchange_name:        log
-            room:                 ~
-            message_format:       text
-            api_version:          null
-            channel:              null
-            bot_name:             Monolog
-            use_attachment:       true
-            use_short_attachment: false
-            include_extra:        false
-            icon_emoji:           null
-            webhook_url:          ~
-            team:                 ~
-            notify:               false
-            nickname:             Monolog
-            token:                ~
-            region:               ~
-            source:               ~
-            use_ssl:              true
-            user:                 ~
-            title:                null
-            host:                 null
-            port:                 514
-            config:               []
-            members:              []
-            connection_string:    ~
-            timeout:              ~
-            time:                 60
-            deduplication_level:  400
-            store:                null
-            connection_timeout:   ~
-            persistent:           ~
-            dsn:                  ~
-            hub_id:               null
-            client_id:            null
-            auto_log_stacks:      false
-            release:              null
-            environment:          null
-            message_type:         0
-            parse_mode:           null
-            disable_webpage_preview: null
-            disable_notification: null
-            split_long_messages:  false
-            delay_between_messages: false
-            factor:               1
-            tags:                 []
 
             # Defines the processing order; handlers with a higher priority value are executed first.
             priority:             0
@@ -128,6 +75,7 @@ monolog:
             predis:
                 id:                   ~
                 host:                 ~
+            handler:              ~
             action_level:         WARNING
             stop_buffering:       true
             passthru_level:       null
@@ -138,9 +86,20 @@ monolog:
                 -
                     code:                 ~
                     urls:                 []
+            buffer_size:          0
+            accepted_levels:      []
+            min_level:            DEBUG
+            max_level:            EMERGENCY
+            flush_on_overflow:    false
+            time:                 60
+            deduplication_level:  400
+            store:                null
+            members:              []
             ident:                false
             facility:             user
             logopts:              1
+            host:                 null
+            port:                 514
             from_email:           ~
             to_email:             []
             subject:              ~
@@ -160,9 +119,50 @@ monolog:
             channels:
                 type:                 ~
                 elements:             []
+            connection_string:    ~
+            timeout:              ~
+            connection_timeout:   ~
+            persistent:           ~
+            token:                ~
+            user:                 ~
+            title:                null
+            dsn:                  ~
+            client_id:            null
+            auto_log_stacks:      false
+            release:              null
+            environment:          null
             fill_extra_context:   false
+            hub_id:               null
             app_name:             null
+            room:                 ~
+            message_format:       text
+            api_version:          null
+            notify:               false
+            nickname:             Monolog
+            use_ssl:              true
+            channel:              null
+            bot_name:             Monolog
+            use_attachment:       true
+            use_short_attachment: false
+            include_extra:        false
+            icon_emoji:           null
+            webhook_url:          ~
+            team:                 ~
+            url:                  ~
+            exchange:             ~
+            exchange_name:        log
+            message_type:         0
+            tags:                 []
+            region:               ~
+            source:               ~
             id:                   ~
+            config:               []
+            parse_mode:           null
+            disable_webpage_preview: null
+            disable_notification: null
+            split_long_messages:  false
+            delay_between_messages: false
+            factor:               1
 
             # Define a "stream" handler (one type of handler per name and per environment).
             # This is an output handler that writes log records to a specified stream or file.
@@ -496,6 +496,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                handler:              ~
                 action_level:         WARNING
                 stop_buffering:       true
                 passthru_level:       null
@@ -506,6 +507,7 @@ monolog:
                     -
                         code:                 ~
                         urls:                 []
+                buffer_size:          0
 
             # Define a "filter" handler (one type of handler per name and per environment).
             # This is a filtering wrapper handler that passes log records to a nested handler only if their level matches predefined criteria. It requires a nested handler.
@@ -528,6 +530,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                accepted_levels:      []
+                min_level:            DEBUG
+                max_level:            EMERGENCY
 
             # Define a "buffer" handler (one type of handler per name and per environment).
             # This is a buffering wrapper handler that accumulates log records and flushes them to a nested handler under specific conditions (e.g., buffer full, shutdown). It requires a nested handler.
@@ -550,6 +555,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                handler:              ~
+                buffer_size:          0
+                flush_on_overflow:    false
 
             # Define a "deduplication" handler (one type of handler per name and per environment).
             # This is a deduplication wrapper handler that prevents duplicate log records from being sent to a nested handler within a defined time frame. It requires a nested handler.
@@ -572,6 +580,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                time:                 60
+                deduplication_level:  400
+                store:                null
 
             # Define a "group" handler (one type of handler per name and per environment).
             # This is a grouping wrapper handler that sends all log records to multiple nested handlers simultaneously. It requires one or more nested handlers.
@@ -594,6 +605,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                members:              []
 
             # Define a "whatfailuregroup" handler (one type of handler per name and per environment).
             # This is a grouping wrapper handler that attempts to send log records to the first working nested handler in a list, falling back to others if failures occur. It requires one or more nested handlers.
@@ -616,6 +628,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                members:              []
 
             # Define a "fallbackgroup" handler (one type of handler per name and per environment).
             # This is a grouping wrapper handler that sends log records to the first nested handler, and if it fails, falls back to the next, similar to WhatFailureGroupHandler. It requires one or more nested handlers.
@@ -638,6 +651,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                members:              []
 
             # Define a "syslog" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to the syslogd system logger.
@@ -688,6 +702,8 @@ monolog:
                 ident:                false
                 facility:             user
                 logopts:              1
+                host:                 null
+                port:                 514
 
             # Define a "swift_mailer" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records via SwiftMailer.
@@ -851,6 +867,10 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                connection_string:    ~
+                timeout:              ~
+                connection_timeout:   ~
+                persistent:           ~
 
             # Define a "pushover" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records as Pushover notifications.
@@ -873,6 +893,11 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                token:                ~
+                user:                 ~
+                title:                null
+                timeout:              ~
+                connection_timeout:   ~
 
             # Define a "raven" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to a Sentry server (Raven client).
@@ -895,6 +920,11 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                dsn:                  ~
+                client_id:            null
+                auto_log_stacks:      false
+                release:              null
+                environment:          null
 
             # Define a "sentry" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to a Sentry server (Sentry SDK).
@@ -918,6 +948,11 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
                 fill_extra_context:   false
+                dsn:                  ~
+                hub_id:               null
+                client_id:            null
+                release:              null
+                environment:          null
 
             # Define a "newrelic" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to New Relic.
@@ -963,6 +998,16 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                room:                 ~
+                message_format:       text
+                api_version:          null
+                notify:               false
+                nickname:             Monolog
+                token:                ~
+                use_ssl:              true
+                host:                 null
+                timeout:              ~
+                connection_timeout:   ~
 
             # Define a "slack" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to Slack via a custom API token.
@@ -985,6 +1030,15 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                channel:              null
+                bot_name:             Monolog
+                use_attachment:       true
+                use_short_attachment: false
+                include_extra:        false
+                icon_emoji:           null
+                token:                ~
+                timeout:              ~
+                connection_timeout:   ~
 
             # Define a "slackwebhook" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to Slack via a webhook.
@@ -1007,6 +1061,13 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                channel:              null
+                bot_name:             Monolog
+                use_attachment:       true
+                use_short_attachment: false
+                include_extra:        false
+                icon_emoji:           null
+                webhook_url:          ~
 
             # Define a "slackbot" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to Slack via a Slackbot integration.
@@ -1029,6 +1090,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                channel:              null
+                team:                 ~
+                token:                ~
 
             # Define a "cube" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to a Cube server.
@@ -1051,6 +1115,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                url:                  ~
 
             # Define a "amqp" handler (one type of handler per name and per environment).
             # This is an output handler that publishes log records to an AMQP exchange.
@@ -1073,6 +1138,8 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                exchange:             ~
+                exchange_name:        log
 
             # Define a "error_log" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to PHP's error_log function.
@@ -1095,6 +1162,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                message_type:         0
 
             # Define a "null" handler (one type of handler per name and per environment).
             # This is an output handler that discards all log records, effectively doing nothing.
@@ -1183,6 +1251,8 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                token:                ~
+                tags:                 []
 
             # Define a "logentries" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to Logentries.
@@ -1205,6 +1275,10 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                token:                ~
+                use_ssl:              true
+                timeout:              ~
+                connection_timeout:   ~
 
             # Define a "insightops" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to InsightOps (formerly Logentries).
@@ -1227,6 +1301,9 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                token:                ~
+                region:               ~
+                use_ssl:              true
 
             # Define a "flowdock" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to Flowdock.
@@ -1249,6 +1326,8 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                token:                ~
+                source:               ~
 
             # Define a "rollbar" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to Rollbar.
@@ -1272,6 +1351,8 @@ monolog:
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
                 id:                   ~
+                token:                ~
+                config:               []
 
             # Define a "server_log" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to the Symfony VarDumper server for real-time debugging.
@@ -1316,6 +1397,13 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                channel:              null
+                token:                ~
+                parse_mode:           null
+                disable_webpage_preview: null
+                disable_notification: null
+                split_long_messages:  false
+                delay_between_messages: false
 
             # Define a "sampling" handler (one type of handler per name and per environment).
             # This is a sampling wrapper handler that only passes a fraction of log records to a nested handler based on a configured factor. It requires a nested handler.
@@ -1338,6 +1426,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                factor:               1
 
             # Define a "service" handler (one type of handler per name and per environment).
             # This is an output handler that references an existing service as the Monolog handler.
