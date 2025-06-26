@@ -12,7 +12,6 @@ monolog:
         # Prototype
         name:
             type:                 ~ # Required
-            app_name:             null
             fill_extra_context:   false
             process_psr_3_messages:
                 enabled:              null
@@ -163,6 +162,7 @@ monolog:
             channels:
                 type:                 ~
                 elements:             []
+            app_name:             null
             id:                   ~
 
             # Define a "stream" handler (one type of handler per name and per environment).
@@ -914,6 +914,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                app_name:             null
 
             # Define a "hipchat" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to HipChat.
