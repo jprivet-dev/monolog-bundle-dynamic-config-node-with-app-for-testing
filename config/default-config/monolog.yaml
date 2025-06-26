@@ -12,7 +12,6 @@ monolog:
         # Prototype
         name:
             type:                 ~ # Required
-            id:                   ~
             app_name:             null
             fill_extra_context:   false
             process_psr_3_messages:
@@ -164,6 +163,7 @@ monolog:
             channels:
                 type:                 ~
                 elements:             []
+            id:                   ~
 
             # Define a "stream" handler (one type of handler per name and per environment).
             # This is an output handler that writes log records to a specified stream or file.
@@ -1244,6 +1244,7 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                id:                   ~
 
             # Define a "server_log" handler (one type of handler per name and per environment).
             # This is an output handler that sends log records to the Symfony VarDumper server for real-time debugging.
@@ -1332,4 +1333,5 @@ monolog:
 
                 # The formatter used to format the log records. Can be a service ID or a formatter configuration.
                 formatter:            ~
+                id:                   ~
 
