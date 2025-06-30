@@ -15,7 +15,7 @@ trim_trailing_whitespace = true
 indent_size = 2
 tab_width = 2
 
-[{*.json,*.yml,*.yaml,*.ini,.env,.env.dist,*.dist,.bowerrc,package.json}]
+[{*.json,*.yml,*.ini,.env,.env.dist,*.dist,.bowerrc,package.json}]
 indent_size = 2
 tab_width = 2
 
