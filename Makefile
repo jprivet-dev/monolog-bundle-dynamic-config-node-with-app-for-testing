@@ -149,7 +149,7 @@ default_config_by_bundle: app ## Generate a YAML file with the default config fo
 	@printf "#\n# [$(BUNDLE)] Generate the default config values defined by Symfony\n#\n"
 	$(CONSOLE) config:dump-reference $(BUNDLE) >../config/default-config/$(BUNDLE).yaml
 
-actual_config: ## Generate YAML files with the actual config for various core bundles, per environment
+actual_config: ## Generate YAML files with the actual config for various core bundles, per environment (test, dev and prod).
 	-make actual_config_by_bundle BUNDLE=framework
 	-make actual_config_by_bundle BUNDLE=monolog
 	-make actual_config_by_bundle BUNDLE=poc
@@ -161,9 +161,9 @@ actual_config: ## Generate YAML files with the actual config for various core bu
 actual_config_by_bundle: app ## Generate a YAML file with the actual config for a specific bundle, per environment (test, dev and prod).
 	@$(if $(BUNDLE),, $(error BUNDLE argument is required))
 	@printf "#\n# [$(BUNDLE)] Generate the actual config values used by the app\n#\n"
-	$(CONSOLE) debug:config $(BUNDLE) --env=test >../config/actual-config/$(BUNDLE).test.yaml
-	$(CONSOLE) debug:config $(BUNDLE) --env=dev >../config/actual-config/$(BUNDLE).dev.yaml
-	$(CONSOLE) debug:config $(BUNDLE) --env=prod >../config/actual-config/$(BUNDLE).prod.yaml
+	-$(CONSOLE) debug:config $(BUNDLE) --env=test >../config/actual-config/$(BUNDLE).test.yaml
+	-$(CONSOLE) debug:config $(BUNDLE) --env=dev >../config/actual-config/$(BUNDLE).dev.yaml
+	-$(CONSOLE) debug:config $(BUNDLE) --env=prod >../config/actual-config/$(BUNDLE).prod.yaml
 
 
 ## — MONOLOG 📝 ———————————————————————————————————————————————————————————————
