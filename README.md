@@ -105,7 +105,7 @@ correctly indicates a 7.3.x release, the `php link` script appears to alter the 
 
 ## What problem do we want to solve with MonologBundle?
 
-When generating the default **MonologBundle** configuration using `php bin/console config:dump monolog`  (see output: [default-config/monolog.yaml](config/default-config/monolog.yaml)), all available configuration keys are currently attached to a single **handler prototype**.
+When generating the default **MonologBundle** configuration using `php bin/console config:dump monolog`  (see output: [config/default/monolog.yaml](config/default/monolog.yaml)), all available configuration keys are currently attached to a single **handler prototype**.
 
 ```shell
 php bin/console config:dump-reference monolog # Dump the default configuration for an extension
@@ -147,8 +147,8 @@ monolog:
 
 The goal is to modify **MonologBundle** to introduce a new configuration structure and a  `config:dump-reference` output that improves readability by explicitly associating authorized keys with their respective handler types.
 
-This is an ongoing research and development effort, with no definitive choices made yet. Initial sources of inspiration include the configurations of **SecurityBundle** ([default-config/security.yaml](config/default-config/security.yaml)) and **GotenbergBundle
-** ([default-config/sensiolabs_gotenberg.yaml](config/default-config/sensiolabs_gotenberg.yaml)).
+This is an ongoing research and development effort, with no definitive choices made yet. Initial sources of inspiration include the configurations of **SecurityBundle** ([config/default/security.yaml](config/default/security.yaml)) and **GotenbergBundle
+** ([config/default/sensiolabs_gotenberg.yaml](config/default/sensiolabs_gotenberg.yaml)).
 
 The [poc-bundle](poc-bundle) is an area for experimentation, to easily present the possibilities, before applying these choices to https://github.com/jprivet-dev/monolog-bundle.
 
@@ -170,9 +170,9 @@ The idea is to propose a new approach in `Configuration.php` (**MonologPocBundle
 
 * Why?
   * Currently, all 46 handler properties are listed in a single configuration block, making it difficult to discern which property belongs to which handler type:
-    * See [monolog.yaml](config/default-config/monolog.yaml).
+    * See [monolog.yaml](config/default/monolog.yaml).
   * Have a file generated with the `config:dump-reference` command, which is much more readable :
-    * See [monolog_poc.yaml](config/default-config/monolog_poc.yaml) (Contains the configuration of 17 of the original 46 handlers).
+    * See [monolog_poc.yaml](config/default/monolog_poc.yaml) (Contains the configuration of 17 of the original 46 handlers).
 * How?
   * Have a configuration prototype per handler type.
 
