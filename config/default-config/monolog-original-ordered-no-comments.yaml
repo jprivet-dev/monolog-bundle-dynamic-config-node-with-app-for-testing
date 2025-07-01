@@ -1,0 +1,104 @@
+monolog:
+  channels: {  }
+  handlers:
+    name:
+      accepted_levels: {  }
+      action_level: WARNING
+      activation_strategy: null
+      api_version: null
+      app_name: null
+      auto_log_stacks: false
+      bot_name: Monolog
+      bubble: true
+      buffer_size: 0
+      channel: null
+      channels: { elements: {  }, type: null }
+      client_id: null
+      config: {  }
+      connection_string: null
+      connection_timeout: null
+      console_formater_options: null
+      console_formatter_options: {  }
+      content_type: null
+      date_format: Y-m-d
+      deduplication_level: 400
+      delay_between_messages: false
+      disable_notification: null
+      disable_webpage_preview: null
+      document_type: logs
+      dsn: null
+      elasticsearch: { host: null, id: null, password: null, port: 9200, transport: Http, user: null }
+      email_prototype: { id: null, method: null }
+      environment: null
+      exchange: null
+      exchange_name: log
+      excluded_404s: {  }
+      excluded_http_codes: [{ code: null, urls: {  } }]
+      facility: user
+      factor: 1
+      file_permission: null
+      filename_format: '{filename}-{date}'
+      fill_extra_context: false
+      flush_on_overflow: false
+      formatter: null
+      from_email: null
+      handler: null
+      headers: {  }
+      host: null
+      hub_id: null
+      icon_emoji: null
+      id: null
+      ident: false
+      ignore_error: false
+      include_extra: false
+      include_stacktraces: false
+      index: monolog
+      lazy: true
+      level: DEBUG
+      logopts: 1
+      mailer: null
+      max_files: 0
+      max_level: EMERGENCY
+      members: {  }
+      message_format: text
+      message_type: 0
+      min_level: DEBUG
+      mongo: { collection: logs, database: monolog, host: null, id: null, pass: null, port: 27017, user: null }
+      nested: false
+      nickname: Monolog
+      notify: false
+      parse_mode: null
+      passthru_level: null
+      path: '%kernel.logs_dir%/%kernel.environment%.log'
+      persistent: null
+      port: 514
+      predis: { host: null, id: null }
+      priority: 0
+      process_psr_3_messages: { date_format: null, enabled: null, remove_used_context_fields: null }
+      publisher: { chunk_size: 1420, hostname: null, id: null, port: 12201 }
+      redis: { database: 0, host: null, id: null, key_name: monolog_redis, password: null, port: 6379 }
+      region: null
+      release: null
+      room: null
+      source: null
+      split_long_messages: false
+      stop_buffering: true
+      store: null
+      subject: null
+      tags: {  }
+      team: null
+      time: 60
+      timeout: null
+      title: null
+      to_email: {  }
+      token: null
+      type: null
+      url: null
+      use_attachment: true
+      use_locking: false
+      use_short_attachment: false
+      use_ssl: true
+      user: null
+      verbosity_levels: { VERBOSITY_DEBUG: DEBUG, VERBOSITY_NORMAL: WARNING, VERBOSITY_QUIET: ERROR, VERBOSITY_VERBOSE: NOTICE, VERBOSITY_VERY_VERBOSE: INFO }
+      webhook_url: null
+  use_microseconds: true

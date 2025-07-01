@@ -1,0 +1,154 @@
+monolog:
+  channels: {  }
+  handlers:
+    name:
+      accepted_levels: {  }
+      action_level: WARNING
+      activation_strategy: null
+      api_version: null
+      app_name: null
+      auto_log_stacks: false
+      bot_name: Monolog
+      bubble: true
+      buffer_size: 0
+      channel: null
+      channels: { elements: {  }, type: null }
+      client_id: null
+      config: {  }
+      connection_string: null
+      connection_timeout: null
+      console_formater_options: null
+      console_formatter_options: {  }
+      content_type: null
+      date_format: Y-m-d
+      deduplication_level: 400
+      delay_between_messages: false
+      disable_notification: null
+      disable_webpage_preview: null
+      document_type: logs
+      dsn: null
+      elasticsearch: { host: null, id: null, password: null, port: 9200, transport: Http, user: null }
+      email_prototype: { id: null, method: null }
+      environment: null
+      exchange: null
+      exchange_name: log
+      excluded_404s: {  }
+      excluded_http_codes: [{ code: null, urls: {  } }]
+      facility: user
+      factor: 1
+      file_permission: null
+      filename_format: '{filename}-{date}'
+      fill_extra_context: false
+      flush_on_overflow: false
+      formatter: null
+      from_email: null
+      handler: null
+      headers: {  }
+      host: null
+      hub_id: null
+      icon_emoji: null
+      id: null
+      ident: false
+      ignore_error: false
+      include_extra: false
+      include_stacktraces: false
+      index: monolog
+      lazy: true
+      level: DEBUG
+      logopts: 1
+      mailer: null
+      max_files: 0
+      max_level: EMERGENCY
+      members: {  }
+      message_format: text
+      message_type: 0
+      min_level: DEBUG
+      mongo: { collection: logs, database: monolog, host: null, id: null, pass: null, port: 27017, user: null }
+      nested: false
+      nickname: Monolog
+      notify: false
+      parse_mode: null
+      passthru_level: null
+      path: '%kernel.logs_dir%/%kernel.environment%.log'
+      persistent: null
+      port: 514
+      predis: { host: null, id: null }
+      priority: 0
+      process_psr_3_messages: { date_format: null, enabled: null, remove_used_context_fields: null }
+      publisher: { chunk_size: 1420, hostname: null, id: null, port: 12201 }
+      redis: { database: 0, host: null, id: null, key_name: monolog_redis, password: null, port: 6379 }
+      region: null
+      release: null
+      room: null
+      source: null
+      split_long_messages: false
+      stop_buffering: true
+      store: null
+      subject: null
+      tags: {  }
+      team: null
+      time: 60
+      timeout: null
+      title: null
+      to_email: {  }
+      token: null
+      type: null
+      type_amqp: { bubble: true, exchange: null, exchange_name: log, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: amqp }
+      type_browser_console: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: browser_console }
+      type_buffer: { bubble: true, buffer_size: 0, flush_on_overflow: false, formatter: null, handler: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: buffer }
+      type_channels: { bubble: true, channels: { elements: {  }, type: null }, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: channels }
+      type_chromephp: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: chromephp }
+      type_console: { bubble: true, console_formatter_options: {  }, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, process_psr_3_messages: { date_format: null, enabled: null, remove_used_context_fields: null }, type: console }
+      type_cube: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: cube, url: null }
+      type_debug: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: debug }
+      type_deduplication: { bubble: true, deduplication_level: 400, formatter: null, handler: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, store: null, time: 60, type: deduplication }
+      type_elastica: { bubble: true, document_type: logs, elasticsearch: { host: null, id: null, password: null, port: 9200, transport: Http, user: null }, formatter: null, ignore_error: false, include_stacktraces: false, index: monolog, level: DEBUG, nested: false, priority: 0, type: elastica }
+      type_elasticsearch: { bubble: true, document_type: logs, elasticsearch: { host: null, id: null, password: null, port: 9200, transport: Http, user: null }, formatter: null, ignore_error: false, include_stacktraces: false, index: monolog, level: DEBUG, nested: false, priority: 0, type: elasticsearch }
+      type_error_log: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, message_type: 0, nested: false, priority: 0, type: error_log }
+      type_fallbackgroup: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, members: {  }, nested: false, priority: 0, type: fallbackgroup }
+      type_filter: { accepted_levels: {  }, bubble: true, formatter: null, handler: null, include_stacktraces: false, level: DEBUG, max_level: EMERGENCY, min_level: DEBUG, nested: false, priority: 0, type: filter }
+      type_fingers_crossed: { action_level: WARNING, activation_strategy: null, bubble: true, buffer_size: 0, excluded_404s: {  }, excluded_http_codes: [{ code: null, urls: {  } }], formatter: null, handler: null, include_stacktraces: false, level: DEBUG, nested: false, passthru_level: null, priority: 0, stop_buffering: true, type: fingers_crossed }
+      type_firephp: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: firephp }
+      type_flowdock: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, source: null, token: null, type: flowdock }
+      type_gelf: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, publisher: { chunk_size: 1420, hostname: null, id: null, port: 12201 }, type: gelf }
+      type_group: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, members: {  }, nested: false, priority: 0, type: group }
+      type_hipchat: { api_version: null, bubble: true, connection_timeout: null, formatter: null, host: null, include_stacktraces: false, level: DEBUG, message_format: text, nested: false, nickname: Monolog, notify: false, priority: 0, room: null, timeout: null, token: null, type: hipchat, use_ssl: true }
+      type_insightops: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, region: null, token: null, type: insightops, use_ssl: true }
+      type_logentries: { bubble: true, connection_timeout: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, timeout: null, token: null, type: logentries, use_ssl: true }
+      type_loggly: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, tags: {  }, token: null, type: loggly }
+      type_mongo: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, mongo: { collection: logs, database: monolog, host: null, id: null, pass: null, port: 27017, user: null }, nested: false, priority: 0, type: mongo }
+      type_native_mailer: { bubble: true, formatter: null, from_email: null, headers: {  }, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, subject: null, to_email: {  }, type: native_mailer }
+      type_newrelic: { app_name: null, bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: newrelic }
+      type_null: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: 'null' }
+      type_predis: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, predis: { host: null, id: null }, priority: 0, type: predis }
+      type_pushover: { bubble: true, connection_timeout: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, timeout: null, title: null, token: null, type: pushover, user: null }
+      type_raven: { auto_log_stacks: false, bubble: true, client_id: null, dsn: null, environment: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, release: null, type: raven }
+      type_redis: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, redis: { database: 0, host: null, id: null, key_name: monolog_redis, password: null, port: 6379 }, type: redis }
+      type_rollbar: { bubble: true, config: {  }, formatter: null, id: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, token: null, type: rollbar }
+      type_rotating_file: { bubble: true, date_format: Y-m-d, file_permission: null, filename_format: '{filename}-{date}', formatter: null, include_stacktraces: false, level: DEBUG, max_files: 0, nested: false, path: '%kernel.logs_dir%/%kernel.environment%.log', priority: 0, type: rotating_file, use_locking: false }
+      type_sampling: { bubble: true, factor: 1, formatter: null, handler: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: sampling }
+      type_sentry: { bubble: true, client_id: null, dsn: null, environment: null, fill_extra_context: false, formatter: null, hub_id: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, release: null, type: sentry }
+      type_server_log: { bubble: true, formatter: null, host: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: server_log }
+      type_service: { bubble: true, formatter: null, id: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: service }
+      type_slack: { bot_name: Monolog, bubble: true, channel: null, connection_timeout: null, formatter: null, icon_emoji: null, include_extra: false, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, timeout: null, token: null, type: slack, use_attachment: true, use_short_attachment: false }
+      type_slackbot: { bubble: true, channel: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, team: null, token: null, type: slackbot }
+      type_slackwebhook: { bot_name: Monolog, bubble: true, channel: null, formatter: null, icon_emoji: null, include_extra: false, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: slackwebhook, use_attachment: true, use_short_attachment: false, webhook_url: null }
+      type_socket: { bubble: true, connection_string: null, connection_timeout: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, persistent: null, priority: 0, timeout: null, type: socket }
+      type_stream: { bubble: true, file_permission: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, path: '%kernel.logs_dir%/%kernel.environment%.log', priority: 0, type: stream, use_locking: false }
+      type_swift_mailer: { bubble: true, content_type: null, email_prototype: { id: null, method: null }, formatter: null, from_email: null, include_stacktraces: false, lazy: true, level: DEBUG, mailer: null, nested: false, priority: 0, subject: null, to_email: {  }, type: swift_mailer }
+      type_symfony_mailer: { bubble: true, content_type: null, email_prototype: { id: null, method: null }, formatter: null, from_email: null, include_stacktraces: false, level: DEBUG, mailer: null, nested: false, priority: 0, subject: null, to_email: {  }, type: symfony_mailer }
+      type_syslog: { bubble: true, facility: user, formatter: null, ident: false, include_stacktraces: false, level: DEBUG, logopts: 1, nested: false, priority: 0, type: syslog }
+      type_syslogudp: { bubble: true, facility: user, formatter: null, host: null, ident: false, include_stacktraces: false, level: DEBUG, logopts: 1, nested: false, port: 514, priority: 0, type: syslogudp }
+      type_telegram: { bubble: true, channel: null, delay_between_messages: false, disable_notification: null, disable_webpage_preview: null, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, parse_mode: null, priority: 0, split_long_messages: false, token: null, type: telegram }
+      type_test: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: test }
+      type_verbosity_levels: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, nested: false, priority: 0, type: verbosity_levels, verbosity_levels: { VERBOSITY_DEBUG: DEBUG, VERBOSITY_NORMAL: WARNING, VERBOSITY_QUIET: ERROR, VERBOSITY_VERBOSE: NOTICE, VERBOSITY_VERY_VERBOSE: INFO } }
+      type_whatfailuregroup: { bubble: true, formatter: null, include_stacktraces: false, level: DEBUG, members: {  }, nested: false, priority: 0, type: whatfailuregroup }
+      url: null
+      use_attachment: true
+      use_locking: false
+      use_short_attachment: false
+      use_ssl: true
+      user: null
+      verbosity_levels: { VERBOSITY_DEBUG: DEBUG, VERBOSITY_NORMAL: WARNING, VERBOSITY_QUIET: ERROR, VERBOSITY_VERBOSE: NOTICE, VERBOSITY_VERY_VERBOSE: INFO }
+      webhook_url: null
+  use_microseconds: true
