@@ -1,0 +1,6 @@
+monolog:
+    handlers:
+        my_handler:
+            type: stream
+            path: "php://stderr"
+            level: info

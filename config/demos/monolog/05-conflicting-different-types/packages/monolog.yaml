@@ -1,0 +1,6 @@
+# ERROR: A handler can only have one type defined. You have configured multiple types: type_stream and the legacy "type: rotating_file" key. Please choose only one handler type (either a "type_xxx" prefixed key or the legacy "type" key).
+monolog:
+    handlers:
+        my_handler:
+            type: rotating_file
+            type_stream: ~

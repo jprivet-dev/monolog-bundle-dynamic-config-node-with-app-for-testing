@@ -1,0 +1,4 @@
+# ERROR: A handler must have a "type" or a "type_NAME" key defined.
+monolog:
+    handlers:
+        my_handler: ~
